@@ -8,8 +8,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"test": "vitest --config ./vitest.config.ts",
-		"test:run": "vitest run --config ./vitest.config.ts",
+		"test": "vitest --config ./vitest.config.ts --passWithNoTests",
+		"test:run": "vitest run --config ./vitest.config.ts --passWithNoTests",
 		"prepare": "husky install"
 	},
 	"dependencies": {
