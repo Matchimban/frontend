@@ -8,7 +8,9 @@
 ### 설치 및 실행
 
 ```bash
-$ git clone https://github.com/Matchimban/frontend.git
-$ npm i
-$ npm run dev
+git clone https://github.com/Matchimban/frontend.git
+```
+```bash
+npm i
+npm run dev
 ```

@@ -2,6 +2,7 @@
 	"extends": [
 		"next",
 		"plugin:@typescript-eslint/recommended",
+		"plugin:testing-library/react",
 		"plugin:vitest/recommended",
 		"prettier"
 	],
