@@ -1,4 +1,7 @@
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata } from 'next';
+
+import RecoilProvider from '@/app/recoil-provider.tsx';
 
 import './globals.css';
 
@@ -14,7 +17,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+				<RecoilProvider>
+					<AntdRegistry>{children}</AntdRegistry>
+				</RecoilProvider>
+			</body>
 		</html>
 	);
 }
