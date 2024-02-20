@@ -1,4 +1,14 @@
+import { NavLink } from '@/app/(routes)/(main)/main/_types.ts';
+import NavLinks from '@/app/(routes)/(main)/main/nav-links.component.tsx';
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
+	const navLinks: NavLink[] = [
+		{ name: '아이템1', href: '/', icon: 'icon' },
+		{ name: '아이템2', href: '/', icon: 'icon' },
+		{ name: '아이템3', href: '/', icon: 'icon' },
+		{ name: '아이템4', href: '/', icon: 'icon' },
+	];
+
 	return (
 		<div className="text-sm md:text-base">
 			<header className="sticky top-0 flex h-11 justify-center border-b border-stone-100 bg-[#fff] ">
@@ -15,11 +25,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 							</div>
 						</div>
 
-						<div className="hidden sm:flex sm:flex-initial sm:items-center sm:justify-center sm:space-x-4">
-							<span>지도 보기</span>
+						<ul className="hidden sm:flex sm:flex-initial sm:items-center sm:justify-center sm:space-x-4">
+							<NavLinks links={navLinks} />
+							{/* <span>지도 보기</span>
 							<span>맛집 목록</span>
-							<span>예약 조회</span>
-						</div>
+							<span>예약 조회</span> */}
+						</ul>
 					</div>
 
 					<div className="flex flex-initial space-x-4">
@@ -33,12 +44,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 			<main>{children}</main>
 
-			<footer className="sticky bottom-0 h-11 border-t border-stone-100 bg-[#fff] sm:hidden ">
+			<footer className="sticky bottom-0 h-11 border-t border-stone-100 bg-[#fff] sm:hidden">
 				<ul className="flex h-full items-center justify-around">
-					<li>아이템1</li>
-					<li>아이템2</li>
-					<li>아이템3</li>
-					<li>아이템4</li>
+					<NavLinks links={navLinks} />
 				</ul>
 			</footer>
 		</div>
