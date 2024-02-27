@@ -1,7 +1,7 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata } from 'next';
 
-import RecoilProvider from '@/app/recoil-provider.tsx';
+import RecoilProvider from '@/app/(routes)/recoil-provider.tsx';
 
 import './globals.css';
 
