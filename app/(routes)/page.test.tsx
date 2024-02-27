@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import Home from '@/app/page.tsx';
+import Home from '@/app/(routes)/page';
 
 describe('Home', () => {
 	test('render', () => {
