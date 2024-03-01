@@ -7,7 +7,7 @@ type Props = {
 
 export default function Header({ navLinks }: Props) {
 	return (
-		<header className="sticky top-0 flex h-11 justify-center border-b border-stone-100 bg-[#fff] md:text-base">
+		<header className="sticky top-0 z-10 flex h-11 justify-center border-b border-stone-100 bg-[#fff] md:text-base">
 			<div className="flex h-full w-full max-w-[1024px] items-center justify-between space-x-4 px-4">
 				<div className="flex flex-initial space-x-2">
 					<h1>logo</h1>
