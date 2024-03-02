@@ -24,8 +24,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 			name="signin"
 			onFinish={onSubmit}
 			initialValues={{ remember: true }}
-			autoComplete="off"
-		>
+			autoComplete="off">
 			<Form.Item<FieldType>
 				name="email"
 				rules={[
@@ -34,8 +33,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 						message: '이메일을 입력해주세요',
 					},
 					{ type: 'email', message: '올바른 이메일 형식이 아닙니다.' },
-				]}
-			>
+				]}>
 				<Input
 					prefix={<UserOutlined className="opacity-50" />}
 					placeholder="Email"
@@ -46,8 +44,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 				rules={[
 					{ required: true, message: '비밀번호를 입력해주세요' },
 					{ min: 4, message: '4자리 이상 입력해주세요.' },
-				]}
-			>
+				]}>
 				<Input.Password
 					prefix={<LockOutlined className="opacity-50" />}
 					placeholder="Password"
@@ -60,8 +57,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 
 				<span
 					className="float-right hover:cursor-pointer hover:text-blue-600"
-					onClick={handleButtonClick}
-				>
+					onClick={handleButtonClick}>
 					회원가입하기
 				</span>
 			</Form.Item>

@@ -38,8 +38,7 @@ export default function LoginButton() {
 					open={isSinginModalOpen}
 					onCancel={closeModal}
 					width={400}
-					footer={[]}
-				>
+					footer={[]}>
 					<AuthForm />
 				</Modal>
 			)}
