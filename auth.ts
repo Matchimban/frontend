@@ -31,13 +31,11 @@ export const {
 		// },
 		async authorized({ auth, request: { nextUrl } }) {
 			// Protecting routes
-			console.log('next auth middleware ', auth, 'cookies');
-			if (nextUrl.pathname === '/main/restaurants/0') {
-				return false;
-			}
-			if (nextUrl.pathname === '/main/restaurants/1') {
-				console.log('nextUrl: ', nextUrl);
-				return Response.redirect(new URL('/main', nextUrl));
+			const isAuthenticated = !!auth?.user;
+
+			if (nextUrl.pathname.startsWith('/user')) {
+				// Redirect unauthenticated users to root page
+				if (!isAuthenticated) return Response.redirect(new URL(nextUrl.origin));
 			}
 
 			return true;
