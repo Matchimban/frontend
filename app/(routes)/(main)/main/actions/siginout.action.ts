@@ -5,7 +5,8 @@ import { signOut } from '@/auth.ts';
 export const signout = async () => {
 	'use server';
 	console.log('signout________');
-	cookies().delete('test');
+	cookies().delete('accessToken');
+	cookies().delete('refreshToken');
 	try {
 		await signOut();
 	} catch (error) {

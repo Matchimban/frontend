@@ -23,7 +23,12 @@ export default function SignUpForm({ onModeChange }: Props) {
 		onModeChange();
 	};
 	return (
-		<Form name="signup" onFinish={onFinish} initialValues={{ remember: true }}>
+		<Form
+			name="signup"
+			onFinish={onFinish}
+			initialValues={{ remember: true }}
+			autoComplete="off"
+		>
 			<Form.Item<FieldType>
 				name="name"
 				rules={[{ required: true, message: '이름을 입력해주세요' }]}

@@ -1,7 +1,7 @@
-'use client';
-
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
+
+import { signin } from '@/app/(routes)/(main)/main/actions/signin.action.ts';
 
 type FieldType = {
 	email: string;
@@ -14,15 +14,22 @@ type Props = {
 };
 
 export default function SignInForm({ onModeChange }: Props) {
-	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values);
-	};
-
 	const handleButtonClick = () => {
 		onModeChange();
 	};
+
+	const handleAction = async (formdata: FormData) => {
+		const res = await signin(formdata);
+		console.log('handleAction: ', res);
+	};
+
 	return (
-		<Form name="signin" onFinish={onFinish} initialValues={{ remember: true }}>
+		<Form
+			name="signin"
+			onFinish={handleAction}
+			initialValues={{ remember: true }}
+			autoComplete="off"
+		>
 			<Form.Item<FieldType>
 				name="email"
 				rules={[{ required: true, message: '이메일을 입력해주세요' }]}

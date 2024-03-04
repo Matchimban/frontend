@@ -1,8 +1,9 @@
 'use client';
 
-import { Button, Divider, Form } from 'antd';
+import { Divider } from 'antd';
 import { useState } from 'react';
 
+import OAuthForm from '@/app/features/authentication/oauth-form.component.tsx';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
 
@@ -24,25 +25,15 @@ export default function AuthForm() {
 				{mode === 'signin' && '로그인'}
 				{mode === 'signup' && '회원가입'}
 			</h3>
+
 			{mode === 'signin' && <SignInForm onModeChange={onSignupMode} />}
 			{mode === 'signup' && <SignUpForm onModeChange={onSigninMode} />}
+
 			<Divider plain style={{ color: 'black' }}>
 				Or
 			</Divider>
 
-			<Form>
-				<Form.Item style={{ marginBottom: '14px' }}>
-					<Button type="primary" htmlType="submit" className="w-full">
-						GitHub
-					</Button>
-				</Form.Item>
-
-				<Form.Item style={{ marginBottom: '0px' }}>
-					<Button type="primary" htmlType="submit" className="w-full">
-						Google
-					</Button>
-				</Form.Item>
-			</Form>
+			<OAuthForm />
 		</>
 	);
 }
