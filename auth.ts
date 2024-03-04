@@ -105,9 +105,9 @@ export const {
 					console.log('login response data: ', data, 'ok? ', response.ok);
 
 					if (!response.ok) {
-						const error = new Error('Login Failed!');
-						error.message = data.msg;
-						throw error;
+						// const error = new Error('Login Failed!');
+						// error.message = data.msg;
+						throw data?.msg ?? '';
 					}
 
 					const { accessToken, refreshToken } = data.result;

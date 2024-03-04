@@ -9,6 +9,11 @@ import SignUpForm from '@/app/features/authentication/signup-form.component.tsx'
 
 export type Mode = 'signin' | 'signup';
 
+// const authenticate = async (
+// 	prevState: string | undefined,
+// 	formData: FormData,
+// ) => await signin(formData);
+
 export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
 	const router = useRouter();
@@ -27,10 +32,15 @@ export default function AuthForm() {
 
 	return (
 		<>
-			<h3 className="my-6 text-xl font-semibold">
-				{mode === 'signin' && '로그인'}
-				{mode === 'signup' && '회원가입'}
-			</h3>
+			<div className="my-6 flex flex-col space-y-2">
+				<h3 className=" text-xl font-semibold">
+					{mode === 'signin' && '로그인'}
+					{mode === 'signup' && '회원가입'}
+				</h3>
+				{/* <div>
+					{state && <Alert type="warning" message={state} showIcon closable />}
+				</div> */}
+			</div>
 
 			{mode === 'signin' && (
 				<SignInForm onModeChange={onSignupMode} onSubmit={handleSubmit} />
