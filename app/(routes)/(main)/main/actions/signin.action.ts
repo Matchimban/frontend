@@ -4,7 +4,6 @@ import { AuthError } from 'next-auth';
 
 import { signIn } from '@/auth.ts';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const signin = async (formdata: FormData) => {
 	try {
 		await signIn('credentials', formdata);
