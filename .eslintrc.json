@@ -1,10 +1,17 @@
 {
-	"extends": [
-		"next",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:testing-library/react",
-		"plugin:vitest/recommended",
-		"prettier"
+	"extends": ["next", "plugin:@typescript-eslint/recommended", "prettier"],
+	"overrides": [
+		// Only use Testing Library lint rules in jest test files
+		{
+			"files": ["**/__tests__/**/*.[jt]s?(x)"],
+			"extends": ["plugin:testing-library/react", "plugin:vitest/recommended"]
+		},
+		// use Cypress lint rules in Cypress test files
+		{
+			"files": ["cypress/**/?(*.)+(spec|test).[jt]s?(x)", "cypress/support/*"],
+			"extends": ["plugin:cypress/recommended"],
+			"env": { "cypress/globals": true }
+		}
 	],
 	"plugins": ["@typescript-eslint"],
 	"rules": {

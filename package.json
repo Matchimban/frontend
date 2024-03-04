@@ -6,10 +6,15 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
+		"build:test": "export NODE_ENV=\"test\" && next build",
 		"start": "next start",
+		"start:test": "export NODE_ENV=\"test\" && next start",
 		"lint": "next lint",
 		"test": "vitest --config ./vitest.config.ts --passWithNoTests",
 		"test:run": "vitest run --config ./vitest.config.ts --passWithNoTests",
+		"cypress:open": "env-cmd -f .env.test.local cypress open",
+		"cypress:start": "start-server-and-test 'npm run start:test' 3000 'npm run cypress:open'",
+		"cypress:build": "npm run build:test && npm run cypress:start",
 		"prepare": "husky install"
 	},
 	"dependencies": {
@@ -27,6 +32,7 @@
 		"recoil": "^0.7.7"
 	},
 	"devDependencies": {
+		"@testing-library/cypress": "^10.0.1",
 		"@testing-library/jest-dom": "^6.4.2",
 		"@testing-library/react": "^14.2.1",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -36,9 +42,12 @@
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@vitejs/plugin-react": "^4.2.1",
 		"autoprefixer": "^10.0.1",
+		"cypress": "^13.6.6",
+		"env-cmd": "^10.1.0",
 		"eslint": "^8",
 		"eslint-config-next": "14.1.0",
 		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-cypress": "^2.15.1",
 		"eslint-plugin-jest-dom": "^5.1.0",
 		"eslint-plugin-testing-library": "^6.2.0",
 		"eslint-plugin-vitest": "^0.3.22",
@@ -49,6 +58,7 @@
 		"postcss": "^8",
 		"prettier": "^3.2.5",
 		"prettier-plugin-tailwindcss": "^0.5.11",
+		"start-server-and-test": "^2.0.3",
 		"tailwindcss": "^3.3.0",
 		"typescript": "^5",
 		"vitest": "^1.2.2"
