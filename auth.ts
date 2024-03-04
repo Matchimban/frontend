@@ -1,5 +1,6 @@
 import NextAuth, { User } from 'next-auth';
 import credentials from 'next-auth/providers/credentials';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 

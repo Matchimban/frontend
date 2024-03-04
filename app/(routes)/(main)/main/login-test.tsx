@@ -1,4 +1,4 @@
-import { signout } from '@/app/(routes)/(main)/main/actions.ts';
+import { signout } from '@/app/(routes)/(main)/main/actions/siginout.action.ts';
 import { auth, signIn } from '@/auth.ts';
 
 export default async function LoginTest() {
