@@ -1,8 +1,6 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 
-import { signin } from '@/app/(routes)/(main)/main/actions/signin.action.ts';
-
 type FieldType = {
 	email: string;
 	password: string;
@@ -11,22 +9,18 @@ type FieldType = {
 
 type Props = {
 	onModeChange: () => void;
+	onSubmit: (formdata: FormData) => Promise<void>;
 };
 
-export default function SignInForm({ onModeChange }: Props) {
+export default function SignInForm({ onModeChange, onSubmit }: Props) {
 	const handleButtonClick = () => {
 		onModeChange();
-	};
-
-	const handleAction = async (formdata: FormData) => {
-		const res = await signin(formdata);
-		console.log('handleAction: ', res);
 	};
 
 	return (
 		<Form
 			name="signin"
-			onFinish={handleAction}
+			onFinish={onSubmit}
 			initialValues={{ remember: true }}
 			autoComplete="off"
 		>

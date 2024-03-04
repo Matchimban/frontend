@@ -7,6 +7,11 @@ import { signIn } from '@/auth.ts';
 export const signin = async (formdata: FormData) => {
 	try {
 		await signIn('credentials', formdata);
+		// *** NEXT_REDIRECT 오류 원인 찾기 ***
+		// const redirectUrl = await signIn('credentials', {
+		// 	...formdata,
+		// 	redirect: false,
+		// });
 	} catch (error) {
 		if (error instanceof Error) {
 			const { type, cause } = error as AuthError;
@@ -16,7 +21,7 @@ export const signin = async (formdata: FormData) => {
 				case 'CallbackRouteError':
 					return cause?.err?.toString();
 				default:
-					return 'Something went wrong.';
+					return error.message;
 			}
 		}
 

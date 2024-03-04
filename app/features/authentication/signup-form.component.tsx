@@ -12,20 +12,17 @@ type FieldType = {
 
 type Props = {
 	onModeChange: () => void;
+	onSubmit: (formdata: FormData) => Promise<void>;
 };
 
-export default function SignUpForm({ onModeChange }: Props) {
-	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values);
-	};
-
+export default function SignUpForm({ onModeChange, onSubmit }: Props) {
 	const handleButtonClick = () => {
 		onModeChange();
 	};
 	return (
 		<Form
 			name="signup"
-			onFinish={onFinish}
+			onFinish={onSubmit}
 			initialValues={{ remember: true }}
 			autoComplete="off"
 		>

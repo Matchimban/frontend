@@ -48,21 +48,43 @@ export const {
 			async authorize(credentials) {
 				console.log('credentials authorize: ', credentials);
 
-				// 회원 가입 로직
-				// const res = await fetch('http://15.164.94.57:8080/api/user/signup', {
-				// 	method: 'POST',
-				// 	headers: {
-				// 		'Content-Type': 'application/json',
-				// 	},
-				// 	body: JSON.stringify({
-				// 		email: credentials.email,
-				// 		password: credentials.password,
-				// 		name: 'test1',
-				// 		nickname: 'test1',
-				// 		phone: '001-0000-0001',
-				// 	}),
-				// 	cache: 'no-store',
-				// });
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				const { email, password, name, nickname } = credentials;
+
+				if (name) {
+					// 회원 가입 로직
+					try {
+						const signupResponse = await fetch(
+							'http://15.164.94.57:8080/api/user/signup',
+							{
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify({
+									email,
+									password,
+									name,
+									nickname,
+									phone: '000-0000-0000',
+								}),
+								cache: 'no-store',
+							},
+						);
+
+						const signupData = await signupResponse.json();
+						console.log('signup response data: ', signupData);
+
+						if (!signupResponse.ok) {
+							const error = new Error('Sign up Failed!');
+							error.message = signupData.msg;
+							throw error;
+						}
+					} catch (error) {
+						console.error('Sign up Fetch Error: ', error);
+						return null;
+					}
+				}
 
 				try {
 					// 로그인 로직
@@ -74,8 +96,8 @@ export const {
 								'Content-Type': 'application/json',
 							},
 							body: JSON.stringify({
-								email: 'test@test.com',
-								password: 'aaaa',
+								email,
+								password,
 							}),
 							cache: 'no-store',
 						},
@@ -108,9 +130,9 @@ export const {
 
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					const user: User = {
-						id: '0',
-						name: 'tester',
-						email: 'test@test.com',
+						id: Date.now() + '',
+						name: Date.now() + '',
+						email: email as string,
 						image: '',
 					};
 
