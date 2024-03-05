@@ -3,6 +3,8 @@ import credentials from 'next-auth/providers/credentials';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cookies } from 'next/headers';
 
+import { baseUrl } from '@/app/constants/path.ts';
+
 export const {
 	handlers: { GET, POST },
 	auth,
@@ -52,23 +54,20 @@ export const {
 				if (name) {
 					// 회원 가입 로직
 					try {
-						const signupResponse = await fetch(
-							'http://15.164.94.57:8080/api/user/signup',
-							{
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify({
-									email,
-									password,
-									name,
-									nickname,
-									phone: '000-0000-0000',
-								}),
-								cache: 'no-store',
+						const signupResponse = await fetch(baseUrl + '/api/user/signup', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
 							},
-						);
+							body: JSON.stringify({
+								email,
+								password,
+								name,
+								nickname,
+								phone: '000-0000-0000',
+							}),
+							cache: 'no-store',
+						});
 
 						const signupData = await signupResponse.json();
 						console.log('signup response data: ', signupData);
@@ -86,20 +85,17 @@ export const {
 
 				try {
 					// 로그인 로직
-					const response = await fetch(
-						'http://15.164.94.57:8080/api/user/login',
-						{
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({
-								email,
-								password,
-							}),
-							cache: 'no-store',
+					const response = await fetch(baseUrl + '/api/user/login', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
 						},
-					);
+						body: JSON.stringify({
+							email,
+							password,
+						}),
+						cache: 'no-store',
+					});
 
 					const data = await response.json();
 					console.log('login response data: ', data, 'ok? ', response.ok);
