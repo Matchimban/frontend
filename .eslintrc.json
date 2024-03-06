@@ -1,7 +1,7 @@
 {
 	"extends": ["next", "plugin:@typescript-eslint/recommended", "prettier"],
 	"overrides": [
-		// Only use Testing Library lint rules in jest test files
+		// Only use Testing Library & vitest lint rules in Vitest test files
 		{
 			"files": ["**/__tests__/**/*.[jt]s?(x)"],
 			"extends": ["plugin:testing-library/react", "plugin:vitest/recommended"]

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import { getDummyRestaurant } from '@/app/__tests__/__mocks__/dummy-data/index.ts';
 
 type Props = {
@@ -10,12 +12,17 @@ export default async function Page({ params }: Props) {
 	const data = await getDummyRestaurant(+id);
 
 	return (
-		<div className="flex min-h-svh w-full max-w-[768px] justify-center bg-green-200">
-			<div className="flex flex-col space-y-4 bg-white sm:mt-4 sm:max-w-[540px] sm:items-center sm:rounded-lg sm:p-4">
+		<div className="flex min-h-svh w-full max-w-3xl justify-center bg-green-200">
+			<div className="flex max-w-2xl flex-col space-y-4 bg-white sm:mt-4 sm:items-center sm:rounded-lg sm:p-4">
 				<section className="flex flex-col space-y-4">
-					<picture>
-						<img src={data.images} />
-					</picture>
+					<div className="">
+						<Image
+							src={data.images}
+							alt="restaurant image"
+							width={500}
+							height={330}
+						/>
+					</div>
 
 					<div className="flex flex-col space-y-1 px-4 sm:px-0">
 						<h2 className="text-xl font-semibold">{data.name}</h2>
