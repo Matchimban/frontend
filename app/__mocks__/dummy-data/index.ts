@@ -1,5 +1,5 @@
-import { getJSON } from '@/app/__tests__/__mocks__/dummy-data/helpers.ts';
-import { filenames } from '@/app/__tests__/__mocks__/dummy-data/types.ts';
+import { getJSON } from '@/app/__mocks__/dummy-data/helpers.ts';
+import { filenames } from '@/app/__mocks__/dummy-data/types.ts';
 
 export const getDummyData = async () => {
 	const [dummy_restaurants] = await Promise.all([

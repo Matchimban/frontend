@@ -1,15 +1,12 @@
 import { promises } from 'fs';
 import path from 'path';
 
-import {
-	JsonDataType,
-	filenames,
-} from '@/app/__tests__/__mocks__/dummy-data/types.ts';
+import { JsonDataType, filenames } from '@/app/__mocks__/dummy-data/types.ts';
 
 // const json_filepath = path.join(__dirname, 'json');
 const json_filepath = path.join(
 	process.cwd(),
-	'app/__tests__/__mocks__/dummy-data',
+	'app/__mocks__/dummy-data',
 	'json',
 );
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { getDummyRestaurant } from '@/app/__tests__/__mocks__/dummy-data/index.ts';
+import { getDummyRestaurant } from '@/app/__mocks__/dummy-data';
 
 type Props = {
 	params: {

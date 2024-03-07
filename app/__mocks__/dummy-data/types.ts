@@ -1,4 +1,4 @@
-import { Restaurant } from '@/app/features/board/_types';
+import { Restaurant } from '@/app/features/board/_types.ts';
 
 export type JsonDataType = Restaurant;
 

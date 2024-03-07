@@ -1,8 +1,13 @@
-import { Button, Dropdown, MenuProps } from 'antd';
+'use client';
 
+import { Button, Dropdown, MenuProps } from 'antd';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { RC_userName } from '@/app/features/authentication/_atoms.ts';
+import { getCookie } from '@/app/features/authentication/_utils.ts';
 import LoginButton from '@/app/features/authentication/login-button.component.tsx';
 import LogoutButton from '@/app/features/authentication/logout-button.component.tsx';
-import { auth } from '@/auth.ts';
 
 const items: MenuProps['items'] = [
 	{
@@ -11,14 +16,19 @@ const items: MenuProps['items'] = [
 	},
 ];
 
-export default async function UserButton() {
-	const session = await auth();
+export default function UserButton() {
+	const [userName, setUserName] = useRecoilState(RC_userName);
 
-	if (!session?.user) return <LoginButton />;
+	useEffect(() => {
+		const userName = getCookie('user');
+		setUserName(userName);
+	}, []);
+
+	if (!userName) return <LoginButton />;
 
 	return (
 		<Dropdown menu={{ items }}>
-			<Button>User</Button>
+			<Button>{userName}</Button>
 		</Dropdown>
 	);
 }

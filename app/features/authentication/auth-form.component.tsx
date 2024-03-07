@@ -1,8 +1,11 @@
 import { Divider } from 'antd';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { signin } from '@/app/(routes)/(main)/main/actions/signin.action.ts';
+import { RC_userName } from '@/app/features/authentication/_atoms.ts';
+import { getCookie } from '@/app/features/authentication/_utils.ts';
 import OAuthForm from '@/app/features/authentication/oauth-form.component.tsx';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
@@ -16,7 +19,8 @@ export type Mode = 'signin' | 'signup';
 
 export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
-	const router = useRouter();
+	const setUserName = useSetRecoilState(RC_userName);
+	// const router = useRouter();
 
 	const onSigninMode = () => {
 		setMode('signin');
@@ -27,7 +31,8 @@ export default function AuthForm() {
 
 	const handleSubmit = async (formdata: FormData) => {
 		await signin(formdata);
-		router.refresh();
+		const userName = getCookie('user');
+		setUserName(userName);
 	};
 
 	return (

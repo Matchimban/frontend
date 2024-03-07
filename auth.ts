@@ -122,6 +122,11 @@ export const {
 						sameSite: 'lax',
 					});
 
+					cookies().set({
+						name: 'user',
+						value: 'test',
+					});
+
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					const user: User = {
 						id: Date.now() + '',
