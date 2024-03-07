@@ -1,4 +1,4 @@
-import { getDummyData } from '@/app/__tests__/__mocks__/dummy-data';
+import { getDummyData } from '@/app/__mocks__/dummy-data';
 import Contents from '@/app/features/board/contents.component.tsx';
 
 export default async function Page() {
