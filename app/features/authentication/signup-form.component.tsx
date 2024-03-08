@@ -1,5 +1,3 @@
-'use client';
-
 import { Button, Checkbox, Form, Input } from 'antd';
 
 type FieldType = {

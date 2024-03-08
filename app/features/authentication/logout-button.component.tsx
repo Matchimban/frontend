@@ -1,4 +1,4 @@
-import { signout } from '@/app/(routes)/(main)/main/actions/siginout.action.ts';
+import { signout } from '@/app/(routes)/(home)/actions/siginout.action';
 
 export default function LogoutButton() {
 	return (

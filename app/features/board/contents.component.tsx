@@ -10,7 +10,7 @@ export default function Contents({ restaurants }: Props) {
 	return restaurants.map(restaurant => (
 		<li key={restaurant.id}>
 			<Link
-				href={`/main/restaurants/${restaurant.id}`}
+				href={`/restaurants/${restaurant.id}`}
 				className="flex w-full space-x-4 p-2"
 			>
 				<div className="w-40 flex-initial">

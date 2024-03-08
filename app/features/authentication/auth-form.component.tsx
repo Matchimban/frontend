@@ -3,7 +3,7 @@ import { Divider } from 'antd';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { signin } from '@/app/(routes)/(main)/main/actions/signin.action.ts';
+import { signin } from '@/app/(routes)/(home)/actions/signin.action';
 import { RC_userName } from '@/app/features/authentication/_atoms.ts';
 import { getCookie } from '@/app/features/authentication/_utils.ts';
 import OAuthForm from '@/app/features/authentication/oauth-form.component.tsx';
@@ -30,6 +30,7 @@ export default function AuthForm() {
 	};
 
 	const handleSubmit = async (formdata: FormData) => {
+		console.log('submit event: ');
 		await signin(formdata);
 		const userName = getCookie('user');
 		setUserName(userName);

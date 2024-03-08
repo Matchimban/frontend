@@ -29,7 +29,13 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 		>
 			<Form.Item<FieldType>
 				name="email"
-				rules={[{ required: true, message: '이메일을 입력해주세요' }]}
+				rules={[
+					{
+						required: true,
+						message: '이메일을 입력해주세요',
+					},
+					{ type: 'email', message: '올바른 이메일 형식이 아닙니다.' },
+				]}
 			>
 				<Input
 					prefix={<UserOutlined className="opacity-50" />}
@@ -38,7 +44,10 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 			</Form.Item>
 			<Form.Item<FieldType>
 				name="password"
-				rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}
+				rules={[
+					{ required: true, message: '비밀번호를 입력해주세요' },
+					{ min: 6, message: '4자리 이상 입력해주세요.' },
+				]}
 			>
 				<Input.Password
 					prefix={<LockOutlined className="opacity-50" />}
