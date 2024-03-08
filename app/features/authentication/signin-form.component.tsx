@@ -70,8 +70,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 					type="primary"
 					htmlType="submit"
 					className="w-full"
-					disabled={pending}
-				>
+					disabled={pending}>
 					로그인
 				</Button>
 				{/* Or <a href="">register now!</a> */}

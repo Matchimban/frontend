@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import RegisterForm from '@/app/(routes)/(main)/main/restaurants/register/register-form.component.tsx';
+import RegisterForm from '@/app/(routes)/(home)/restaurants/register/register-form.component';
 
 export default async function Page() {
 	return (
