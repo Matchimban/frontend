@@ -16,7 +16,7 @@ describe('로그인 폼 테스트', () => {
 		expect(screen.getByRole('button', { name: '로그인' })).toBeInTheDocument();
 	});
 
-	test('이메일 유효성 검사', async () => {
+	test('email 유효성 검사', async () => {
 		render(<SignInForm onModeChange={fn1} onSubmit={fn2} />);
 
 		const emailInputEl = screen.getByPlaceholderText(/email/i);
@@ -35,7 +35,7 @@ describe('로그인 폼 테스트', () => {
 			screen.getByText('올바른 이메일 형식이 아닙니다', { exact: false }),
 		).toBeInTheDocument();
 	});
-	test('비밀번호 유효성 검사', async () => {
+	test('password 유효성 검사', async () => {
 		render(<SignInForm onModeChange={fn1} onSubmit={fn2} />);
 
 		const passwordInputEl = screen.getByPlaceholderText(/password/i);

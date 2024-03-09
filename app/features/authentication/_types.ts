@@ -2,7 +2,7 @@ export type UserName = string | undefined;
 
 export type Mode = 'signin' | 'signup';
 
-export type SigninResponseData = {
+export type AuthResponseData = {
 	code: number;
 	msg: string;
 	result: null | {

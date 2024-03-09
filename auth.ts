@@ -4,7 +4,7 @@ import credentials from 'next-auth/providers/credentials';
 import { cookies } from 'next/headers';
 
 import { baseUrl } from '@/app/constants/path.ts';
-import { SigninResponseData } from '@/app/features/authentication/_types.ts';
+import { AuthResponseData } from '@/app/features/authentication/_types.ts';
 
 export const {
 	handlers: { GET, POST },
@@ -49,13 +49,12 @@ export const {
 			async authorize(credentials) {
 				console.log('credentials authorize: ', credentials);
 
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const { email, password, name, nickname } = credentials;
 
 				if (name) {
 					// 회원 가입 로직
 					try {
-						const signupResponse = await fetch(baseUrl + '/api/user/signup', {
+						const response = await fetch(baseUrl + '/api/user/signup', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -70,16 +69,12 @@ export const {
 							cache: 'no-store',
 						});
 
-						const signupData = await signupResponse.json();
-						console.log('signup response data: ', signupData);
+						const data: AuthResponseData = await response.json();
 
-						if (!signupResponse.ok) {
-							const error = new Error('Sign up Failed!');
-							error.message = signupData.msg;
-							throw error;
+						if (!data.result) {
+							throw data?.msg ?? '';
 						}
 					} catch (error) {
-						console.error('Sign up Fetch Error: ', error);
 						return null;
 					}
 				}
@@ -98,7 +93,7 @@ export const {
 						cache: 'no-store',
 					});
 
-					const data: SigninResponseData = await response.json();
+					const data: AuthResponseData = await response.json();
 					// console.log('login response data: ', data, 'ok? ', response.ok);
 
 					if (!data.result) {

@@ -14,10 +14,10 @@
 		"incremental": true,
 		"allowImportingTsExtensions": true,
 		"types": [
+			"@testing-library/jest-dom",
 			"vitest/globals",
 			"cypress",
-			"@testing-library/cypress",
-			"@testing-library/jest-dom"
+			"@testing-library/cypress"
 		],
 		"plugins": [
 			{

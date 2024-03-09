@@ -1,4 +1,4 @@
-import { Alert, Divider } from 'antd';
+import { Alert } from 'antd';
 import { Mode } from 'fs';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
@@ -6,14 +6,8 @@ import { useSetRecoilState } from 'recoil';
 import { signin } from '@/app/(routes)/(home)/actions/signin.action';
 import { RC_userName } from '@/app/features/authentication/_atoms.ts';
 import { getCookie } from '@/app/features/authentication/_utils.ts';
-import OAuthForm from '@/app/features/authentication/oauth-form.component.tsx';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
-
-// const authenticate = async (
-// 	prevState: string | undefined,
-// 	formData: FormData,
-// ) => await signin(formData);
 
 export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
@@ -22,16 +16,18 @@ export default function AuthForm() {
 
 	const changeMode = (mode: Mode) => {
 		setMode(mode);
+		setErrorMessage('');
 	};
 	const handleSubmit = async (formdata: FormData) => {
-		try {
-			await signin(formdata);
+		const { error } = await signin(formdata);
 
-			const userName = getCookie('user');
-			setUserName(userName);
-		} catch (error) {
-			setErrorMessage('입력하신 정보가 잘못 되었습니다.');
+		if (error) {
+			setErrorMessage(error);
+			return;
 		}
+
+		const userName = getCookie('user');
+		setUserName(userName);
 	};
 
 	return (
@@ -63,37 +59,11 @@ export default function AuthForm() {
 				<SignUpForm onModeChange={changeMode} onSubmit={handleSubmit} />
 			)}
 
-			<Divider plain style={{ color: 'black' }}>
+			{/* <Divider plain style={{ color: 'black' }}>
 				Or
 			</Divider>
 
-			<OAuthForm />
+			<OAuthForm /> */}
 		</>
 	);
 }
-
-/*
-		<Form
-			name="sign"
-			layout="horizontal"
-			labelCol={{ span: 8 }}
-			wrapperCol={{ span: 16 }}
-			size="small">
-			<Form.Item<FieldType>
-				label="Email"
-				name="email"
-				style={{ marginBottom: '10px' }}
-				colon={false}>
-				<Input />
-			</Form.Item>
-
-			<Form.Item<FieldType>
-				label="Password"
-				name="password"
-				style={{ marginBottom: '10px' }}
-				colon={false}>
-				<Input />
-			</Form.Item>
-      
-		</Form>
-*/
