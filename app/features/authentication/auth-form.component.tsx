@@ -1,5 +1,4 @@
-import { Divider } from 'antd';
-// import { useRouter } from 'next/navigation';
+import { Alert, Divider } from 'antd';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
@@ -20,6 +19,7 @@ export type Mode = 'signin' | 'signup';
 export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
 	const setUserName = useSetRecoilState(RC_userName);
+	const [errorMessage, setErrorMessage] = useState('');
 	// const router = useRouter();
 
 	const onSigninMode = () => {
@@ -30,10 +30,14 @@ export default function AuthForm() {
 	};
 
 	const handleSubmit = async (formdata: FormData) => {
-		console.log('submit event: ');
-		await signin(formdata);
-		const userName = getCookie('user');
-		setUserName(userName);
+		try {
+			await signin(formdata);
+
+			const userName = getCookie('user');
+			setUserName(userName);
+		} catch (error) {
+			setErrorMessage('입력하신 정보가 잘못 되었습니다.');
+		}
 	};
 
 	return (
@@ -43,9 +47,19 @@ export default function AuthForm() {
 					{mode === 'signin' && '로그인'}
 					{mode === 'signup' && '회원가입'}
 				</h3>
-				{/* <div>
-					{state && <Alert type="warning" message={state} showIcon closable />}
-				</div> */}
+				<div>
+					{errorMessage && (
+						<Alert
+							type="warning"
+							message={errorMessage}
+							showIcon
+							closable
+							afterClose={() => {
+								setErrorMessage('');
+							}}
+						/>
+					)}
+				</div>
 			</div>
 
 			{mode === 'signin' && (

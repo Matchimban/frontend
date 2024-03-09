@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Dropdown, MenuProps } from 'antd';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { RC_userName } from '@/app/features/authentication/_atoms.ts';
@@ -17,9 +17,10 @@ const items: MenuProps['items'] = [
 ];
 
 export default function UserButton() {
+	console.log('user buottont');
 	const [userName, setUserName] = useRecoilState(RC_userName);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const userName = getCookie('user');
 		setUserName(userName);
 	}, []);

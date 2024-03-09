@@ -46,7 +46,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 				name="password"
 				rules={[
 					{ required: true, message: '비밀번호를 입력해주세요' },
-					{ min: 6, message: '4자리 이상 입력해주세요.' },
+					{ min: 4, message: '4자리 이상 입력해주세요.' },
 				]}
 			>
 				<Input.Password

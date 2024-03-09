@@ -4,6 +4,7 @@ import credentials from 'next-auth/providers/credentials';
 import { cookies } from 'next/headers';
 
 import { baseUrl } from '@/app/constants/path.ts';
+import { SigninResponseData } from '@/app/features/authentication/_types.ts';
 
 export const {
 	handlers: { GET, POST },
@@ -97,10 +98,10 @@ export const {
 						cache: 'no-store',
 					});
 
-					const data = await response.json();
-					console.log('login response data: ', data, 'ok? ', response.ok);
+					const data: SigninResponseData = await response.json();
+					// console.log('login response data: ', data, 'ok? ', response.ok);
 
-					if (!response.ok) {
+					if (!data.result) {
 						// const error = new Error('Login Failed!');
 						// error.message = data.msg;
 						throw data?.msg ?? '';
@@ -137,7 +138,9 @@ export const {
 
 					return user;
 				} catch (error) {
-					console.error('Login Fetch Error: ', error);
+					// console.error('Invalid credentials: ', error);
+					// return null -> 'CredentialsSignin' type
+					// throw ~ -> 'CallbackRouteError' type
 					return null;
 				}
 			},
