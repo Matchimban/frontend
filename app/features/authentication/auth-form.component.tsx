@@ -1,4 +1,5 @@
 import { Alert, Divider } from 'antd';
+import { Mode } from 'fs';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
@@ -9,8 +10,6 @@ import OAuthForm from '@/app/features/authentication/oauth-form.component.tsx';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
 
-export type Mode = 'signin' | 'signup';
-
 // const authenticate = async (
 // 	prevState: string | undefined,
 // 	formData: FormData,
@@ -20,15 +19,10 @@ export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
 	const setUserName = useSetRecoilState(RC_userName);
 	const [errorMessage, setErrorMessage] = useState('');
-	// const router = useRouter();
 
-	const onSigninMode = () => {
-		setMode('signin');
+	const changeMode = (mode: Mode) => {
+		setMode(mode);
 	};
-	const onSignupMode = () => {
-		setMode('signup');
-	};
-
 	const handleSubmit = async (formdata: FormData) => {
 		try {
 			await signin(formdata);
@@ -63,10 +57,10 @@ export default function AuthForm() {
 			</div>
 
 			{mode === 'signin' && (
-				<SignInForm onModeChange={onSignupMode} onSubmit={handleSubmit} />
+				<SignInForm onModeChange={changeMode} onSubmit={handleSubmit} />
 			)}
 			{mode === 'signup' && (
-				<SignUpForm onModeChange={onSigninMode} onSubmit={handleSubmit} />
+				<SignUpForm onModeChange={changeMode} onSubmit={handleSubmit} />
 			)}
 
 			<Divider plain style={{ color: 'black' }}>

@@ -1,5 +1,7 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 
+import { Mode } from '@/app/features/authentication/_types.ts';
+
 type FieldType = {
 	name: string;
 	nickname: string;
@@ -9,13 +11,13 @@ type FieldType = {
 };
 
 type Props = {
-	onModeChange: () => void;
+	onModeChange: (mode: Mode) => void;
 	onSubmit: (formdata: FormData) => Promise<void>;
 };
 
 export default function SignUpForm({ onModeChange, onSubmit }: Props) {
 	const handleButtonClick = () => {
-		onModeChange();
+		onModeChange('signin');
 	};
 	return (
 		<Form

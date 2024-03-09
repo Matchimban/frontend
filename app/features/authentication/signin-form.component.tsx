@@ -1,6 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { useFormStatus } from 'react-dom';
+
+import { Mode } from '@/app/features/authentication/_types.ts';
 
 type FieldType = {
 	email: string;
@@ -9,15 +10,13 @@ type FieldType = {
 };
 
 type Props = {
-	onModeChange: () => void;
+	onModeChange: (mode: Mode) => void;
 	onSubmit: (formdata: FormData) => Promise<void>;
 };
 
 export default function SignInForm({ onModeChange, onSubmit }: Props) {
-	const { pending } = useFormStatus();
-
 	const handleButtonClick = () => {
-		onModeChange();
+		onModeChange('signup');
 	};
 
 	return (
@@ -68,12 +67,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 			</Form.Item>
 
 			<Form.Item>
-				<Button
-					type="primary"
-					htmlType="submit"
-					className="w-full"
-					disabled={pending}
-				>
+				<Button type="primary" htmlType="submit" className="w-full">
 					로그인
 				</Button>
 				{/* Or <a href="">register now!</a> */}
