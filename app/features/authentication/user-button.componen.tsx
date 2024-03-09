@@ -22,6 +22,7 @@ const items: MenuProps['items'] = [
 ];
 
 export default function UserButton() {
+	console.log('user buottont');
 	const [userName, setUserName] = useRecoilState(RC_userName);
 
 	useLayoutEffect(() => {
