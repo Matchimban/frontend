@@ -3,12 +3,13 @@
 import { Button, Form, Input } from 'antd';
 
 import { RestaurantField } from '@/app/features/restaurants/_types.ts';
+import RegisterImages from '@/app/features/restaurants/register-image.component.tsx';
 
 export default function RegisterForm() {
 	const [form] = Form.useForm();
 
-	const handleSubmit = (values: any) => {
-		console.log('values', values);
+	const handleSubmit = (formdata: FormData) => {
+		console.log('values', formdata);
 	};
 	return (
 		<Form
@@ -69,8 +70,8 @@ export default function RegisterForm() {
 				/>
 			</Form.Item>
 
-			<Form.Item label="이미지" name="image">
-				<Input />
+			<Form.Item label="사진" name="images">
+				<RegisterImages />
 			</Form.Item>
 
 			<Form.Item>
