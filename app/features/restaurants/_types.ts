@@ -1,3 +1,5 @@
+import { GetProp, UploadProps } from 'antd';
+
 export type RestaurantField = {
 	category: string;
 	name: string;
@@ -28,3 +30,5 @@ export type RegisterFields = {
 	images: ImageField;
 	menus: MenuField;
 };
+
+export type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
