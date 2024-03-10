@@ -1,12 +1,11 @@
 import dynamic from 'next/dynamic';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import UserButton from '@/app/features/authentication/user-button.componen.tsx';
 import type { NavLink } from '@/app/features/board/_types.ts';
 import NavLinks from '@/app/ui/nav-links.component.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const DynamicUserButton = dynamic(
+const UserButton = dynamic(
 	() => import('@/app/features/authentication/user-button.componen.tsx'),
 	{
 		loading: () => null,
@@ -40,8 +39,7 @@ export default function Header({ navLinks }: Props) {
 				</div>
 
 				<div className="flex flex-initial space-x-4">
-					<DynamicUserButton />
-					{/* <UserButton /> */}
+					<UserButton />
 					{/* <div className="flex space-x-2 ">
 						<span>sign in</span>
 						<span>sign up</span>

@@ -4,7 +4,10 @@ import credentials from 'next-auth/providers/credentials';
 import { cookies } from 'next/headers';
 
 import { baseUrl } from '@/app/constants/path.ts';
-import { AuthResponseData } from '@/app/features/authentication/_types.ts';
+import {
+	AuthResponseData,
+	Credentials,
+} from '@/app/features/authentication/_types.ts';
 
 export const {
 	handlers: { GET, POST },
@@ -49,7 +52,7 @@ export const {
 			async authorize(credentials) {
 				console.log('credentials authorize: ', credentials);
 
-				const { email, password, name, nickname } = credentials;
+				const { email, password, name, nickname } = credentials as Credentials;
 
 				if (name) {
 					// 회원 가입 로직
@@ -102,7 +105,9 @@ export const {
 						throw data?.msg ?? '';
 					}
 
-					const { accessToken, refreshToken } = data.result;
+					const { accessToken, refreshToken, userInfo } = data.result;
+
+					const { userId: id, nickname: name } = userInfo;
 
 					cookies().set({
 						name: 'accessToken',
@@ -120,14 +125,14 @@ export const {
 
 					cookies().set({
 						name: 'user',
-						value: 'test',
+						value: name,
 					});
 
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					const user: User = {
-						id: Date.now() + '',
-						name: Date.now() + '',
-						email: email as string,
+						id: id + '',
+						name,
+						email,
 						image: '',
 					};
 

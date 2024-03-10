@@ -13,12 +13,7 @@
 		"jsx": "preserve",
 		"incremental": true,
 		"allowImportingTsExtensions": true,
-		"types": [
-			"@testing-library/jest-dom",
-			"vitest/globals",
-			"cypress",
-			"@testing-library/cypress"
-		],
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
 		"plugins": [
 			{
 				"name": "next"
@@ -35,5 +30,5 @@
 		"./tests-setup.ts",
 		".next/types/**/*.ts"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "cypress", "./cypress.config.ts"]
 }

@@ -3,21 +3,22 @@ import { Mode } from 'fs';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { signin } from '@/app/(routes)/(home)/actions/signin.action';
+import { signin } from '@/app/features/authentication/_actions.ts';
 import { RC_userName } from '@/app/features/authentication/_atoms.ts';
 import { getCookie } from '@/app/features/authentication/_utils.ts';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
 
 export default function AuthForm() {
-	const [mode, setMode] = useState<Mode>('signin');
 	const setUserName = useSetRecoilState(RC_userName);
+	const [mode, setMode] = useState<Mode>('signin');
 	const [errorMessage, setErrorMessage] = useState('');
 
-	const changeMode = (mode: Mode) => {
+	const handleModeChange = (mode: Mode) => {
 		setMode(mode);
 		setErrorMessage('');
 	};
+
 	const handleSubmit = async (formdata: FormData) => {
 		const { error } = await signin(formdata);
 
@@ -53,10 +54,10 @@ export default function AuthForm() {
 			</div>
 
 			{mode === 'signin' && (
-				<SignInForm onModeChange={changeMode} onSubmit={handleSubmit} />
+				<SignInForm onModeChange={handleModeChange} onSubmit={handleSubmit} />
 			)}
 			{mode === 'signup' && (
-				<SignUpForm onModeChange={changeMode} onSubmit={handleSubmit} />
+				<SignUpForm onModeChange={handleModeChange} onSubmit={handleSubmit} />
 			)}
 
 			{/* <Divider plain style={{ color: 'black' }}>
