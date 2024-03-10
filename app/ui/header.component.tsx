@@ -38,8 +38,7 @@ export default function Header({ navLinks }: Props) {
 				</div>
 
 				<div className="flex flex-initial space-x-4">
-					<DynamicUserButton />
-					{/* <UserButton /> */}
+					<UserButton />
 					{/* <div className="flex space-x-2 ">
 						<span>sign in</span>
 						<span>sign up</span>
