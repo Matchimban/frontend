@@ -38,22 +38,27 @@ export const {
 			const isAuthenticated = !!auth?.user;
 			console.log('middle ware: ', isAuthenticated, request.url);
 
-			// 인증이 안됐을때 예외처리를 먼저 해주면 코드가 더 깔끔할듯
+			// Protecting routes
+			if (!isAuthenticated) {
+				const { pathname } = request.nextUrl;
+				if (['/register'].includes(pathname))
+					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
+			}
 
 			if (isAuthenticated) {
-				const tokenLife =
+				const tokenLifeTime =
 					Date.now() - Number(request.cookies.get('expiration')!.value); // 토큰이 없을 경우?
-				const isExpired = tokenLife < 0;
-				const isNeedRefresh = tokenLife < 5 * 60 * 1000 && !isExpired;
+				const isExpired = tokenLifeTime < 0;
+				const isNeedRefresh = !isExpired && tokenLifeTime < 5 * 60 * 1000;
 
-				// 자동 로그아웃
+				// 토큰 만료시 자동 로그아웃
 				if (isExpired) {
 					return NextResponse.rewrite(
 						new URL('/api/auth/signout', request.nextUrl.origin),
 					);
 				}
 
-				// 토큰 갱신 요청
+				// 토큰 만료 5분 전 갱신 요청
 				if (isNeedRefresh) {
 					try {
 						const accessToken = request.cookies.get('accessToken')!.value;
@@ -116,12 +121,6 @@ export const {
 						);
 					}
 				}
-			}
-
-			// Protecting routes
-			if (request.nextUrl.pathname.startsWith('/user')) {
-				// Redirect unauthenticated users to root page
-				return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
 			return true;

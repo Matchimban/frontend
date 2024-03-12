@@ -7,7 +7,7 @@ type Props = {
 	restaurants: Restaurant[];
 };
 export default function Contents({ restaurants }: Props) {
-	return restaurants.map(restaurant => (
+	return restaurants.map((restaurant, idx) => (
 		<li key={restaurant.id} className="sm:w-48 ">
 			<Link
 				href={`/restaurants/${restaurant.id}`}
@@ -20,6 +20,7 @@ export default function Contents({ restaurants }: Props) {
 						sizes="(max-width: 640px) 100px, 200px"
 						alt="restaurant thumnail"
 						className="object-cover"
+						priority={idx < 6}
 					/>
 				</div>
 
