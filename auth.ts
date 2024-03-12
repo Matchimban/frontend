@@ -36,7 +36,7 @@ export const {
 		async authorized({ auth, request }) {
 			// if return false: redirect to nextauth default login page;
 			const isAuthenticated = !!auth?.user;
-			console.log('middle ware: ', isAuthenticated, request.url);
+			// console.log('middleware: ', isAuthenticated, request.url);
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -129,7 +129,7 @@ export const {
 	providers: [
 		credentials({
 			async authorize(credentials) {
-				console.log('credentials authorize: ', credentials);
+				// console.log('credentials authorize: ', credentials);
 
 				const { email, password, name, nickname } = credentials as Credentials;
 
