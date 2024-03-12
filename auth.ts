@@ -48,7 +48,12 @@ export const {
 					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
-			// 인증이 안됐을때 예외처리를 먼저 해주면 코드가 더 깔끔할듯
+			// Protecting routes
+			if (!isAuthenticated) {
+				const { pathname } = request.nextUrl;
+				if (['/register'].includes(pathname))
+					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
+			}
 
 			if (isAuthenticated) {
 				const tokenLifeTime =

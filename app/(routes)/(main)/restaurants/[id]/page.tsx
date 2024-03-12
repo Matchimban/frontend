@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
 							alt="restaurant image"
 							fill
 							sizes="(max-width: 400px)100vw, 400px"
-							className="max-h-full object-cover"
+							className="object-cover"
 						/>
 					</div>
 
