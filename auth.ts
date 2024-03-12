@@ -48,6 +48,8 @@ export const {
 					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
+			// 인증이 안됐을때 예외처리를 먼저 해주면 코드가 더 깔끔할듯
+
 			if (isAuthenticated) {
 				const tokenLifeTime =
 					Date.now() - Number(request.cookies.get('expiration')!.value); // 로그인은 됐는데 토큰이 없을 경우?

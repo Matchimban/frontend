@@ -12,18 +12,16 @@ export default async function Page({ params }: Props) {
 	const data = await getDummyRestaurant(+id);
 
 	return (
-		<div className="flex min-h-svh w-full max-w-3xl justify-center bg-green-200">
-			<div className="flex max-w-2xl flex-col space-y-4 bg-white sm:mt-4 sm:items-center sm:rounded-lg sm:p-4">
+		<div className="flex min-h-svh w-full max-w-3xl justify-center ">
+			<div className="flex max-w-2xl flex-col space-y-4 border sm:mt-4 sm:items-center sm:rounded-lg sm:p-4">
 				<section className="flex flex-col space-y-4">
-					<div className="relative h-[40vh] w-screen overflow-hidden">
+					<div className="relative h-[40vh] w-screen overflow-hidden sm:max-w-[420px]">
 						<Image
 							src={data.images}
 							alt="restaurant image"
-							// width={400}
-							// height={200}
 							fill
-							sizes="100vw"
-							className="object-cover"
+							sizes="(max-width: 400px)100vw, 400px"
+							className="max-h-full object-cover"
 						/>
 					</div>
 
