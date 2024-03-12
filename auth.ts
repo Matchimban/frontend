@@ -51,7 +51,7 @@ export const {
 			// Protecting routes
 			if (!isAuthenticated) {
 				const { pathname } = request.nextUrl;
-				if (['/register'].includes(pathname))
+				if (PROTECTED_PATH.includes(pathname))
 					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
