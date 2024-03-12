@@ -1,9 +1,21 @@
 'use client';
 
-import { Button, Modal } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Modal, Spin } from 'antd';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-import AuthForm from '@/app/features/authentication/auth-form.component.tsx';
+const AuthForm = dynamic(
+	() => import('@/app/features/authentication/auth-form.component.tsx'),
+	{
+		ssr: false,
+		loading: () => (
+			<div className="m-10 flex items-center justify-center">
+				<Spin indicator={<LoadingOutlined />} spinning />
+			</div>
+		),
+	},
+);
 
 export default function LoginButton() {
 	const [isSinginModalOpen, setIsSinginModalOpen] = useState(false);

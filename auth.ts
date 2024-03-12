@@ -4,7 +4,7 @@ import credentials from 'next-auth/providers/credentials';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { baseUrl } from '@/app/constants/path.ts';
+import { PROTECTED_PATH, baseUrl } from '@/app/constants/path.ts';
 import {
 	AuthResponseData,
 	Credentials,
@@ -41,7 +41,7 @@ export const {
 			// Protecting routes
 			if (!isAuthenticated) {
 				const { pathname } = request.nextUrl;
-				if (['/register'].includes(pathname))
+				if (PROTECTED_PATH.includes(pathname))
 					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
