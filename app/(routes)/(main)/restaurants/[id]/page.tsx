@@ -15,12 +15,15 @@ export default async function Page({ params }: Props) {
 		<div className="flex min-h-svh w-full max-w-3xl justify-center bg-green-200">
 			<div className="flex max-w-2xl flex-col space-y-4 bg-white sm:mt-4 sm:items-center sm:rounded-lg sm:p-4">
 				<section className="flex flex-col space-y-4">
-					<div className="">
+					<div className="relative h-[40vh] w-screen overflow-hidden">
 						<Image
 							src={data.images}
 							alt="restaurant image"
-							width={500}
-							height={330}
+							// width={400}
+							// height={200}
+							fill
+							sizes="100vw"
+							className="object-cover"
 						/>
 					</div>
 

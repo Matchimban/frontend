@@ -3,6 +3,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Form, Modal, Upload, UploadFile, UploadProps } from 'antd';
 import { RcFile } from 'antd/es/upload/interface';
+import Compressor from 'compressorjs';
 import { useState } from 'react';
 
 import { FileType } from '@/app/features/restaurants/_types.ts';
@@ -14,6 +15,9 @@ export default function RegisterImages() {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [compressedFile, setCompressedFile] = useState<Array<File | Blob>>([]);
 
 	const form = Form.useFormInstance(); // 현재 form 컨텍스트의 instance를 가져옴
 
@@ -31,9 +35,12 @@ export default function RegisterImages() {
 		setPreviewTitle(
 			file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1),
 		);
+
+		console.log('handlePreview2: ', file);
 	};
 
 	const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+		// https://stackoverflow.com/questions/54845951/react-antdesign-add-uploaded-images-to-formdata
 		// this is equivalent to your "const img = event.target.files[0]"
 		// here, antd is giving you an array of files, just like event.target.files
 		// but the structure is a bit different that the original file
@@ -42,11 +49,25 @@ export default function RegisterImages() {
 		console.log('handleChange: ', newFileList);
 
 		// you store them in state, so that you can make a http req with them later
-		setFileList(newFileList);
 
-		form.setFieldsValue({
-			images: newFileList.map(file => file.originFileObj),
+		new Compressor(newFileList[newFileList.length - 1].originFileObj!, {
+			quality: 0.6,
+
+			success(file) {
+				console.log('compress successed!: ', file);
+				setCompressedFile(prev => [...prev, file]);
+
+				form.setFieldsValue({
+					// images: newFileList.map(file => file.originFileObj),
+					images: [...compressedFile, file],
+				});
+			},
+			error(error) {
+				console.error('Image Compress Error: ', error.message);
+			},
 		});
+
+		setFileList(newFileList);
 	};
 
 	return (
