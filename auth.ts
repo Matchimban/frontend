@@ -38,11 +38,13 @@ export const {
 			const isAuthenticated = !!auth?.user;
 			console.log('middle ware: ', isAuthenticated, request.url);
 
+			// 인증이 안됐을때 예외처리를 먼저 해주면 코드가 더 깔끔할듯
+
 			if (isAuthenticated) {
 				const tokenLife =
 					Date.now() - Number(request.cookies.get('expiration')!.value); // 토큰이 없을 경우?
 				const isExpired = tokenLife < 0;
-				const isNeedRefresh = tokenLife < 58 * 60 * 1000 && !isExpired;
+				const isNeedRefresh = tokenLife < 5 * 60 * 1000 && !isExpired;
 
 				// 자동 로그아웃
 				if (isExpired) {

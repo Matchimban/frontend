@@ -5,7 +5,10 @@ import { baseUrl } from '@/app/constants/path.ts';
 export default async function Page() {
 	const token = cookies().get('accessToken');
 
-	const res = await fetch(baseUrl + '/api/restaurants/0', {
+	console.log('test [age toke: ', token);
+
+	const res = await fetch(baseUrl + '/api/restaurants', {
+		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${token!.value}`,
 		},

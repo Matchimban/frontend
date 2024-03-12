@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { NavLink } from '@/app/features/board/_types.ts';
@@ -21,16 +22,16 @@ export default function Header({ navLinks }: Props) {
 	return (
 		<header className="sticky top-0 z-10 flex h-11 justify-center border-b border-stone-100 bg-[#fff] md:text-base">
 			<div className="flex h-full w-full max-w-[1024px] items-center justify-between space-x-4 px-4">
-				<div className="flex flex-initial space-x-2">
+				<Link href={'/'} className="flex flex-initial space-x-2">
 					<h1>logo</h1>
 					<span className="hidden lg:block">맛침반</span>
-				</div>
+				</Link>
 
 				<div className="flex max-w-[640px] flex-auto justify-center space-x-4">
 					<div className="flex-auto">
-						<div className="flex h-8 max-w-[320px] items-center rounded-full bg-stone-400">
+						{/* <div className="flex h-8 max-w-[320px] items-center rounded-full bg-stone-400">
 							<span>search</span>
-						</div>
+						</div> */}
 					</div>
 
 					<ul className="hidden sm:flex sm:flex-initial sm:items-center sm:justify-center sm:space-x-4">
