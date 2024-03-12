@@ -69,29 +69,12 @@ export const signout = async () => {
 		if (!response.ok) throw data;
 	} catch (error) {
 		console.error('Logout failed! ', error);
-
-		// access token 재발급
-		// const response2 = await fetch(baseUrl + '/api/user/refresh', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 		Authorization: `Bearer ${refresh}`,
-		// 	},
-		// 	body: JSON.stringify({
-		// 		accessToken: token,
-		// 		refreshToken: refresh,
-		// 	}),
-		// });
-
-		// const data2 = await response2.json();
-		// console.log('dddd: ', data2);
-
-		return;
 	}
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');
 	cookies().delete('user');
+	cookies().delete('expiration');
 
 	await signOut();
 };

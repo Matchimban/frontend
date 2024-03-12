@@ -14,7 +14,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		<div className="text-sm">
 			<Header navLinks={navLinks} />
 
-			<main className="flex justify-center bg-blue-200">{children}</main>
+			<main className="flex justify-center ">{children}</main>
 
 			<NavBar navLinks={navLinks} />
 		</div>
