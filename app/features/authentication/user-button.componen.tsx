@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Dropdown, MenuProps } from 'antd';
+import Link from 'next/link';
 import { useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -13,6 +14,10 @@ const items: MenuProps['items'] = [
 	{
 		key: '1',
 		label: <LogoutButton />,
+	},
+	{
+		key: '2',
+		label: <Link href={'/register'}>매장등록</Link>,
 	},
 ];
 

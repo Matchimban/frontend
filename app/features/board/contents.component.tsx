@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Restaurant } from '@/app/features/board/_types.ts';
+import type { RestaurantPreview } from '@/app/features/board/_types.ts';
 
 type Props = {
-	restaurants: Restaurant[];
+	restaurants: RestaurantPreview[];
 };
 export default function Contents({ restaurants }: Props) {
 	return restaurants.map((restaurant, idx) => (
@@ -15,7 +15,9 @@ export default function Contents({ restaurants }: Props) {
 			>
 				<div className="relative h-32 w-32 flex-initial overflow-hidden rounded-xl sm:h-48 sm:w-48">
 					<Image
-						src={restaurant.images}
+						src={
+							'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D'
+						}
 						fill
 						sizes="(max-width: 640px) 100px, 200px"
 						alt="restaurant thumnail"

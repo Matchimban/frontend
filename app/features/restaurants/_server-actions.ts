@@ -13,26 +13,25 @@ export const register = async (formdata: FormData) => {
 			throw '로그인이 필요합니다.';
 		}
 
-		console.log('toekn: ', token, 'form data: ', formdata);
+		// console.log('form-data: ', formdata);
 
-		const res = await fetch(baseUrl + '/api/restaurants', {
+		await fetch(baseUrl + '/api/restaurants', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'multipart/form-data',
+				// 'Content-Type': 'multipart/form-data', // body data type이 FormData이면 자동으로 명시됨.
 				Authorization: `Bearer ${token.value}`,
 			},
 			body: formdata,
 		});
-		const data = await res.json();
-		console.log('resont data: ', data);
+		// const data: ResponseData<Restaurant> = await res.json();
 
-		if (!data?.result) {
-			throw data?.msg;
-		}
+		// if (!data?.result) {
+		// 	throw data?.msg;
+		// }
 
-		return data.result;
+		// const { id } = data.result;
 	} catch (error) {
-		console.error('Register Failed! ', error, typeof error);
+		console.error('Register Failed! ', error);
 		if (typeof error === 'string') {
 			return {
 				error,

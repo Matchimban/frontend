@@ -2,8 +2,6 @@
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Form, Modal, Upload, UploadFile, UploadProps } from 'antd';
-import { RcFile } from 'antd/es/upload/interface';
-import Compressor from 'compressorjs';
 import { useState } from 'react';
 
 import { FileType } from '@/app/features/restaurants/_types.ts';
@@ -16,16 +14,11 @@ export default function RegisterImages() {
 	const [previewImage, setPreviewImage] = useState('');
 	const [previewTitle, setPreviewTitle] = useState('');
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [compressedFile, setCompressedFile] = useState<Array<File | Blob>>([]);
-
 	const form = Form.useFormInstance(); // 현재 form 컨텍스트의 instance를 가져옴
 
 	const handleCancel = () => setPreviewOpen(false);
 
 	const handlePreview = async (file: UploadFile) => {
-		console.log('handlePreview: ', file);
-
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj as FileType);
 		}
@@ -35,8 +28,6 @@ export default function RegisterImages() {
 		setPreviewTitle(
 			file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1),
 		);
-
-		console.log('handlePreview2: ', file);
 	};
 
 	const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
@@ -46,27 +37,31 @@ export default function RegisterImages() {
 		// but the structure is a bit different that the original file
 		// the original file is located at the `originFileObj` key of each of this files
 		// so `event.target.files[0]` is actually fileList[0].originFileObj
-		console.log('handleChange: ', newFileList);
-
 		// you store them in state, so that you can make a http req with them later
 
-		new Compressor(newFileList[newFileList.length - 1].originFileObj!, {
-			quality: 0.6,
+		// console.log('handleChange: ', newFileList, 'file: ', file);
 
-			success(file) {
-				console.log('compress successed!: ', file);
-				setCompressedFile(prev => [...prev, file]);
+		// new Compressor(newFileList[newFileList.length - 1].originFileObj!, {
+		// 	quality: 0.4,
 
-				form.setFieldsValue({
-					// images: newFileList.map(file => file.originFileObj),
-					images: [...compressedFile, file],
-				});
-			},
-			error(error) {
-				console.error('Image Compress Error: ', error.message);
-			},
-		});
+		// 	success(file) {
+		// 		console.log('compress successed!: ', file);
+		// 		setCompressedFile(prevFiles => [...prevFiles, file]);
 
+		// 		form.setFieldsValue({
+		// 			// images: newFileList.map(file => file.originFileObj),
+		// 			images: [...compressedFile, file],
+		// 		});
+		// 	},
+		// 	error(error) {
+		// 		console.error('Image Compressing Error: ', error.message);
+		// 	},
+		// });
+
+		form.setFieldValue(
+			'images',
+			newFileList.map(file => file.originFileObj),
+		);
 		setFileList(newFileList);
 	};
 
@@ -77,12 +72,14 @@ export default function RegisterImages() {
 				fileList={fileList}
 				onPreview={handlePreview}
 				onChange={handleChange}
-				beforeUpload={(file: RcFile, fileList: RcFile[]) => {
-					console.log('beforeUpload: ', file, 'list: ', fileList);
+				beforeUpload={() => {
+					// Antd's Upload component is doing the upload files under the hood.
+					// This function will be executed before upload.
+					// If false returned, uploading will be stopped.
 					return false;
 				}}
 			>
-				<UploadButton />
+				{fileList.length <= 2 && <UploadButton />}
 			</Upload>
 
 			<Modal

@@ -4,10 +4,10 @@ export type NavLink = {
 	icon?: string;
 };
 
-export interface Restaurant {
+export interface RestaurantPreview {
 	id: number;
 	name: string;
 	category: string;
 	addrSido: string;
-	images: string;
+	imageUrl: string;
 }
