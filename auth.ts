@@ -34,9 +34,9 @@ export const {
 		// 	return param.token;
 		// },
 		async authorized({ auth, request }) {
-			// if return false: redirect to nextauth default login page;
+			// if 'authorized' returns false: redirect to nextauth default login page.
 			const isAuthenticated = !!auth?.user;
-			// console.log('middleware: ', isAuthenticated, request.url);
+			console.log('Middleware execute: ', isAuthenticated, request.url);
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -47,9 +47,9 @@ export const {
 
 			if (isAuthenticated) {
 				const tokenLifeTime =
-					Date.now() - Number(request.cookies.get('expiration')!.value); // 토큰이 없을 경우?
-				const isExpired = tokenLifeTime < 0;
-				const isNeedRefresh = !isExpired && tokenLifeTime < 5 * 60 * 1000;
+					Date.now() - Number(request.cookies.get('expiration')!.value); // 로그인은 됐는데 토큰이 없을 경우?
+				const isExpired = tokenLifeTime > 59 * 60 * 1000;
+				const isNeedRefresh = !isExpired && tokenLifeTime > 50 * 60 * 1000;
 
 				// 토큰 만료시 자동 로그아웃
 				if (isExpired) {

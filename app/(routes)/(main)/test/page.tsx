@@ -7,12 +7,7 @@ export default async function Page() {
 
 	console.log('test [age toke: ', token);
 
-	const res = await fetch(baseUrl + '/api/restaurants', {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${token!.value}`,
-		},
-	});
+	const res = await fetch(baseUrl + '/api/restaurants');
 	const data = await res.json();
 	console.log('restaurants data: ', data);
 
