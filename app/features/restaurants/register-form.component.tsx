@@ -16,9 +16,9 @@ export default function RegisterForm() {
 	const router = useRouter();
 
 	const handleSubmit = async (values: any) => {
-		router.push('/');
-		return;
 		try {
+			router.push('/');
+			return;
 			setIsLoading(true);
 			const formData = new FormData();
 
@@ -62,6 +62,8 @@ export default function RegisterForm() {
 			formData.set('longitude', '0');
 
 			await register(formData);
+
+			router.push('/');
 		} catch (error) {
 			console.error('Register Failed! ', error);
 		} finally {
@@ -81,7 +83,7 @@ export default function RegisterForm() {
 				label="상호명"
 				name="name"
 				// style={{ marginBottom: '10px' }}
-				// rules={[{ required: true, message: '' }]}
+				rules={[{ required: true, message: '' }]}
 			>
 				<Input />
 			</Form.Item>
@@ -90,36 +92,105 @@ export default function RegisterForm() {
 				label="전화 번호"
 				name="telephone"
 				// style={{ marginBottom: '10px' }}
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
 			>
 				<Input />
 			</Form.Item>
 
-			<Form.Item<RestaurantField> label="사업자 번호" name="businessNumber">
+			<Form.Item<RestaurantField>
+				label="사업자 번호"
+				name="businessNumber"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input />
 			</Form.Item>
 
-			<Form.Item label="주소" name="address">
+			<Form.Item
+				label="주소"
+				name="address"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input />
 			</Form.Item>
 
-			<Form.Item<RestaurantField> label="카테고리" name="category">
+			<Form.Item<RestaurantField>
+				label="카테고리"
+				name="category"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input />
 			</Form.Item>
 
-			<Form.Item<RestaurantField> label="영업 시간" name="businessHours">
+			<Form.Item<RestaurantField>
+				label="영업 시간"
+				name="businessHours"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input />
 			</Form.Item>
-			<Form.Item<RestaurantField> label="휴일" name="closedDays">
+			<Form.Item<RestaurantField>
+				label="휴일"
+				name="closedDays"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input />
 			</Form.Item>
-			<Form.Item<RestaurantField> label="소개" name="introduction">
+			<Form.Item<RestaurantField>
+				label="소개"
+				name="introduction"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input.TextArea
 					autoSize={{
 						minRows: 4,
 					}}
 				/>
 			</Form.Item>
-			<Form.Item<RestaurantField> label="안내 사항" name="notice">
+			<Form.Item<RestaurantField>
+				label="안내 사항"
+				name="notice"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input.TextArea
 					autoSize={{
 						minRows: 4,
@@ -127,14 +198,30 @@ export default function RegisterForm() {
 				/>
 			</Form.Item>
 
-			<Form.Item label="사진" name="images">
+			<Form.Item
+				label="사진"
+				name="images"
+				rules={[
+					{
+						required: true,
+						message: '사진을 등록해주세요',
+					},
+				]}
+			>
 				<RegisterImages />
 			</Form.Item>
 
 			<Form.Item>
-				<Button type="primary" htmlType="submit" disabled={isLoading}>
-					등록하기
-				</Button>
+				<div className="mb-2 mt-6">
+					<Button
+						type="primary"
+						htmlType="submit"
+						disabled={isLoading}
+						className="w-full"
+					>
+						등록하기
+					</Button>
+				</div>
 			</Form.Item>
 		</Form>
 	);
