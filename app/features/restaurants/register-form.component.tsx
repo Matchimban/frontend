@@ -1,53 +1,71 @@
 'use client';
 
 import { Button, Form, Input } from 'antd';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { register } from '@/app/features/restaurants/_server-actions.ts';
 import { RestaurantField } from '@/app/features/restaurants/_types.ts';
+import { compressImage } from '@/app/features/restaurants/_utils.ts';
 import RegisterImages from '@/app/features/restaurants/register-image.component.tsx';
 
 export default function RegisterForm() {
 	const [form] = Form.useForm();
+	const [isLoading, setIsLoading] = useState(false);
+
+	const router = useRouter();
 
 	const handleSubmit = async (values: any) => {
-		console.log('values', values);
-
-		const formData = new FormData();
-
-		values?.images?.forEach((image: File | Blob, idx: number) => {
-			console.log('images: ', image);
-			// formData.append('images', image, `${values.name}-images-${idx}`);
-			formData.append('images', `${values.name}-images-${idx}`);
-		});
-
-		delete values.images;
-
-		const [addrSido, addrSigg, addrEmd, addrDetail] = values.address.split(' ');
-
-		formData.append(
-			'restaurant',
-			JSON.stringify({
-				...values,
-				addrSido: addrSido,
-				addrSigg: addrSigg || '',
-				addrEmd: addrEmd || '',
-				addrDetail: addrDetail || '',
-				latitude: 0,
-				longitude: 0,
-			}),
-		);
-
-		console.log(
-			'formData: ',
-			Object.fromEntries(formData.entries()),
-			formData.getAll('images'),
-		);
-
+		router.push('/');
+		return;
 		try {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const result = await register(formData);
+			setIsLoading(true);
+			const formData = new FormData();
+
+			// 이미지 압축 후 form-data에 추가
+			if (values.images) {
+				const compressedImages = await Promise.all(
+					values.images.map((image: File | Blob) =>
+						compressImage(image, {
+							quality: 0.5,
+						}),
+					),
+				);
+
+				compressedImages.forEach((compressedImage, idx) => {
+					formData.append(
+						'images',
+						compressedImage,
+						`${values.name}-${idx}.${compressedImage.type.split('/')[1]}`,
+					);
+				});
+			}
+
+			delete values.images; // 아래에서 values를 순회하여 바로 formData를 생성하기 때문에 formData.images가 오염되지 않도록 values에서 제거.
+
+			// 사용자 입력을 form-data에 추가
+			for (const key in values) {
+				formData.set(key, values[key]);
+			}
+
+			// 다른 필요한 값들은 직접 form-data에 추가
+			const [addrSido, addrSigg, addrEmd, addrDetail] =
+				values.address.split(' ');
+
+			formData.set('originCountry', '대한민국');
+			formData.set('addrSido', addrSido || '');
+			formData.set('addrSigg', addrSigg || '');
+			formData.set('addrEmd', addrEmd || '');
+			formData.set('addrDetail', addrDetail || '');
+
+			formData.set('latitude', '0');
+			formData.set('longitude', '0');
+
+			await register(formData);
 		} catch (error) {
-			console.log('register submit error: ', error);
+			console.error('Register Failed! ', error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 	return (
@@ -114,7 +132,7 @@ export default function RegisterForm() {
 			</Form.Item>
 
 			<Form.Item>
-				<Button type="primary" htmlType="submit">
+				<Button type="primary" htmlType="submit" disabled={isLoading}>
 					등록하기
 				</Button>
 			</Form.Item>
