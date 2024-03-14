@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Restaurant } from '@/app/features/restaurant/_types.ts';
+import type { Restaurant } from '@/app/features/restaurant/_types.ts';
 
 type Prop = {
 	restaurant: Restaurant | null;

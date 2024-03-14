@@ -1,4 +1,4 @@
-import type { NavLink } from '@/app/features/board/_types.ts';
+import type { NavLink } from '@/app/types/index.ts';
 import NavLinks from '@/app/ui/nav-links.component.tsx';
 
 type Props = {

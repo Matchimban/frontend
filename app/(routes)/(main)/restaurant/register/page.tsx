@@ -13,7 +13,7 @@ export default async function Page() {
 					</Link>
 				</div>
 
-				<div className="bg-orange-200 px-4 sm:px-8">
+				<div className="px-4 sm:px-8">
 					<RegisterForm />
 				</div>
 			</section>

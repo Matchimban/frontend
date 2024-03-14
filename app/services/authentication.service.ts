@@ -1,9 +1,9 @@
 import { baseUrl } from '@/app/constants/path.ts';
-import {
+import type {
 	AuthResult,
 	Credentials,
 } from '@/app/features/authentication/_types.ts';
-import { ResponseData } from '@/app/types/index.ts';
+import type { ResponseData } from '@/app/types/index.ts';
 
 export const postSignup = async (credentials: Credentials) => {
 	try {

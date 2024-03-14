@@ -1,24 +1,17 @@
 {
-	"extends": "../tsconfig.json",
+	// "extends": "../tsconfig.json",
 	"compilerOptions": {
 		"types": ["cypress", "@testing-library/cypress"],
 		"plugins": [
 			{
 				"name": "next"
 			}
-		],
-		"paths": {
-			"@/*": ["../*"]
-		}
+		]
 	},
 	"include": [
-		"../next-env.d.ts",
 		"**/*.ts",
-		"**/*.tsx",
-		".next/types/**/*.ts",
-		"../cypress.config.ts",
-		"../tsconfig.json",
-		"../package.json"
-	],
-	"exclude": ["node_modules"]
+		"../cypress.config.ts"
+		// "../package.json"
+	]
+	// "exclude": ["node_modules"]
 }

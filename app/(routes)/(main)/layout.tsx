@@ -1,4 +1,4 @@
-import { NavLink } from '@/app/features/board/_types';
+import { NavLink } from '@/app/types/index.ts';
 import Header from '@/app/ui/header.component.tsx';
 import NavBar from '@/app/ui/nav-bar.component.tsx';
 

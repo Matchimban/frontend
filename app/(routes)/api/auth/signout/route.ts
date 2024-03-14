@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
 
 import { deleteSignout } from '@/app/services/authentication.service.ts';
 import { signOut } from '@/auth.ts';
@@ -10,15 +9,10 @@ export async function GET() {
 
 	deleteSignout(token.value);
 
-	const logoutResponse = NextResponse.next();
-	logoutResponse.cookies.delete('accessToken');
-	logoutResponse.cookies.delete('refreshToken');
-	logoutResponse.cookies.delete('user');
-	logoutResponse.cookies.delete('expiration');
+	cookies().delete('accessToken');
+	cookies().delete('refreshToken');
+	cookies().delete('user');
+	cookies().delete('expiration');
 
-	await signOut({
-		redirect: false,
-	});
-
-	return logoutResponse;
+	await signOut();
 }

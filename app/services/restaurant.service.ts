@@ -1,7 +1,7 @@
 import { baseUrl } from '@/app/constants/path.ts';
-import { RestaurantPreview } from '@/app/features/restaurant/_types.ts';
-import { Restaurant } from '@/app/features/restaurant/_types.ts';
-import { ResponseData } from '@/app/types/index.ts';
+import type { RestaurantPreview } from '@/app/features/restaurant/_types.ts';
+import type { Restaurant } from '@/app/features/restaurant/_types.ts';
+import type { ResponseData } from '@/app/types/index.ts';
 
 export const getRestaurantPreviews = async () => {
 	try {

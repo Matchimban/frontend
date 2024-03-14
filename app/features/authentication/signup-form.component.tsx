@@ -1,6 +1,6 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 
-import { Mode } from '@/app/features/authentication/_types.ts';
+import type { Mode } from '@/app/features/authentication/_types.ts';
 
 type FieldType = {
 	name: string;

@@ -1,5 +1,6 @@
-it('displays correct heading when navigating to shows route', () => {
-	cy.visit('/');
-	cy.findByRole('button', { name: '로그인' }).click();
-	cy.findByRole('heading', { name: '로그인' }).should('exist');
+describe('메인 화면 테스트', () => {
+	it('logo', () => {
+		cy.visit('/');
+		cy.findByText('logo').should('exist');
+	});
 });

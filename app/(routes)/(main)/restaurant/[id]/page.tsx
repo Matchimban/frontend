@@ -1,11 +1,25 @@
 import RestaurantDetail from '@/app/features/restaurant/restaurant-detail.component.tsx';
-import { getRestaurant } from '@/app/services/restaurant.service.ts';
+import {
+	getRestaurant,
+	getRestaurantPreviews,
+} from '@/app/services/restaurant.service.ts';
 
 type Props = {
 	params: {
 		id: string;
 	};
 };
+
+export async function generateStaticParams() {
+	const { data, error } = await getRestaurantPreviews();
+
+	if (!data) throw error;
+
+	return data.map(restaurant => ({
+		id: restaurant.id.toString(),
+	}));
+}
+
 export default async function Page({ params }: Props) {
 	const { data: restaurant, error: restaurantError } = await getRestaurant(
 		params.id,

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { register } from '@/app/features/restaurant/_server-actions';
-import { RestaurantField } from '@/app/features/restaurant/_types';
+import type { RestaurantField } from '@/app/features/restaurant/_types';
 import { compressImage } from '@/app/features/restaurant/_utils';
 import RegisterImages from '@/app/features/restaurant/register-image.component';
 

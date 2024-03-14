@@ -1,11 +1,9 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { NavLink } from '@/app/features/board/_types.ts';
+import type { NavLink } from '@/app/types/index.ts';
 import NavLinks from '@/app/ui/nav-links.component.tsx';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const UserButton = dynamic(
 	() => import('@/app/features/authentication/user-button.componen.tsx'),
 	{
