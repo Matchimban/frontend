@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import RegisterForm from '@/app/features/restaurants/register-form.component.tsx';
+import RegisterForm from '@/app/features/restaurant/register-form.component';
 
 describe('매장 등록 폼 테스트', () => {
 	test('상호명, 전화번호, 사업자번호, 주소, 카테고리, 영업시간, 휴일, 소개, 안내사항, 사진 input & 등록하기 버튼 렌더링', async () => {

@@ -4,10 +4,10 @@ import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { register } from '@/app/features/restaurants/_server-actions.ts';
-import { RestaurantField } from '@/app/features/restaurants/_types.ts';
-import { compressImage } from '@/app/features/restaurants/_utils.ts';
-import RegisterImages from '@/app/features/restaurants/register-image.component.tsx';
+import { register } from '@/app/features/restaurant/_server-actions';
+import { RestaurantField } from '@/app/features/restaurant/_types';
+import { compressImage } from '@/app/features/restaurant/_utils';
+import RegisterImages from '@/app/features/restaurant/register-image.component';
 
 export default function RegisterForm() {
 	const [form] = Form.useForm();
@@ -15,21 +15,16 @@ export default function RegisterForm() {
 
 	const router = useRouter();
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleSubmit = async (values: any) => {
 		try {
-			router.push('/');
-			return;
 			setIsLoading(true);
 			const formData = new FormData();
 
 			// 이미지 압축 후 form-data에 추가
 			if (values.images) {
 				const compressedImages = await Promise.all(
-					values.images.map((image: File | Blob) =>
-						compressImage(image, {
-							quality: 0.5,
-						}),
-					),
+					values.images.map((image: File | Blob) => compressImage(image)),
 				);
 
 				compressedImages.forEach((compressedImage, idx) => {
@@ -61,7 +56,10 @@ export default function RegisterForm() {
 			formData.set('latitude', '0');
 			formData.set('longitude', '0');
 
-			await register(formData);
+			const { error } = await register(formData);
+			if (error) {
+				throw error;
+			}
 
 			router.push('/');
 		} catch (error) {

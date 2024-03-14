@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import type { NavLink } from '@/app/features/board/_types.ts';
+import { NavLink } from '@/app/types/index.ts';
 
 type Props = {
 	links: NavLink[];

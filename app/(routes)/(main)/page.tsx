@@ -1,12 +1,9 @@
-import { baseUrl } from '@/app/constants/path.ts';
-import { RestaurantPreview } from '@/app/features/board/_types.ts';
-import Contents from '@/app/features/board/contents.component.tsx';
-import { ResponseData } from '@/app/types/index.ts';
+import RestaurantPreviews from '@/app/features/restaurant/restaurant-preview.component.tsx';
+import { getRestaurantPreviews } from '@/app/services/restaurant.service.ts';
 
 export default async function Page() {
-	const res = await fetch(baseUrl + '/api/restaurants');
-	const data: ResponseData<RestaurantPreview[]> = await res.json();
-	const restaurants = data.result;
+	const { data: restaurantPreviews, error: restaurantPreviewsError } =
+		await getRestaurantPreviews();
 
 	return (
 		<div className="flex min-h-svh w-full max-w-3xl flex-col border-x">
@@ -15,9 +12,10 @@ export default async function Page() {
 					<span>전체 보기</span>
 				</div>
 
-				<ul className="flex flex-col divide-y p-2 sm:grid sm:grid-cols-3 sm:divide-none ">
-					<Contents restaurants={restaurants} />
-				</ul>
+				<RestaurantPreviews
+					restaurantPreviews={restaurantPreviews}
+					errorMessage={restaurantPreviewsError}
+				/>
 			</div>
 		</div>
 	);

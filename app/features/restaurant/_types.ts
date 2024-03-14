@@ -1,6 +1,8 @@
 import { GetProp, UploadProps } from 'antd';
 
-export type RestaurantField = {
+export type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+export interface RestaurantField {
 	category: string;
 	name: string;
 	businessNumber: string;
@@ -16,22 +18,21 @@ export type RestaurantField = {
 	businessHours: string;
 	closedDays: string;
 	notice: string;
-};
+}
 
-export type ImageField = {
+export interface ImageField {
 	category: string;
 	image: string;
-}[];
+}
+[];
 
 export type MenuField = { name: string; price: number; image: string }[];
 
-export type RegisterFields = {
+export interface RegisterFields {
 	restaurant: RestaurantField;
 	images: ImageField;
 	menus: MenuField;
-};
-
-export type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+}
 
 export interface Restaurant {
 	id: number;
@@ -56,4 +57,12 @@ export interface Address {
 	addrDetail: string;
 	latitude: number;
 	longitude: number;
+}
+
+export interface RestaurantPreview {
+	id: number;
+	name: string;
+	category: string;
+	addrSido: string;
+	imageUrl: string;
 }

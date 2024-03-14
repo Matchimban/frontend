@@ -1,14 +1,15 @@
 import NextAuth, { User } from 'next-auth';
 import credentials from 'next-auth/providers/credentials';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { PROTECTED_PATH, baseUrl } from '@/app/constants/path.ts';
+import { PROTECTED_PATH } from '@/app/constants/path.ts';
+import { Credentials } from '@/app/features/authentication/_types.ts';
 import {
-	AuthResponseData,
-	Credentials,
-} from '@/app/features/authentication/_types.ts';
+	postRefresh,
+	postSignin,
+	postSignup,
+} from '@/app/services/authentication.service.ts';
 
 export const {
 	handlers: { GET, POST },
@@ -35,6 +36,7 @@ export const {
 		// },
 		async authorized({ auth, request }) {
 			// if 'authorized' returns false: redirect to nextauth default login page.
+
 			const isAuthenticated = !!auth?.user;
 			console.log('Middleware execute: ', isAuthenticated, request.url);
 
@@ -54,38 +56,31 @@ export const {
 				// 토큰 만료시 자동 로그아웃
 				if (isExpired) {
 					return NextResponse.rewrite(
-						new URL('/api/auth/signout', request.nextUrl.origin),
+						new URL('/api' + '/auth/signout', request.nextUrl.origin),
 					);
 				}
 
 				// 토큰 만료 5분 전 갱신 요청
 				if (isNeedRefresh) {
 					try {
-						const accessToken = request.cookies.get('accessToken')!.value;
-						const refreshToken = request.cookies.get('refreshToken')!.value;
+						const accessToken = request.cookies.get('accessToken');
+						const refreshToken = request.cookies.get('refreshToken');
 
-						const response = await fetch(baseUrl + '/api/user/refresh', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-								Authorization: `Bearer ${accessToken}`,
-							},
-							body: JSON.stringify({
-								accessToken,
-								refreshToken,
-							}),
-						});
-						const data: AuthResponseData = await response.json();
+						if (!accessToken || !refreshToken)
+							throw '토큰이 존재하지 않습니다.';
 
-						if (!data.result) throw data?.msg ?? '';
+						const { data: refreshData, error: refreshError } =
+							await postRefresh(accessToken.value, refreshToken.value);
 
-						const refreshResponse = NextResponse.next();
+						if (!refreshData) throw refreshError;
 
 						const {
 							accessToken: newAccessToken,
 							refreshToken: newRefreshToken,
 							generatedTime,
-						} = data.result;
+						} = refreshData;
+
+						const refreshResponse = NextResponse.next();
 
 						request.cookies.set('accessToken', newAccessToken);
 						request.cookies.set('refreshToken', newRefreshToken);
@@ -117,7 +112,7 @@ export const {
 						// 나중에 에러 피드백 추가 할 것
 						// 갱신 실패시 로그아웃
 						return NextResponse.rewrite(
-							new URL('/api/auth/signout', request.nextUrl.origin),
+							new URL('/api' + '/auth/signout', request.nextUrl.origin),
 						);
 					}
 				}
@@ -129,125 +124,79 @@ export const {
 	providers: [
 		credentials({
 			async authorize(credentials) {
-				// console.log('credentials authorize: ', credentials);
+				// return null -> 'CredentialsSignin' type error
+				// throw ~ -> 'CallbackRouteError' type error
 
-				const { email, password, name, nickname } = credentials as Credentials;
+				// console.log('credentials authorize: ', credentials);
+				const { email, password, name, nickname } =
+					credentials as unknown as Credentials;
 
 				if (name) {
 					// 회원 가입 로직
-					try {
-						const response = await fetch(baseUrl + '/api/user/signup', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({
-								email,
-								password,
-								name,
-								nickname,
-								phone: '000-0000-0000',
-							}),
-							cache: 'no-store',
-						});
+					const { error: signUpError } = await postSignup({
+						email,
+						password,
+						name,
+						nickname,
+						phone: '000-0000-0000',
+					});
 
-						const data: AuthResponseData = await response.json();
-
-						if (!data.result) {
-							throw data?.msg ?? '';
-						}
-					} catch (error) {
+					if (signUpError) {
 						return null;
 					}
 				}
 
-				try {
-					// 로그인 로직
-					const response = await fetch(baseUrl + '/api/user/login', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({
-							email,
-							password,
-						}),
-						cache: 'no-store',
-					});
+				// 로그인 로직
+				const { data: signInResult, error: sigInError } = await postSignin({
+					email,
+					password,
+				});
 
-					const data: AuthResponseData = await response.json();
-
-					if (!data.result) {
-						// const error = new Error('Login Failed!');
-						// error.message = data.msg;
-						throw data?.msg ?? '';
-					}
-
-					const { accessToken, refreshToken, userInfo, generatedTime } =
-						data.result;
-
-					const { userId: id, nickname: name } = userInfo;
-
-					cookies().set({
-						name: 'accessToken',
-						value: accessToken,
-						httpOnly: true,
-						sameSite: 'lax',
-					});
-
-					cookies().set({
-						name: 'refreshToken',
-						value: refreshToken,
-						httpOnly: true,
-						sameSite: 'lax',
-					});
-
-					cookies().set({
-						name: 'expiration',
-						value: new Date(generatedTime).getTime() + '',
-						httpOnly: true,
-						sameSite: 'lax',
-					});
-
-					cookies().set({
-						name: 'user',
-						value: name,
-					});
-
-					const user: User = {
-						id: id + '',
-						name,
-						email,
-						image: '',
-					};
-
-					return user;
-				} catch (error) {
-					console.error('Invalid Credentials: ', error);
-
-					// return null -> 'CredentialsSignin' type error
-					// throw ~ -> 'CallbackRouteError' type error
+				if (!signInResult) {
+					console.error('Invalid Credentials: ', sigInError);
 					return null;
 				}
+
+				const { accessToken, refreshToken, userInfo, generatedTime } =
+					signInResult;
+
+				const { userId, nickname: userName } = userInfo;
+
+				cookies().set({
+					name: 'accessToken',
+					value: accessToken,
+					httpOnly: true,
+					sameSite: 'lax',
+				});
+
+				cookies().set({
+					name: 'refreshToken',
+					value: refreshToken,
+					httpOnly: true,
+					sameSite: 'lax',
+				});
+
+				cookies().set({
+					name: 'expiration',
+					value: new Date(generatedTime).getTime() + '',
+					httpOnly: true,
+					sameSite: 'lax',
+				});
+
+				cookies().set({
+					name: 'user',
+					value: userName,
+				});
+
+				const user: User = {
+					id: userId + '',
+					name,
+					email,
+					image: '',
+				};
+
+				return user;
 			},
 		}),
 	],
 });
-
-/*
-nextUrl:URL
-{
-  href: 'http://localhost:3000/main/restaurants/0',
-  origin: 'http://localhost:3000',
-  protocol: 'http:',
-  username: '',
-  password: '',
-  host: 'localhost:3000',
-  hostname: 'localhost',
-  port: '3000',
-  pathname: '/main/restaurants/0',
-  search: '',
-  searchParams: URLSearchParams {  },
-  hash: ''
-}
-*/

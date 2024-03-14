@@ -1,4 +1,4 @@
-import { signout } from '@/app/features/authentication/_actions.ts';
+import { signout } from '@/app/features/authentication/_server-actions';
 
 export default function LogoutButton() {
 	return (

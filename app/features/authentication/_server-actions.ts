@@ -3,7 +3,7 @@
 import { AuthError } from 'next-auth';
 import { cookies } from 'next/headers';
 
-import { baseUrl } from '@/app/constants/path.ts';
+import { deleteSignout } from '@/app/services/authentication.service.ts';
 import { signOut } from '@/auth.ts';
 import { signIn } from '@/auth.ts';
 
@@ -56,20 +56,7 @@ export const signout = async () => {
 
 	if (!token?.value) return;
 
-	try {
-		const response = await fetch(baseUrl + '/api/user/logout', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token.value}`,
-			},
-		});
-
-		const data = await response.json();
-		if (!response.ok) throw data;
-	} catch (error) {
-		console.error('Logout failed! ', error);
-	}
+	deleteSignout(token.value);
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');

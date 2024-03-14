@@ -1,4 +1,4 @@
-import RegisterForm from '@/app/features/restaurants/register-form.component';
+import RegisterForm from '@/app/features/restaurant/register-form.component';
 
 export default async function Page() {
 	return (

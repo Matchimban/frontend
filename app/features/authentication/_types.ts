@@ -2,16 +2,17 @@ export type UserName = string | undefined;
 
 export type Mode = 'signin' | 'signup';
 
-export type Credentials = {
+export interface Credentials {
 	email: string;
 	password: string;
 	name?: string;
 	nickname?: string;
+	phone?: string;
 	remember?: 'true' | 'false';
 	callbackUrl?: string;
-};
+}
 
-export type UserInfo = {
+export interface UserInfo {
 	userId: number;
 	email: string;
 	name: string;
@@ -19,15 +20,11 @@ export type UserInfo = {
 	phone: string;
 	role: string;
 	status: string;
-};
+}
 
-export type AuthResponseData = {
-	code: number;
-	msg: string;
-	result: null | {
-		accessToken: string;
-		refreshToken: string;
-		generatedTime: string;
-		userInfo: UserInfo;
-	};
-};
+export interface AuthResult {
+	accessToken: string;
+	refreshToken: string;
+	generatedTime: string;
+	userInfo: UserInfo;
+}
