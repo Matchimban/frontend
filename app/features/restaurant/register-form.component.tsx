@@ -81,14 +81,12 @@ export default function RegisterForm() {
 			labelCol={{ span: 6 }}
 			wrapperCol={{ span: 18 }}
 			onFinish={handleSubmit}
-			autoComplete="off"
-		>
+			autoComplete="off">
 			<Form.Item<RestaurantField>
 				label="상호명"
 				name="name"
 				// style={{ marginBottom: '10px' }}
-				rules={[{ required: true, message: '' }]}
-			>
+				rules={[{ required: true, message: '' }]}>
 				<Input />
 			</Form.Item>
 
@@ -100,8 +98,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input />
 			</Form.Item>
 
@@ -114,8 +111,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input />
 			</Form.Item>
 
@@ -127,8 +123,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input />
 			</Form.Item>
 
@@ -140,8 +135,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				{/* <Input /> */}
 				<Select>
 					<Select.Option value="KOREA">한식</Select.Option>
@@ -156,8 +150,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input />
 			</Form.Item>
 			<Form.Item<RestaurantField>
@@ -168,8 +161,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input />
 			</Form.Item>
 			<Form.Item<RestaurantField>
@@ -180,8 +172,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input.TextArea
 					autoSize={{
 						minRows: 4,
@@ -196,8 +187,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '',
 					},
-				]}
-			>
+				]}>
 				<Input.TextArea
 					autoSize={{
 						minRows: 4,
@@ -213,8 +203,7 @@ export default function RegisterForm() {
 						required: true,
 						message: '사진을 등록해주세요',
 					},
-				]}
-			>
+				]}>
 				<RegisterImages />
 			</Form.Item>
 
@@ -227,8 +216,7 @@ export default function RegisterForm() {
 					type="primary"
 					htmlType="submit"
 					disabled={isLoading}
-					className="w-full"
-				>
+					className="w-full">
 					등록하기
 				</Button>
 			</div>

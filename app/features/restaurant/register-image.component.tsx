@@ -77,8 +77,7 @@ export default function RegisterImages() {
 					// This function will be executed before upload.
 					// If false returned, uploading will be stopped.
 					return false;
-				}}
-			>
+				}}>
 				{fileList.length <= 2 && <UploadButton />}
 			</Upload>
 
@@ -86,8 +85,7 @@ export default function RegisterImages() {
 				open={previewOpen}
 				title={previewTitle}
 				footer={null}
-				onCancel={handleCancel}
-			>
+				onCancel={handleCancel}>
 				<img alt="preview-image" src={previewImage} className="w-full" />
 			</Modal>
 		</>

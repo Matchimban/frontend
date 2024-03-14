@@ -19,8 +19,7 @@ export default function RestaurantPreviews({
 						<li key={restaurant.id} className="sm:w-48 ">
 							<Link
 								href={`/restaurant/${restaurant.id}`}
-								className="m-2 flex w-full space-x-3 sm:flex-col sm:space-x-0"
-							>
+								className="m-2 flex w-full space-x-3 sm:flex-col sm:space-x-0">
 								<div className="relative h-32 w-32 flex-initial overflow-hidden rounded-xl sm:h-48 sm:w-48">
 									<Image
 										src={
