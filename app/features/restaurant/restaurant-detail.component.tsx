@@ -8,7 +8,7 @@ type Prop = {
 };
 export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 	return (
-		<section className="flex flex-col space-y-4">
+		<>
 			{restaurant && (
 				<>
 					{/* <div className="relative h-[40vh] w-screen overflow-hidden sm:max-w-[420px]">
@@ -35,15 +35,48 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 						/>
 					</div>
 
-					<div className="flex flex-col space-y-1 px-4 sm:px-0">
-						<h2 className="text-xl font-semibold">{restaurant.name}</h2>
-						<h4>{restaurant.category}</h4>
-						<h4>{restaurant.address.addrSido}</h4>
+					<div className="flex flex-col space-y-2 divide-y px-4 sm:px-0">
+						<div className="flex flex-col space-y-1 ">
+							<h2 className="text-xl font-semibold">{restaurant.name}</h2>
+							<h4>한식</h4>
+							<h4>{restaurant.address.addrSido}</h4>
+						</div>
+
+						<div className="flex flex-col space-y-2 py-2 text-xs">
+							<div>
+								<span>주소 : </span>
+
+								<span>{restaurant.address.addrSido} </span>
+								<span>{restaurant.address.addrSigg} </span>
+								<span>{restaurant.address.addrEmd} </span>
+								<span>{restaurant.address.addrDetail} </span>
+							</div>
+							{/* <div>
+							<span>카테고리 : </span>
+							<span>{restaurant.category}</span>
+						</div> */}
+							<div>
+								<span>전화번호 : </span>
+								<span>{restaurant.telephone}</span>
+							</div>
+							<div>
+								<span>소개 : </span>
+								<p>{restaurant.introduction}</p>
+							</div>
+							<div>
+								<span>안내 : </span>
+								<p>{restaurant.notice}</p>
+							</div>
+							{/* <div>
+							<span>영업 시간 : </span>
+							<span>{restaurant.businessHours}</span>
+						</div> */}
+						</div>
 					</div>
 				</>
 			)}
 
 			{errorMessage && <p>{errorMessage}</p>}
-		</section>
+		</>
 	);
 }

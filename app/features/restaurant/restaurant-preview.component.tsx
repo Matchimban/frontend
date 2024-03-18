@@ -39,12 +39,10 @@ export default function RestaurantPreviews({
 										<h2 className="text-lg">{restaurant.name}</h2>
 										<span>{restaurant.category}</span>
 										<span>{restaurant.addrSido}</span>
-										<span>5.0</span>
+										{/* <span>5.0</span> */}
 									</div>
 
-									<div className="flex-initial">
-										<span>메뉴</span>
-									</div>
+									<div className="flex-initial">{/* <span>메뉴</span> */}</div>
 								</div>
 							</Link>
 						</li>
