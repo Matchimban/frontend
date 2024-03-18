@@ -1,5 +1,8 @@
 import { baseUrl } from '@/app/constants/path.ts';
-import type { RestaurantPreview } from '@/app/features/restaurant/_types.ts';
+import type {
+	RegisterResponse,
+	RestaurantPreview,
+} from '@/app/features/restaurant/_types.ts';
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
 import type { ResponseData } from '@/app/types/index.ts';
 
@@ -76,11 +79,10 @@ export const postRestaurant = async (
 			},
 			body: formdata,
 		});
-		const data: ResponseData<null> = await res.json();
+		const data: ResponseData<RegisterResponse[] | null> = await res.json();
 
-		// console.log('data:', data);
-		if (!data.result && data.msg) {
-			throw data.msg;
+		if (data.result) {
+			throw data.result[0].msg;
 		}
 
 		return {

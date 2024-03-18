@@ -25,7 +25,7 @@ export const register = async (formdata: FormData) => {
 
 	// 주소 입력 유효성 검사 오류 있음
 
-	revalidatePath('/');
+	revalidatePath('/'); // 홈 라우트를 dynamic rendering 전환시 삭제.
 
 	return {
 		error: null,

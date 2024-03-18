@@ -34,6 +34,13 @@ export interface RegisterFields {
 	menus: MenuField;
 }
 
+export interface RegisterResponse {
+	field: string;
+	msg: string;
+	invalidValue: string;
+	kind: string;
+}
+
 export interface Restaurant {
 	id: number;
 	userId: number;

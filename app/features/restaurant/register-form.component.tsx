@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -12,6 +12,7 @@ import RegisterImages from '@/app/features/restaurant/register-image.component';
 export default function RegisterForm() {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const router = useRouter();
 
@@ -19,6 +20,7 @@ export default function RegisterForm() {
 	const handleSubmit = async (values: any) => {
 		try {
 			setIsLoading(true);
+			setErrorMessage('');
 			const formData = new FormData();
 
 			// 이미지 압축 후 form-data에 추가
@@ -63,6 +65,10 @@ export default function RegisterForm() {
 
 			router.push('/');
 		} catch (error) {
+			if (typeof error === 'string') {
+				setErrorMessage(error);
+			}
+
 			console.error('Register Failed! ', error);
 		} finally {
 			setIsLoading(false);
@@ -127,7 +133,7 @@ export default function RegisterForm() {
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
-				label="카테고리"
+				label="분류"
 				name="category"
 				rules={[
 					{
@@ -136,7 +142,10 @@ export default function RegisterForm() {
 					},
 				]}
 			>
-				<Input />
+				{/* <Input /> */}
+				<Select>
+					<Select.Option value="KOREA">한식</Select.Option>
+				</Select>
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
@@ -208,6 +217,10 @@ export default function RegisterForm() {
 			>
 				<RegisterImages />
 			</Form.Item>
+
+			<div>
+				{errorMessage && <p className="text-red-500">*{errorMessage}</p>}
+			</div>
 
 			<Form.Item>
 				<div className="mb-2 mt-6">
