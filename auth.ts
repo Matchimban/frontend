@@ -38,7 +38,7 @@ export const {
 			// if 'authorized' returns false: redirect to nextauth default login page.
 
 			const isAuthenticated = !!auth?.user;
-			console.log('Middleware execute: ', isAuthenticated, request.url);
+			// console.log('Middleware execute: ', auth, isAuthenticated, request.url);
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -142,7 +142,7 @@ export const {
 					});
 
 					if (signUpError) {
-						return null;
+						throw signUpError;
 					}
 				}
 
@@ -190,7 +190,7 @@ export const {
 
 				const user: User = {
 					id: userId + '',
-					name,
+					name: userName,
 					email,
 					image: '',
 				};

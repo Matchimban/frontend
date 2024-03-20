@@ -23,16 +23,16 @@ export const signin = async (formdata: FormData) => {
 			// CredentialsSignin 혹은 CallbackRouteError에 관한 로그에 대해 신경쓰지 말 것.
 			// https://authjs.dev/reference/core/errors/#credentialssignin
 
-			const { type, cause } = error;
+			const { type } = error;
 			switch (type) {
 				case 'CredentialsSignin':
 					return {
 						error: '입력하신 정보가 잘못 되었습니다.',
 					};
 				case 'CallbackRouteError':
-					console.error('CallbackRouteError', cause?.err?.toString());
+					// console.error('CallbackRouteError', cause?.err?.toString());
 					return {
-						error: null,
+						error: error.message.split(' .')[0],
 					};
 			}
 		}
