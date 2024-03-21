@@ -1,0 +1,17 @@
+{
+	// "extends": "../tsconfig.json",
+	"compilerOptions": {
+		"types": ["cypress", "@testing-library/cypress"],
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
+	},
+	"include": [
+		"**/*.ts",
+		"../cypress.config.ts"
+		// "../package.json"
+	]
+	// "exclude": ["node_modules"]
+}
