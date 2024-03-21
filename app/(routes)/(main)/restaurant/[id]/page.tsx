@@ -26,22 +26,30 @@ export default async function Page({ params }: Props) {
 	);
 
 	return (
-		<div className="0 flex h-dvh w-full max-w-3xl justify-center">
-			<div className="flex max-w-2xl flex-col space-y-4 divide-y-8 overflow-x-hidden sm:mt-4 sm:items-center sm:divide-y-0 ">
-				<section className="flex flex-col space-y-4 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
+		<div className="flex max-w-3xl justify-center">
+			<div className="mb-4 flex max-w-2xl flex-col space-y-4 divide-y-8 overflow-x-hidden sm:mt-4 sm:items-center sm:divide-y-0">
+				<section className="flex w-full flex-col space-y-4 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
 					{restaurant && (
 						<RestaurantDetail
 							restaurant={restaurant}
 							errorMessage={restaurantError}
 						/>
 					)}
+					<div>
+						<span className="float-end px-2">수정하기</span>
+					</div>
 				</section>
 
-				<section className="flex w-full flex-col space-y-2 p-4 sm:rounded-lg sm:border sm:bg-slate-50">
-					<h3 className="text-md font-semibold">메뉴</h3>
+				<section className="flex w-full flex-col space-y-2 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
+					<div className="p-4 sm:p-0">
+						<h3 className="text-md font-semibold">메뉴</h3>
+						<div>
+							<span>없음</span>
+						</div>
+					</div>
 
 					<div>
-						<span>없음</span>
+						<span className="float-end px-2">수정하기</span>
 					</div>
 				</section>
 			</div>
