@@ -103,9 +103,8 @@ export default function RegisterForm() {
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
-				label="전화 번호"
-				name="telephone"
-				// style={{ marginBottom: '10px' }}
+				label="사업자 번호"
+				name="businessNumber"
 				rules={[
 					{
 						required: true,
