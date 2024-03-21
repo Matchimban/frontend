@@ -29,9 +29,10 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 								'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D'
 							}
 							alt="restaurant image"
-							width={700}
-							height={500}
-							sizes="400px"
+							width={600}
+							height={400}
+							// sizes="400px"
+							sizes="(max-width: 640px) 100vw, 400px"
 						/>
 					</div>
 
