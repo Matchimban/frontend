@@ -78,8 +78,8 @@ export default function RegisterForm() {
 		<Form
 			form={form}
 			colon={false}
-			labelCol={{ span: 4 }}
-			wrapperCol={{ span: 20 }}
+			labelCol={{ span: 6 }}
+			wrapperCol={{ span: 18 }}
 			onFinish={handleSubmit}
 			autoComplete="off"
 		>
@@ -93,9 +93,8 @@ export default function RegisterForm() {
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
-				label="전화 번호"
-				name="telephone"
-				// style={{ marginBottom: '10px' }}
+				label="사업자 번호"
+				name="businessNumber"
 				rules={[
 					{
 						required: true,
@@ -107,8 +106,9 @@ export default function RegisterForm() {
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
-				label="사업자 번호"
-				name="businessNumber"
+				label="전화 번호"
+				name="telephone"
+				// style={{ marginBottom: '10px' }}
 				rules={[
 					{
 						required: true,
@@ -222,18 +222,16 @@ export default function RegisterForm() {
 				{errorMessage && <p className="text-red-500">*{errorMessage}</p>}
 			</div>
 
-			<Form.Item>
-				<div className="mb-2 mt-6">
-					<Button
-						type="primary"
-						htmlType="submit"
-						disabled={isLoading}
-						className="w-full"
-					>
-						등록하기
-					</Button>
-				</div>
-			</Form.Item>
+			<div className="py-4">
+				<Button
+					type="primary"
+					htmlType="submit"
+					disabled={isLoading}
+					className="w-full"
+				>
+					등록하기
+				</Button>
+			</div>
 		</Form>
 	);
 }
