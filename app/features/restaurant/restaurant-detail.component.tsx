@@ -33,6 +33,7 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 							height={400}
 							// sizes="400px"
 							sizes="(max-width: 640px) 100vw, 400px"
+							priority
 						/>
 					</div>
 

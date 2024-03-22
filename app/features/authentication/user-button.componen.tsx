@@ -17,7 +17,7 @@ const items: MenuProps['items'] = [
 	},
 	{
 		key: '2',
-		label: <Link href={'/register'}>매장등록</Link>,
+		label: <Link href={'/restaurant/register'}>매장등록</Link>,
 	},
 ];
 

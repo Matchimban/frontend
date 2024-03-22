@@ -26,13 +26,15 @@ export const {
 		// 	console.log('redirect ______ : ', params);
 		// 	return '/';
 		// },
-		// async session(params) {
-		// 	console.log('session ______ : ', params);
-		// 	return params.session;
-		// },
+		async session({ session, token }) {
+			if (token.sub) {
+				session.user.id = token.sub;
+			}
+			return session;
+		},
 		// async jwt(params) {
 		// 	console.log('jwt ______ : ', params);
-		// 	return param.token;
+		// 	return params.token;
 		// },
 		async authorized({ auth, request }) {
 			// if 'authorized' returns false: redirect to nextauth default login page.

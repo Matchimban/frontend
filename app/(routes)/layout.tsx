@@ -1,6 +1,7 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata } from 'next';
 
+import NextAuthProvider from '@/app/(routes)/nextauth-provider.tsx';
 import RecoilProvider from '@/app/(routes)/recoil-provider.tsx';
 
 import './globals.css';
@@ -19,7 +20,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body>
 				<RecoilProvider>
-					<AntdRegistry>{children}</AntdRegistry>
+					<NextAuthProvider>
+						<AntdRegistry>{children}</AntdRegistry>
+					</NextAuthProvider>
 				</RecoilProvider>
 			</body>
 		</html>

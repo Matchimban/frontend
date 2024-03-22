@@ -1,4 +1,4 @@
-import RegisterForm from '@/app/features/restaurant/register-form.component';
+import RestaurantRegister from '@/app/features/restaurant/restaurant-register.component.tsx';
 
 export default async function Page() {
 	return (
@@ -9,7 +9,7 @@ export default async function Page() {
 				</div>
 
 				<div className="my-4 px-6 sm:px-10">
-					<RegisterForm />
+					<RestaurantRegister />
 				</div>
 			</section>
 		</div>

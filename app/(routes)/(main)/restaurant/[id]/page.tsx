@@ -1,3 +1,6 @@
+import Link from 'next/link';
+
+import EditButton from '@/app/features/restaurant/edit-button.component.tsx';
 import RestaurantDetail from '@/app/features/restaurant/restaurant-detail.component.tsx';
 import {
 	getRestaurant,
@@ -36,7 +39,18 @@ export default async function Page({ params }: Props) {
 						/>
 					)}
 					<div>
-						<span className="float-end px-2">수정하기</span>
+						<EditButton />
+						<Link
+							href={{
+								pathname: 'edit',
+								query: {
+									id: params.id,
+								},
+							}}
+							className="float-end px-2"
+						>
+							수정하기
+						</Link>
 					</div>
 				</section>
 
