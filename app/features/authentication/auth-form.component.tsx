@@ -1,16 +1,13 @@
 import { Alert } from 'antd';
 import { Mode } from 'fs';
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 
-import { RC_userName } from '@/app/features/authentication/_atoms.ts';
 import { signin } from '@/app/features/authentication/_server-actions';
-import { getCookie } from '@/app/features/authentication/_utils.ts';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function AuthForm() {
-	const setUserName = useSetRecoilState(RC_userName);
 	const [mode, setMode] = useState<Mode>('signin');
 	const [errorMessage, setErrorMessage] = useState('');
 
@@ -27,8 +24,7 @@ export default function AuthForm() {
 			return;
 		}
 
-		const userName = getCookie('user');
-		setUserName(userName);
+		window.location.reload();
 	};
 
 	return (

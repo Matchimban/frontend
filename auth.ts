@@ -40,7 +40,6 @@ export const {
 			// if 'authorized' returns false: redirect to nextauth default login page.
 
 			const isAuthenticated = !!auth?.user;
-			// console.log('Middleware execute: ', auth, isAuthenticated, request.url);
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -185,10 +184,11 @@ export const {
 					sameSite: 'lax',
 				});
 
-				cookies().set({
-					name: 'user',
-					value: userName,
-				});
+				// nextauth/useSession으로 클라이언트에서 유저 데이터 사용
+				// cookies().set({
+				// 	name: 'user',
+				// 	value: userName,
+				// });
 
 				const user: User = {
 					id: userId + '',
