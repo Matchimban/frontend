@@ -34,9 +34,11 @@ export const getRestaurantPreviews = async () => {
 	}
 };
 
-export const getRestaurant = async (id: number | string) => {
+export const getRestaurant = async (restaurantId: number | string) => {
 	try {
-		const res = await fetch(baseUrl + '/api' + '/restaurants' + `/${id}`);
+		const res = await fetch(
+			baseUrl + '/api' + '/restaurants' + `/${restaurantId}`,
+		);
 		const data: ResponseData<Restaurant> = await res.json();
 
 		if (!data.result && data.msg) {

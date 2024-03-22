@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 import EditButton from '@/app/features/restaurant/edit-button.component.tsx';
 import RestaurantDetail from '@/app/features/restaurant/restaurant-detail.component.tsx';
@@ -28,6 +28,8 @@ export default async function Page({ params }: Props) {
 		params.id,
 	);
 
+	if (!restaurant) notFound();
+
 	return (
 		<div className="flex max-w-3xl justify-center">
 			<div className="mb-4 flex max-w-2xl flex-col space-y-4 divide-y-8 overflow-x-hidden sm:mt-4 sm:items-center sm:divide-y-0">
@@ -38,19 +40,12 @@ export default async function Page({ params }: Props) {
 							errorMessage={restaurantError}
 						/>
 					)}
-					<div>
-						<EditButton />
-						<Link
-							href={{
-								pathname: 'edit',
-								query: {
-									id: params.id,
-								},
-							}}
-							className="float-end px-2"
-						>
-							수정하기
-						</Link>
+
+					<div className="flex justify-end px-2">
+						<EditButton
+							userId={restaurant.userId}
+							restaurantId={restaurant.id}
+						/>
 					</div>
 				</section>
 
@@ -63,7 +58,7 @@ export default async function Page({ params }: Props) {
 					</div>
 
 					<div>
-						<span className="float-end px-2">수정하기</span>
+						{/* <span className="flex justify-end px-2">수정하기</span> */}
 					</div>
 				</section>
 			</div>

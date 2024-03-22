@@ -5,14 +5,14 @@ import { getRestaurant } from '@/app/services/restaurant.service.ts';
 
 type Props = {
 	searchParams: {
-		id: string;
+		id: string; //restaurantId
 	};
 };
 
 export default async function Page({ searchParams }: Props) {
 	const { data: restaurant } = await getRestaurant(searchParams.id);
 
-	if (!restaurant) return notFound();
+	if (!restaurant) notFound();
 
 	return (
 		<div className="flex min-h-svh w-full max-w-xl justify-center ">
