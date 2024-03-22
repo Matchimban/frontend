@@ -37,6 +37,8 @@ export const {
 		// 	return params.token;
 		// },
 		async authorized({ auth, request }) {
+			// >>>> middleware <<<<
+
 			// if 'authorized' returns false: redirect to nextauth default login page.
 
 			const isAuthenticated = !!auth?.user;
