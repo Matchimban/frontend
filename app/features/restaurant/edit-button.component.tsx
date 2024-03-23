@@ -1,7 +1,9 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
+
+import { RC_user } from '@/app/features/authentication/_atoms.ts';
 
 type Props = {
 	userId: number | string;
@@ -9,11 +11,11 @@ type Props = {
 };
 
 export default function EditButton({ userId, restaurantId }: Props) {
-	const { data: userSession } = useSession();
+	const user = useRecoilValue(RC_user);
 
-	if (!userSession?.user?.id) return null;
+	if (!user?.id) return null;
 
-	if (userSession.user.id !== String(userId)) return null;
+	if (user.id !== String(userId)) return null;
 
 	// 유저 id가 일치할 떄만 수정하기 버튼 렌더링
 	return (

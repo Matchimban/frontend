@@ -16,6 +16,7 @@ export const signin = async (formdata: FormData) => {
 		// 	redirect: false,
 		// });
 
+		// 이 return은 실행되지 않음.
 		return {
 			error: null,
 		};
@@ -63,7 +64,6 @@ export const signout = async () => {
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');
-	cookies().delete('user');
 	cookies().delete('expiration');
 
 	await signOut();

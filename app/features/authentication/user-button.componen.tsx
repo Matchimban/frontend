@@ -3,7 +3,10 @@
 import { Button, Dropdown, MenuProps } from 'antd';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useLayoutEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 
+import { RC_user } from '@/app/features/authentication/_atoms.ts';
 import LoginButton from '@/app/features/authentication/login-button.component.tsx';
 import LogoutButton from '@/app/features/authentication/logout-button.component.tsx';
 
@@ -20,12 +23,12 @@ const items: MenuProps['items'] = [
 
 export default function UserButton() {
 	const { data: userSession, status } = useSession();
-	// const [userName, setUserName] = useRecoilState(RC_userName);
+	const setUser = useSetRecoilState(RC_user);
 
-	// useLayoutEffect(() => {
-	// 	const userName = getCookie('user');
-	// 	setUserName(userName);
-	// }, []);
+	useLayoutEffect(() => {
+		setUser(userSession?.user);
+	}, [userSession]);
+
 	if (status === 'loading') return null;
 
 	if (status === 'unauthenticated') return <LoginButton />;

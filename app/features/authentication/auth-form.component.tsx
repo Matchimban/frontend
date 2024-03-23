@@ -1,7 +1,10 @@
 import { Alert } from 'antd';
 import { Mode } from 'fs';
+import { getSession } from 'next-auth/react';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
+import { RC_user } from '@/app/features/authentication/_atoms.ts';
 import { signin } from '@/app/features/authentication/_server-actions';
 import SignInForm from '@/app/features/authentication/signin-form.component.tsx';
 import SignUpForm from '@/app/features/authentication/signup-form.component.tsx';
@@ -10,6 +13,8 @@ import SignUpForm from '@/app/features/authentication/signup-form.component.tsx'
 export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
 	const [errorMessage, setErrorMessage] = useState('');
+
+	const setUser = useSetRecoilState(RC_user);
 
 	const handleModeChange = (mode: Mode) => {
 		setMode(mode);
@@ -24,7 +29,8 @@ export default function AuthForm() {
 			return;
 		}
 
-		window.location.reload();
+		const session = await getSession();
+		setUser(session?.user);
 	};
 
 	return (

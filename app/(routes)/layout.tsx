@@ -19,11 +19,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<RecoilProvider>
-					<NextAuthProvider>
+				<NextAuthProvider>
+					<RecoilProvider>
 						<AntdRegistry>{children}</AntdRegistry>
-					</NextAuthProvider>
-				</RecoilProvider>
+					</RecoilProvider>
+				</NextAuthProvider>
 			</body>
 		</html>
 	);

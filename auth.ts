@@ -38,10 +38,10 @@ export const {
 		// },
 		async authorized({ auth, request }) {
 			// >>>> middleware <<<<
-
 			// if 'authorized' returns false: redirect to nextauth default login page.
 
-			const isAuthenticated = !!auth?.user;
+			const accessTokenCookie = request.cookies.get('accessToken');
+			const isAuthenticated = !!auth?.user && accessTokenCookie;
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -51,8 +51,7 @@ export const {
 			}
 
 			if (isAuthenticated) {
-				const tokenLifeTime =
-					Date.now() - Number(request.cookies.get('expiration')!.value); // 로그인은 됐는데 토큰이 없을 경우?
+				const tokenLifeTime = Date.now() - Number(accessTokenCookie.value);
 				const isExpired = tokenLifeTime > 59 * 60 * 1000;
 				const isNeedRefresh = !isExpired && tokenLifeTime > 50 * 60 * 1000;
 
