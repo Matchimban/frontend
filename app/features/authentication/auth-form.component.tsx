@@ -13,6 +13,7 @@ import SignUpForm from '@/app/features/authentication/signup-form.component.tsx'
 export default function AuthForm() {
 	const [mode, setMode] = useState<Mode>('signin');
 	const [errorMessage, setErrorMessage] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const setUser = useSetRecoilState(RC_user);
 
@@ -22,15 +23,23 @@ export default function AuthForm() {
 	};
 
 	const handleSubmit = async (formdata: FormData) => {
-		const { error } = await signin(formdata);
+		try {
+			setIsLoading(true);
 
-		if (error) {
-			setErrorMessage(error);
-			return;
+			const { error } = await signin(formdata);
+			if (error) {
+				throw error;
+			}
+
+			const session = await getSession();
+			setUser(session?.user);
+		} catch (error) {
+			if (typeof error === 'string') {
+				setErrorMessage(error);
+			}
+		} finally {
+			setIsLoading(false);
 		}
-
-		const session = await getSession();
-		setUser(session?.user);
 	};
 
 	return (
@@ -56,10 +65,18 @@ export default function AuthForm() {
 			</div>
 
 			{mode === 'signin' && (
-				<SignInForm onModeChange={handleModeChange} onSubmit={handleSubmit} />
+				<SignInForm
+					onModeChange={handleModeChange}
+					onSubmit={handleSubmit}
+					disabled={isLoading}
+				/>
 			)}
 			{mode === 'signup' && (
-				<SignUpForm onModeChange={handleModeChange} onSubmit={handleSubmit} />
+				<SignUpForm
+					onModeChange={handleModeChange}
+					onSubmit={handleSubmit}
+					disabled={isLoading}
+				/>
 			)}
 
 			{/* <Divider plain style={{ color: 'black' }}>

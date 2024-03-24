@@ -13,9 +13,14 @@ type FieldType = {
 type Props = {
 	onModeChange: (mode: Mode) => void;
 	onSubmit: (formdata: FormData) => Promise<void>;
+	disabled?: boolean;
 };
 
-export default function SignUpForm({ onModeChange, onSubmit }: Props) {
+export default function SignUpForm({
+	onModeChange,
+	onSubmit,
+	disabled,
+}: Props) {
 	const handleButtonClick = () => {
 		onModeChange('signin');
 	};
@@ -24,25 +29,31 @@ export default function SignUpForm({ onModeChange, onSubmit }: Props) {
 			name="signup"
 			onFinish={onSubmit}
 			initialValues={{ remember: true }}
-			autoComplete="off">
+			autoComplete="off"
+			disabled={disabled}
+		>
 			<Form.Item<FieldType>
 				name="name"
-				rules={[{ required: true, message: '이름을 입력해주세요' }]}>
+				rules={[{ required: true, message: '이름을 입력해주세요' }]}
+			>
 				<Input placeholder="Name" />
 			</Form.Item>
 			<Form.Item<FieldType>
 				name="nickname"
-				rules={[{ required: true, message: '닉네임을 입력해주세요' }]}>
+				rules={[{ required: true, message: '닉네임을 입력해주세요' }]}
+			>
 				<Input placeholder="Nick Name" />
 			</Form.Item>
 			<Form.Item<FieldType>
 				name="email"
-				rules={[{ required: true, message: '이메일을 입력해주세요' }]}>
+				rules={[{ required: true, message: '이메일을 입력해주세요' }]}
+			>
 				<Input placeholder="Email" />
 			</Form.Item>
 			<Form.Item<FieldType>
 				name="password"
-				rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}>
+				rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}
+			>
 				<Input.Password placeholder="Password" />
 			</Form.Item>
 			<Form.Item>
@@ -52,7 +63,8 @@ export default function SignUpForm({ onModeChange, onSubmit }: Props) {
 
 				<span
 					className="float-right hover:cursor-pointer hover:text-blue-600"
-					onClick={handleButtonClick}>
+					onClick={handleButtonClick}
+				>
 					로그인하기
 				</span>
 			</Form.Item>

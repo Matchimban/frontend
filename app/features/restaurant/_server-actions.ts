@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import {
 	patchRestaurant,
@@ -29,10 +30,7 @@ export const register = async (formdata: FormData) => {
 	// 주소 입력 유효성 검사 오류 있음
 
 	revalidatePath('/'); // 홈 라우트를 dynamic rendering 전환시 삭제.
-
-	return {
-		error: null,
-	};
+	redirect('/');
 };
 
 export const edit = async (
@@ -61,7 +59,5 @@ export const edit = async (
 	}
 
 	revalidatePath(`/restaurant/${restaurantId}`);
-	return {
-		error: null,
-	};
+	redirect(`/restaurant/${restaurantId}`);
 };

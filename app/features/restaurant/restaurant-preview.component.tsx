@@ -19,7 +19,8 @@ export default function RestaurantPreviews({
 						<li key={restaurant.id} className="sm:w-48 ">
 							<Link
 								href={`/restaurant/${restaurant.id}`}
-								className="m-2 flex w-full space-x-3 sm:flex-col sm:space-x-0">
+								className="m-2 flex w-full space-x-3 sm:flex-col sm:space-x-0"
+							>
 								<div className="relative h-32 w-32 flex-initial overflow-hidden rounded-xl sm:h-48 sm:w-48">
 									<Image
 										src={
@@ -34,9 +35,14 @@ export default function RestaurantPreviews({
 								</div>
 
 								<div className="flex flex-auto justify-between">
-									<div className="flex flex-col space-y-1 text-sm sm:space-y-0">
+									<div className="flex flex-col space-y-1 py-1 text-sm sm:space-y-0 sm:px-1 sm:py-0">
 										<h2 className="text-lg">{restaurant.name}</h2>
-										{/* <span>{restaurant.category}</span> */}
+										<span className="text-xs">
+											{restaurant.category === 'KOREA' && '한식'}
+										</span>
+
+										<span className="text-xs">{restaurant.addrSido}</span>
+
 										{/* <span>{restaurant.addrSido}</span> */}
 										{/* <span>5.0</span> */}
 									</div>

@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 
 import { edit } from '@/app/features/restaurant/_server-actions.ts';
@@ -12,7 +11,6 @@ type Props = {
 };
 
 export default function RestaurantEdit({ restaurant }: Props) {
-	const router = useRouter();
 	const initialValues = useMemo(
 		() => ({
 			...restaurant,
@@ -25,11 +23,10 @@ export default function RestaurantEdit({ restaurant }: Props) {
 		const newValues = { ...restaurant, ...restaurant.address, ...values };
 
 		const { error } = await edit(restaurant.id, newValues);
+
 		if (error) {
 			throw error;
 		}
-
-		router.back();
 	};
 
 	return <RegisterForm onSubmit={handleEdit} initialValues={initialValues} />;
