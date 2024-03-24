@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import {
 	patchRestaurant,
@@ -61,7 +62,5 @@ export const edit = async (
 	}
 
 	revalidatePath(`/restaurant/${restaurantId}`);
-	return {
-		error: null,
-	};
+	redirect(`/restaurant/${restaurantId}`);
 };
