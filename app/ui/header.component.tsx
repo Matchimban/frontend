@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import type { NavLink } from '@/app/types/index.ts';
+import Logo from '@/app/ui/logo.component.tsx';
 
 const UserButton = dynamic(
 	() => import('@/app/features/authentication/user-button.componen.tsx'),
@@ -18,11 +19,16 @@ type Props = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Header({ navLinks }: Props) {
 	return (
-		<header className="sticky top-0 z-10 flex h-11 justify-center border-b border-stone-200 bg-[#fff] md:text-base">
+		<header className="sticky top-0 z-10 flex h-12 justify-center border-b border-stone-200 bg-[#fff] md:text-base">
 			<div className="flex h-full w-full max-w-[1024px] items-center justify-between space-x-4 px-4">
-				<Link href={'/'} className="flex flex-initial space-x-2">
-					<h1>logo</h1>
-					<span className="hidden lg:block">맛침반</span>
+				<Link href={'/'} className="flex flex-initial items-center space-x-1">
+					<div className="w-10 sm:w-11">
+						<Logo />
+					</div>
+
+					<div>
+						<span className="hidden sm:block">맛침반</span>
+					</div>
 				</Link>
 
 				<div className="flex max-w-[640px] flex-auto justify-center space-x-4">

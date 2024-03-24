@@ -1,4 +1,10 @@
+import { type Metadata } from 'next';
+
 import RestaurantRegister from '@/app/features/restaurant/restaurant-register.component.tsx';
+
+export const metadata: Metadata = {
+	title: '매장 등록하기',
+};
 
 export default async function Page() {
 	return (

@@ -1,3 +1,4 @@
+import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import RestaurantEdit from '@/app/features/restaurant/restaurant-edit.component.tsx';
@@ -7,6 +8,10 @@ type Props = {
 	searchParams: {
 		id: string; //restaurantId
 	};
+};
+
+export const metadata: Metadata = {
+	title: '매장 정보 수정하기',
 };
 
 export default async function Page({ searchParams }: Props) {

@@ -1,3 +1,4 @@
+import type { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import EditButton from '@/app/features/restaurant/edit-button.component.tsx';
@@ -21,6 +22,36 @@ export async function generateStaticParams() {
 	return data.map(restaurant => ({
 		id: restaurant.id.toString(),
 	}));
+}
+
+export async function generateMetadata(
+	{ params }: Props,
+	parent: ResolvingMetadata,
+): Promise<Metadata> {
+	// read route params
+	const { id } = params;
+	const { keywords } = await parent;
+
+	const { data } = await getRestaurant(id);
+
+	if (!data)
+		return {
+			title: {
+				absolute: '맛침반',
+			},
+		};
+
+	return {
+		title: data.name,
+		description: data.introduction,
+		keywords: [
+			...(keywords || []),
+			data.address.addrSido,
+			data.address.addrSigg,
+			data.address.addrEmd,
+			'한식',
+		],
+	};
 }
 
 export default async function Page({ params }: Props) {
