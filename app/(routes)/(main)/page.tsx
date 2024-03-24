@@ -1,6 +1,8 @@
 import RestaurantPreviews from '@/app/features/restaurant/restaurant-preview.component.tsx';
 import { getRestaurantPreviews } from '@/app/services/restaurant.service.ts';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
 	const { data: restaurantPreviews, error: restaurantPreviewsError } =
 		await getRestaurantPreviews();

@@ -29,8 +29,10 @@ export const metadata: Metadata = {
 		title: '맛침반 - 나만의 맛집을 찾아주는 나침반',
 		description:
 			'맛침반을 통해 나만의 새로운 맛집을 발견하고, 사랑하는 사람에게 맛있는 식사 한 끼를 제공해보세요.',
-		url: 'https://matchimban.vercel.app',
+		url: '/',
 		siteName: 'Matchimban',
+		type: 'website',
+		locale: 'ko_KR',
 	},
 };
 

@@ -12,9 +12,14 @@ type FieldType = {
 type Props = {
 	onModeChange: (mode: Mode) => void;
 	onSubmit: (formdata: FormData) => Promise<void>;
+	disabled?: boolean;
 };
 
-export default function SignInForm({ onModeChange, onSubmit }: Props) {
+export default function SignInForm({
+	onModeChange,
+	onSubmit,
+	disabled,
+}: Props) {
 	const handleButtonClick = () => {
 		onModeChange('signup');
 	};
@@ -25,6 +30,7 @@ export default function SignInForm({ onModeChange, onSubmit }: Props) {
 			onFinish={onSubmit}
 			initialValues={{ remember: true }}
 			autoComplete="off"
+			disabled={disabled}
 		>
 			<Form.Item<FieldType>
 				name="email"
