@@ -1,14 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { register } from '@/app/features/restaurant/_server-actions';
 import { compressImage } from '@/app/features/restaurant/_utils';
 import RegisterForm from '@/app/features/restaurant/register-form.component.tsx';
 
 export default function RestaurantRegister() {
-	const router = useRouter();
-
 	const handleRegister = async (values: any) => {
 		const formData = new FormData();
 
@@ -50,8 +46,6 @@ export default function RestaurantRegister() {
 		if (error) {
 			throw error;
 		}
-
-		router.push('/');
 	};
 
 	return <RegisterForm onSubmit={handleRegister} />;
