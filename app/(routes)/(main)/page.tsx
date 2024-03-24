@@ -7,6 +7,8 @@ import '@/mocks/msw/index.ts';
 
 export const dynamic = 'force-dynamic';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { data, error: restaurantPreviewsError } =
