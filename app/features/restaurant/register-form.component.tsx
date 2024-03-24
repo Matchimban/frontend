@@ -110,7 +110,6 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 				]}>
 				<Input />
 			</Form.Item>
-
 			<Form.Item<RestaurantField>
 				label="휴일"
 				name="closedDays"
@@ -122,7 +121,6 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 				]}>
 				<Input />
 			</Form.Item>
-
 			<Form.Item<RestaurantField>
 				label="소개"
 				name="introduction"
@@ -138,7 +136,6 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 					}}
 				/>
 			</Form.Item>
-
 			<Form.Item<RestaurantField>
 				label="안내 사항"
 				name="notice"
