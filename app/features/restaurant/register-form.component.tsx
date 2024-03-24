@@ -39,37 +39,16 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 			labelCol={{ span: 6 }}
 			wrapperCol={{ span: 18 }}
 			onFinish={handleSubmit}
-			autoComplete="off">
+			autoComplete="off"
+			initialValues={initialValues}
+		>
 			<Form.Item<RestaurantField>
 				label="상호명"
 				name="name"
 				// style={{ marginBottom: '10px' }}
-				rules={[{ required: true, message: '' }]}>
-				<Input />
-			</Form.Item>
-
-			<Form.Item<RestaurantField>
-				label="사업자 번호"
-				name="businessNumber"
-				rules={[
-					{
-						required: true,
-						message: '',
-					},
-				]}>
-				<Input />
-			</Form.Item>
-
-			<Form.Item<RestaurantField>
-				label="사업자 번호"
-				name="businessNumber"
-				rules={[
-					{
-						required: true,
-						message: '',
-					},
-				]}>
-				<Input />
+				rules={[{ required: true, message: '' }]}
+			>
+				<Input disabled={!!initialValues} />
 			</Form.Item>
 
 			<Form.Item
@@ -80,7 +59,35 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: true,
 						message: '',
 					},
-				]}>
+				]}
+			>
+				<Input disabled={!!initialValues} />
+			</Form.Item>
+
+			<Form.Item<RestaurantField>
+				label="사업자 번호"
+				name="businessNumber"
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
+				<Input disabled={!!initialValues} />
+			</Form.Item>
+
+			<Form.Item<RestaurantField>
+				label="전화 번호"
+				name="telephone"
+				// style={{ marginBottom: '10px' }}
+				rules={[
+					{
+						required: true,
+						message: '',
+					},
+				]}
+			>
 				<Input />
 			</Form.Item>
 
@@ -92,8 +99,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: true,
 						message: '',
 					},
-				]}>
-				{/* <Input /> */}
+				]}
+			>
 				<Select>
 					<Select.Option value="KOREA">한식</Select.Option>
 				</Select>
@@ -107,7 +114,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: true,
 						message: '',
 					},
-				]}>
+				]}
+			>
 				<Input />
 			</Form.Item>
 			<Form.Item<RestaurantField>
@@ -118,7 +126,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: true,
 						message: '',
 					},
-				]}>
+				]}
+			>
 				<Input />
 			</Form.Item>
 			<Form.Item<RestaurantField>
@@ -129,7 +138,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: true,
 						message: '',
 					},
-				]}>
+				]}
+			>
 				<Input.TextArea
 					autoSize={{
 						minRows: 4,
@@ -144,7 +154,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: true,
 						message: '',
 					},
-				]}>
+				]}
+			>
 				<Input.TextArea
 					autoSize={{
 						minRows: 4,
@@ -160,8 +171,9 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 						required: !initialValues,
 						message: '사진을 등록해주세요',
 					},
-				]}>
-				<RegisterImages />
+				]}
+			>
+				<RegisterImages disabled={!!initialValues} />
 			</Form.Item>
 
 			<div>
@@ -173,8 +185,10 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 					type="primary"
 					htmlType="submit"
 					disabled={isLoading}
-					className="w-full">
-					등록하기
+					className="w-full"
+				>
+					{!initialValues && '등록하기'}
+					{initialValues && '수정하기'}
 				</Button>
 			</div>
 		</Form>

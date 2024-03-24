@@ -78,15 +78,17 @@ export default function RegisterImages({ disabled }: { disabled?: boolean }) {
 					// This function will be executed before upload.
 					// If false returned, uploading will be stopped.
 					return false;
-				}}>
-				{fileList.length <= 2 && <UploadButton />}
+				}}
+			>
+				{fileList.length <= 2 && <UploadButton disabled={disabled} />}
 			</Upload>
 
 			<Modal
 				open={previewOpen}
 				title={previewTitle}
 				footer={null}
-				onCancel={handleCancel}>
+				onCancel={handleCancel}
+			>
 				<img alt="preview-image" src={previewImage} className="w-full" />
 			</Modal>
 		</>

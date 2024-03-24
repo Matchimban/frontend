@@ -52,13 +52,6 @@ export const {
 					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
-			// Protecting routes
-			if (!isAuthenticated) {
-				const { pathname } = request.nextUrl;
-				if (PROTECTED_PATH.includes(pathname))
-					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
-			}
-
 			if (isAuthenticated) {
 				const tokenLifeTime = Date.now() - Number(expirationToken.value);
 				const isExpired = tokenLifeTime > 59 * 60 * 1000;
