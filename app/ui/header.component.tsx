@@ -21,13 +21,17 @@ export default function Header({ navLinks }: Props) {
 	return (
 		<header className="sticky top-0 z-10 flex h-12 justify-center border-b border-stone-200 bg-[#fff] md:text-base">
 			<div className="flex h-full w-full max-w-[1024px] items-center justify-between space-x-4 px-4">
-				<Link href={'/'} className="flex flex-initial items-center space-x-1">
+				<Link
+					href={'/'}
+					className="flex flex-initial items-center sm:space-x-1"
+				>
 					<div className="w-10 sm:w-11">
 						<Logo />
 					</div>
 
 					<div>
-						<span className="hidden sm:block">맛침반</span>
+						{/* <span className="hidden tracking-widest sm:block">맛침반</span> */}
+						<span className="tracking-widest">맛침반</span>
 					</div>
 				</Link>
 

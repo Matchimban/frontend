@@ -22,8 +22,7 @@ export const metadata: Metadata = {
 		'검색',
 		'맛집 찾기',
 		'맛집 검색',
-		'예약',
-		'리뷰',
+		'맛집 예약',
 	],
 	metadataBase: new URL('https://matchimban.vercel.app'),
 	openGraph: {

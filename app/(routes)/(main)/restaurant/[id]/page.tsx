@@ -41,9 +41,15 @@ export async function generateMetadata(
 			},
 		};
 
+	// 소개 글 길이 조정
+	const introduction =
+		data.introduction.length > 100
+			? data.introduction.substring(0, 100).split('\n').join(' ') + '...'
+			: data.introduction;
+
 	return {
 		title: data.name,
-		description: data.introduction,
+		description: introduction,
 		keywords: [
 			...(keywords || []),
 			data.address.addrSido,
@@ -51,6 +57,14 @@ export async function generateMetadata(
 			data.address.addrEmd,
 			'한식',
 		],
+		openGraph: {
+			title: data.name + ' - ' + '맛침반',
+			description: introduction,
+			url: 'https://matchimban.vercel.app',
+			siteName: 'Matchimban',
+			images:
+				'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D',
+		},
 	};
 }
 

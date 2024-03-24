@@ -41,7 +41,9 @@ export const {
 			// if 'authorized' returns false: redirect to nextauth default login page.
 
 			const accessTokenCookie = request.cookies.get('accessToken');
-			const isAuthenticated = !!auth?.user && accessTokenCookie;
+			const expirationToken = request.cookies.get('expiration');
+			const isAuthenticated =
+				!!auth?.user && accessTokenCookie && expirationToken;
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -51,7 +53,7 @@ export const {
 			}
 
 			if (isAuthenticated) {
-				const tokenLifeTime = Date.now() - Number(accessTokenCookie.value);
+				const tokenLifeTime = Date.now() - Number(expirationToken.value);
 				const isExpired = tokenLifeTime > 59 * 60 * 1000;
 				const isNeedRefresh = !isExpired && tokenLifeTime > 50 * 60 * 1000;
 
