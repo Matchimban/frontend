@@ -1,6 +1,7 @@
 'use server';
 
 import { AuthError } from 'next-auth';
+import { isRedirectError } from 'next/dist/client/components/redirect';
 import { cookies } from 'next/headers';
 
 import { deleteSignout } from '@/app/services/authentication.service.ts';
@@ -9,11 +10,13 @@ import { signIn } from '@/auth.ts';
 
 export const signin = async (formdata: FormData) => {
 	try {
-		await signIn('credentials', {
-			...formdata,
-			redirect: false,
-		});
+		await signIn('credentials', formdata);
+		// await signIn('credentials', {
+		// 	...formdata,
+		// 	redirect: false,
+		// });
 
+		// 이 return은 실행되지 않음.
 		return {
 			error: null,
 		};
@@ -37,12 +40,13 @@ export const signin = async (formdata: FormData) => {
 			}
 		}
 
-		// if (isRedirectError(error)) {
-		// 	console.error('SignIn redirect error!');
-		//  return{
-		// 	error: null,
-		// };
-		// }
+		if (isRedirectError(error)) {
+			// signIn 성공 시 발생하는 NEXT_REDIRECT 에러를 처리
+			console.error('NEXT_REDIRECT Error occurs while login.');
+			return {
+				error: null,
+			};
+		}
 
 		return {
 			error: '알 수 없는 오류가 발생하였습니다.',
@@ -60,7 +64,6 @@ export const signout = async () => {
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');
-	cookies().delete('user');
 	cookies().delete('expiration');
 
 	await signOut();

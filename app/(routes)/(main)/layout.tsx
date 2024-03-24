@@ -1,6 +1,7 @@
 import { NavLink } from '@/app/types/index.ts';
 import Header from '@/app/ui/header.component.tsx';
-import NavBar from '@/app/ui/nav-bar.component.tsx';
+
+// import NavBar from '@/app/ui/nav-bar.component.tsx';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
 	const navLinks: NavLink[] = [
@@ -16,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 			<main className="flex justify-center ">{children}</main>
 
-			<NavBar navLinks={navLinks} />
+			{/* <NavBar navLinks={navLinks} /> */}
 		</div>
 	);
 };

@@ -36,8 +36,8 @@ export default function RestaurantPreviews({
 								<div className="flex flex-auto justify-between">
 									<div className="flex flex-col space-y-1 text-sm sm:space-y-0">
 										<h2 className="text-lg">{restaurant.name}</h2>
-										<span>{restaurant.category}</span>
-										<span>{restaurant.addrSido}</span>
+										{/* <span>{restaurant.category}</span> */}
+										{/* <span>{restaurant.addrSido}</span> */}
 										{/* <span>5.0</span> */}
 									</div>
 

@@ -1,12 +1,12 @@
 'use client';
 
 import { Button, Dropdown, MenuProps } from 'antd';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useLayoutEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
-import { RC_userName } from '@/app/features/authentication/_atoms.ts';
-import { getCookie } from '@/app/features/authentication/_utils.ts';
+import { RC_user } from '@/app/features/authentication/_atoms.ts';
 import LoginButton from '@/app/features/authentication/login-button.component.tsx';
 import LogoutButton from '@/app/features/authentication/logout-button.component.tsx';
 
@@ -17,23 +17,25 @@ const items: MenuProps['items'] = [
 	},
 	{
 		key: '2',
-		label: <Link href={'/register'}>매장등록</Link>,
+		label: <Link href={'/restaurant/register'}>매장등록</Link>,
 	},
 ];
 
 export default function UserButton() {
-	const [userName, setUserName] = useRecoilState(RC_userName);
+	const { data: userSession, status } = useSession();
+	const setUser = useSetRecoilState(RC_user);
 
 	useLayoutEffect(() => {
-		const userName = getCookie('user');
-		setUserName(userName);
-	}, []);
+		setUser(userSession?.user);
+	}, [userSession]);
 
-	if (!userName) return <LoginButton />;
+	if (status === 'loading') return null;
+
+	if (status === 'unauthenticated') return <LoginButton />;
 
 	return (
 		<Dropdown menu={{ items }}>
-			<Button>{userName}</Button>
+			<Button>{userSession?.user?.name}</Button>
 		</Dropdown>
 	);
 }

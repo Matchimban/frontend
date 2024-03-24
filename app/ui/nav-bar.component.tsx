@@ -5,6 +5,7 @@ type Props = {
 	navLinks: NavLink[];
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function NavBar({ navLinks }: Props) {
 	return (
 		<div className="sticky bottom-0 h-11 border-t border-stone-100 bg-[#fff] sm:hidden">

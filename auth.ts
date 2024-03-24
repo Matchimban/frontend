@@ -26,19 +26,24 @@ export const {
 		// 	console.log('redirect ______ : ', params);
 		// 	return '/';
 		// },
-		// async session(params) {
-		// 	console.log('session ______ : ', params);
-		// 	return params.session;
-		// },
+		async session({ session, token }) {
+			if (token.sub) {
+				session.user.id = token.sub;
+			}
+			return session;
+		},
 		// async jwt(params) {
 		// 	console.log('jwt ______ : ', params);
-		// 	return param.token;
+		// 	return params.token;
 		// },
 		async authorized({ auth, request }) {
+			// >>>> middleware <<<<
 			// if 'authorized' returns false: redirect to nextauth default login page.
 
-			const isAuthenticated = !!auth?.user;
-			// console.log('Middleware execute: ', auth, isAuthenticated, request.url);
+			const accessTokenCookie = request.cookies.get('accessToken');
+			const expirationToken = request.cookies.get('expiration');
+			const isAuthenticated =
+				!!auth?.user && accessTokenCookie && expirationToken;
 
 			// Protecting routes
 			if (!isAuthenticated) {
@@ -55,8 +60,7 @@ export const {
 			}
 
 			if (isAuthenticated) {
-				const tokenLifeTime =
-					Date.now() - Number(request.cookies.get('expiration')!.value); // 로그인은 됐는데 토큰이 없을 경우?
+				const tokenLifeTime = Date.now() - Number(expirationToken.value);
 				const isExpired = tokenLifeTime > 59 * 60 * 1000;
 				const isNeedRefresh = !isExpired && tokenLifeTime > 50 * 60 * 1000;
 
@@ -190,10 +194,11 @@ export const {
 					sameSite: 'lax',
 				});
 
-				cookies().set({
-					name: 'user',
-					value: userName,
-				});
+				// nextauth/useSession으로 클라이언트에서 유저 데이터 사용
+				// cookies().set({
+				// 	name: 'user',
+				// 	value: userName,
+				// });
 
 				const user: User = {
 					id: userId + '',

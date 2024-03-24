@@ -1,4 +1,10 @@
-import RegisterForm from '@/app/features/restaurant/register-form.component';
+import { type Metadata } from 'next';
+
+import RestaurantRegister from '@/app/features/restaurant/restaurant-register.component.tsx';
+
+export const metadata: Metadata = {
+	title: '매장 등록하기',
+};
 
 export default async function Page() {
 	return (
@@ -9,7 +15,7 @@ export default async function Page() {
 				</div>
 
 				<div className="my-4 px-6 sm:px-10">
-					<RegisterForm />
+					<RestaurantRegister />
 				</div>
 			</section>
 		</div>

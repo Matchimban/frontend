@@ -34,9 +34,11 @@ export const getRestaurantPreviews = async () => {
 	}
 };
 
-export const getRestaurant = async (id: number | string) => {
+export const getRestaurant = async (restaurantId: number | string) => {
 	try {
-		const res = await fetch(baseUrl + '/api' + '/restaurants' + `/${id}`);
+		const res = await fetch(
+			baseUrl + '/api' + '/restaurants' + `/${restaurantId}`,
+		);
 		const data: ResponseData<Restaurant> = await res.json();
 
 		if (!data.result && data.msg) {
@@ -83,6 +85,53 @@ export const postRestaurant = async (
 
 		if (data.result) {
 			throw data.result[0].msg;
+		}
+
+		return {
+			data: null,
+			error: null,
+		};
+	} catch (error) {
+		if (typeof error === 'string') {
+			return {
+				data: null,
+				error,
+			};
+		}
+
+		console.error('postRestaurant: ', error);
+		return {
+			data: null,
+			error: '알 수 없는 오류가 발생하였습니다.',
+		};
+	}
+};
+
+export const patchRestaurant = async ({
+	value,
+	accessToken,
+	restaurantId,
+}: {
+	value: any;
+	accessToken: string;
+	restaurantId: string | number;
+}) => {
+	try {
+		const res = await fetch(
+			baseUrl + '/api' + '/restaurants' + `/${restaurantId}`,
+			{
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${accessToken}`,
+				},
+				body: JSON.stringify(value),
+			},
+		);
+		const data: ResponseData<RegisterResponse[] | null> = await res.json();
+
+		if (data.msg) {
+			throw data.msg;
 		}
 
 		return {
