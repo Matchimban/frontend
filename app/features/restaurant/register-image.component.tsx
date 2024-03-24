@@ -7,7 +7,7 @@ import { useState } from 'react';
 import type { FileType } from '@/app/features/restaurant/_types';
 import { getBase64 } from '@/app/features/restaurant/_utils';
 
-export default function RegisterImages() {
+export default function RegisterImages({ disabled }: { disabled?: boolean }) {
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
 
 	const [previewOpen, setPreviewOpen] = useState(false);
@@ -72,6 +72,7 @@ export default function RegisterImages() {
 				fileList={fileList}
 				onPreview={handlePreview}
 				onChange={handleChange}
+				disabled={disabled}
 				beforeUpload={() => {
 					// Antd's Upload component is doing the upload files under the hood.
 					// This function will be executed before upload.
@@ -79,7 +80,7 @@ export default function RegisterImages() {
 					return false;
 				}}
 			>
-				{fileList.length <= 2 && <UploadButton />}
+				{fileList.length <= 2 && <UploadButton disabled={disabled} />}
 			</Upload>
 
 			<Modal
@@ -94,9 +95,9 @@ export default function RegisterImages() {
 	);
 }
 
-function UploadButton() {
+function UploadButton({ disabled }: { disabled?: boolean }) {
 	return (
-		<button className="border-0 bg-none" type="button">
+		<button className="border-0 bg-none" type="button" disabled={disabled}>
 			<PlusOutlined />
 			{/* <div className="mt-1">Upload</div> */}
 		</button>

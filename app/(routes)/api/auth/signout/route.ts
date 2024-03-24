@@ -11,7 +11,6 @@ export async function GET() {
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');
-	cookies().delete('user');
 	cookies().delete('expiration');
 
 	await signOut();

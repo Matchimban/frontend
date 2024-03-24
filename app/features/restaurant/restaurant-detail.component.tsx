@@ -29,17 +29,18 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 								'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D'
 							}
 							alt="restaurant image"
-							width={700}
-							height={500}
-							sizes="400px"
+							width={600}
+							height={400}
+							// sizes="400px"
+							sizes="(max-width: 640px) 100vw, 400px"
+							priority
 						/>
 					</div>
 
 					<div className="flex flex-col space-y-2 divide-y px-4 sm:px-0">
 						<div className="flex flex-col space-y-1 ">
 							<h2 className="text-xl font-semibold">{restaurant.name}</h2>
-							<h4>한식</h4>
-							<h4>{restaurant.address.addrSido}</h4>
+							<h4>{restaurant.category === 'KOREA' && '한식'}</h4>
 						</div>
 
 						<div className="flex flex-col space-y-2 py-2 text-xs">
@@ -51,26 +52,30 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 								<span>{restaurant.address.addrEmd} </span>
 								<span>{restaurant.address.addrDetail} </span>
 							</div>
-							{/* <div>
-							<span>카테고리 : </span>
-							<span>{restaurant.category}</span>
-						</div> */}
+
 							<div>
-								<span>전화번호 : </span>
+								<span>전화 번호 : </span>
 								<span>{restaurant.telephone}</span>
 							</div>
+
+							<div>
+								<span>영업 시간 : </span>
+								<span>{restaurant.businessHours}</span>
+							</div>
+						</div>
+
+						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
 							<div>
 								<span>소개 : </span>
-								<p>{restaurant.introduction}</p>
+								<p className="p-1 leading-5">{restaurant.introduction}</p>
 							</div>
+						</div>
+
+						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
 							<div>
 								<span>안내 : </span>
-								<p>{restaurant.notice}</p>
+								<p className="p-1 leading-5">{restaurant.notice}</p>
 							</div>
-							{/* <div>
-							<span>영업 시간 : </span>
-							<span>{restaurant.businessHours}</span>
-						</div> */}
 						</div>
 					</div>
 				</>
