@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { RestaurantPreview } from '@/app/features/restaurant/_types.ts';
 
 type Props = {
-	restaurantPreviews: RestaurantPreview[] | null;
+	restaurantPreviews: RestaurantPreview[] | null | undefined;
 	errorMessage: string | null;
 };
 export default function RestaurantPreviews({

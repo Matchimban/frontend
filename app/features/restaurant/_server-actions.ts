@@ -82,10 +82,7 @@ export const createMenu = async (
 		accessToken: token.value,
 	});
 
-	// 주소 입력 유효성 검사 오류 있음
-
 	revalidatePath(`/restaurant/${restaurantId}`);
-	// redirect(`/restaurant/${id}`);
 
 	return {
 		error,

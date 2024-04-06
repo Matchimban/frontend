@@ -24,18 +24,16 @@ export default function RestaurantMenus({
 							sizes="128px"
 						/>
 					</div>
-					<div className="flex flex-col px-1 font-semibold">
-						<span>{restaurantMenu.name}</span>
-						<span>{restaurantMenu.price}원</span>
 
-						{/* <span>{restaurantMenu.imageUrl[0].savedFileUrl}</span>
-					<span>{restaurantMenu.imageUrl[0].imageId}</span> */}
+					<div className="flex flex-col px-1 font-semibold">
+						<span className="text-sm">{restaurantMenu.name}</span>
+						<span>{restaurantMenu.price}원</span>
 					</div>
 				</li>
 			))}
 
 			{errorMessage && <span>{errorMessage}</span>}
-			{restaurantMenus?.length === 0 && <span>없음</span>}
+			{restaurantMenus?.length === 0 && <span>메뉴 준비중...</span>}
 		</ul>
 	);
 }
