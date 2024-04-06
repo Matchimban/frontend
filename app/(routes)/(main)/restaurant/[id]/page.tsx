@@ -90,6 +90,7 @@ export default async function Page({ params }: Props) {
 
 					<div className="flex justify-end px-2">
 						<EditButton
+							type="edit"
 							userId={restaurant.userId}
 							restaurantId={restaurant.id}
 						/>
@@ -105,7 +106,13 @@ export default async function Page({ params }: Props) {
 					</div>
 
 					<div>
-						{/* <span className="flex justify-end px-2">수정하기</span> */}
+						<div className="flex justify-end px-2">
+							<EditButton
+								type="menu"
+								userId={restaurant.userId}
+								restaurantId={restaurant.id}
+							/>
+						</div>
 					</div>
 				</section>
 			</div>
