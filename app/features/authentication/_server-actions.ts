@@ -56,11 +56,7 @@ export const signin = async (formdata: FormData) => {
 
 export const signout = async () => {
 	const token = cookies().get('accessToken');
-	// const refresh = cookies().get('refreshToken');
-
-	if (!token?.value) return;
-
-	deleteSignout(token.value);
+	if (token?.value) deleteSignout(token.value);
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');

@@ -11,7 +11,11 @@ export default function RestaurantRegister() {
 		// 이미지 압축 후 form-data에 추가
 		if (values.images) {
 			const compressedImages = await Promise.all(
-				values.images.map((image: File | Blob) => compressImage(image)),
+				values.images.map((image: File | Blob) =>
+					compressImage(image, {
+						maxWidth: 800,
+					}),
+				),
 			);
 
 			compressedImages.forEach((compressedImage, idx) => {

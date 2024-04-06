@@ -6,11 +6,12 @@ import { useRecoilValue } from 'recoil';
 import { RC_user } from '@/app/features/authentication/_atoms.ts';
 
 type Props = {
+	type: 'edit' | 'menu';
 	userId: number | string;
 	restaurantId: number | string;
 };
 
-export default function EditButton({ userId, restaurantId }: Props) {
+export default function EditButton({ userId, restaurantId, type }: Props) {
 	const user = useRecoilValue(RC_user);
 
 	if (!user?.id) return null;
@@ -21,7 +22,7 @@ export default function EditButton({ userId, restaurantId }: Props) {
 	return (
 		<Link
 			href={{
-				pathname: 'edit',
+				pathname: type,
 				query: {
 					id: restaurantId,
 				},

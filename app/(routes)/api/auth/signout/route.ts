@@ -5,9 +5,7 @@ import { signOut } from '@/auth.ts';
 
 export async function GET() {
 	const token = cookies().get('accessToken');
-	if (!token?.value) return;
-
-	deleteSignout(token.value);
+	if (token?.value) deleteSignout(token.value);
 
 	cookies().delete('accessToken');
 	cookies().delete('refreshToken');

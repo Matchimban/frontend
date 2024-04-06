@@ -73,3 +73,10 @@ export interface RestaurantPreview {
 	addrSido: string;
 	imageUrl: string;
 }
+
+export interface RestaurantMenu {
+	id: number;
+	name: string;
+	price: number;
+	imageUrl: Array<{ imageId: number; savedFileUrl: string }>;
+}
