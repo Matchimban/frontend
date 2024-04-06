@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 import {
 	patchRestaurant,
-	postMenu,
+	postRestaurantMenu,
 	postRestaurant,
 } from '@/app/services/restaurant.service';
 
@@ -63,7 +63,10 @@ export const edit = async (
 	redirect(`/restaurant/${restaurantId}`);
 };
 
-export const createMenu = async (id: number | string, formdata: FormData) => {
+export const createMenu = async (
+	restaurantId: number | string,
+	formdata: FormData,
+) => {
 	const token = cookies().get('accessToken');
 
 	// 쿠키 검증
@@ -73,11 +76,15 @@ export const createMenu = async (id: number | string, formdata: FormData) => {
 		};
 	}
 
-	const { error } = await postMenu({ id, formdata, accessToken: token.value });
+	const { error } = await postRestaurantMenu({
+		restaurantId,
+		formdata,
+		accessToken: token.value,
+	});
 
 	// 주소 입력 유효성 검사 오류 있음
 
-	revalidatePath(`/restaurant/${id}`);
+	revalidatePath(`/restaurant/${restaurantId}`);
 	// redirect(`/restaurant/${id}`);
 
 	return {

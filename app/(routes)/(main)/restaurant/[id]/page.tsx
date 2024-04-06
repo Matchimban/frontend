@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 
 import EditButton from '@/app/features/restaurant/edit-button.component.tsx';
 import RestaurantDetail from '@/app/features/restaurant/restaurant-detail.component.tsx';
+import RestaurantMenus from '@/app/features/restaurant/restaurant-menu-detail.component.tsx';
 import {
+	getRestaurantMenus,
 	getRestaurant,
 	getRestaurantPreviews,
 } from '@/app/services/restaurant.service.ts';
@@ -71,9 +73,16 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: Props) {
-	const { data: restaurant, error: restaurantError } = await getRestaurant(
-		params.id,
-	);
+	const { id } = params;
+
+	const [
+		{ data: restaurant, error: restaurantError },
+		{ data: restaurantMenus, error: restaurantMenusError },
+	] = await Promise.all([getRestaurant(id), getRestaurantMenus(id)]);
+
+	// const { data: restaurant, error: restaurantError } = await getRestaurant(id);
+	// const { data: restaurantMenus, error: restaurantMenusError } =
+	// 	await getRestaurantMenus(id);
 
 	if (!restaurant) notFound();
 
@@ -99,9 +108,12 @@ export default async function Page({ params }: Props) {
 
 				<section className="flex w-full flex-col space-y-2 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
 					<div className="p-4 sm:p-0">
-						<h3 className="text-md font-semibold">메뉴</h3>
+						<h3 className="mb-4 text-lg font-semibold">메뉴</h3>
 						<div>
-							<span>없음</span>
+							<RestaurantMenus
+								restaurantMenus={restaurantMenus}
+								errorMessage={restaurantMenusError}
+							/>
 						</div>
 					</div>
 

@@ -1,6 +1,7 @@
 import { baseUrl } from '@/app/constants/path.ts';
 import type {
 	RegisterResponse,
+	RestaurantMenu,
 	RestaurantPreview,
 } from '@/app/features/restaurant/_types.ts';
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
@@ -154,28 +155,62 @@ export const patchRestaurant = async ({
 	}
 };
 
-export const postMenu = async ({
+// menu api
+
+export const getRestaurantMenus = async (restaurantId: number | string) => {
+	try {
+		const res = await fetch(
+			baseUrl + '/api' + `/restaurants/${restaurantId}/menus`,
+		);
+		const data: ResponseData<RestaurantMenu[]> = await res.json();
+
+		if (!data.result && data.msg) {
+			throw data.msg;
+		}
+
+		const { result: restaurantMenus } = data;
+
+		return {
+			data: restaurantMenus,
+			error: null,
+		};
+	} catch (error) {
+		if (typeof error === 'string') {
+			return {
+				data: null,
+				error,
+			};
+		}
+
+		console.error('getRestaurantMenus: ', error);
+		return {
+			data: null,
+			error: '알 수 없는 오류가 발생하였습니다.',
+		};
+	}
+};
+
+export const postRestaurantMenu = async ({
 	formdata,
 	accessToken,
-	id,
+	restaurantId,
 }: {
-	id: number | string;
+	restaurantId: number | string;
 	formdata: FormData;
 	accessToken: string;
 }) => {
 	try {
-		const res = await fetch(baseUrl + '/api' + `/restaurants/${id}/menus`, {
-			method: 'POST',
-			headers: {
-				// 'Content-Type': 'multipart/form-data'
-				// body data type이 FormData이면 이 헤더가 자동으로 명시됨.
-				Authorization: `Bearer ${accessToken}`,
+		const res = await fetch(
+			baseUrl + '/api' + `/restaurants/${restaurantId}/menus`,
+			{
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+				body: formdata,
 			},
-			body: formdata,
-		});
+		);
 		const data = await res.json();
-
-		console.log('post menue: ', data);
 
 		if (!data.result && data.msg) {
 			throw data.msg;
@@ -193,7 +228,7 @@ export const postMenu = async ({
 			};
 		}
 
-		console.error('postRestaurant: ', error);
+		console.error('postRestaurantMenu: ', error);
 		return {
 			data: null,
 			error: '알 수 없는 오류가 발생하였습니다.',
