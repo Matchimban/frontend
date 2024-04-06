@@ -1,6 +1,6 @@
 import Compressor from 'compressorjs';
 
-import type { FileType } from '@/app/features/restaurant/_types';
+import type { FileType } from '@/app/features/restaurant/_types.ts';
 
 export const getBase64 = (file: FileType | File): Promise<string> =>
 	new Promise((resolve, reject) => {

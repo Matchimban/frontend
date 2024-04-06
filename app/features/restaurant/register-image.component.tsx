@@ -4,8 +4,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Form, Modal, Upload, UploadFile, UploadProps } from 'antd';
 import { useState } from 'react';
 
-import type { FileType } from '@/app/features/restaurant/_types';
-import { getBase64 } from '@/app/features/restaurant/_utils';
+import type { FileType } from '@/app/features/restaurant/_types.ts';
+import { getBase64 } from '@/app/features/restaurant/_utils.ts';
 
 export default function RegisterImages({ disabled }: { disabled?: boolean }) {
 	const [fileList, setFileList] = useState<UploadFile[]>([]);
