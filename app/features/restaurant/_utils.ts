@@ -2,7 +2,7 @@ import Compressor from 'compressorjs';
 
 import type { FileType } from '@/app/features/restaurant/_types';
 
-export const getBase64 = (file: FileType): Promise<string> =>
+export const getBase64 = (file: FileType | File): Promise<string> =>
 	new Promise((resolve, reject) => {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);

@@ -15,7 +15,7 @@ export default async function Page() {
 				</div>
 
 				<RestaurantPreviews
-					restaurantPreviews={restaurantPreviews}
+					restaurantPreviews={restaurantPreviews?.reverse()}
 					errorMessage={restaurantPreviewsError}
 				/>
 			</div>
