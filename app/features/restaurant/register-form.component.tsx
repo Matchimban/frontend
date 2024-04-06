@@ -3,8 +3,8 @@
 import { Button, Form, Input, Select } from 'antd';
 import { useState } from 'react';
 
-import { type RestaurantField } from '@/app/features/restaurant/_types';
-import RegisterImages from '@/app/features/restaurant/register-image.component';
+import { type RestaurantField } from '@/app/features/restaurant/_types.ts';
+import RegisterImages from '@/app/features/restaurant/register-image.component.tsx';
 
 type Props = {
 	initialValues?: Record<string, any>;
