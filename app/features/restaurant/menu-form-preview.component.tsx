@@ -3,13 +3,13 @@ import Image from 'next/image';
 import { RestaurantMenu } from '@/app/features/restaurant/_types.ts';
 
 type Props = {
-	restaurantMenus: RestaurantMenu[] | null;
+	restaurantMenus: RestaurantMenu[];
 };
 
 export default function MenuFormPreview({ restaurantMenus }: Props) {
 	return (
 		<>
-			{restaurantMenus?.map(restaurantMenu => (
+			{restaurantMenus.map(restaurantMenu => (
 				<li key={restaurantMenu.id} className="flex gap-4">
 					<div className="relative h-28 w-28 flex-initial overflow-hidden rounded-xl ">
 						{typeof window === 'undefined' ? (

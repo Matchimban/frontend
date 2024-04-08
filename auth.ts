@@ -3,13 +3,17 @@ import credentials from 'next-auth/providers/credentials';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { PROTECTED_PATH } from '@/app/constants/path.ts';
+import {
+	PROTECTED_PATH_FOR_USER,
+	PROTECTED_PATH_FOR_OWNER,
+} from '@/app/constants/path.ts';
 import { Credentials } from '@/app/features/authentication/_types.ts';
 import {
 	postRefresh,
 	postSignin,
 	postSignup,
 } from '@/app/services/authentication.service.ts';
+import { getRestaurant } from '@/app/services/restaurant.service.ts';
 
 export const {
 	handlers: { GET, POST },
@@ -48,7 +52,10 @@ export const {
 			// Protecting routes
 			if (!isAuthenticated) {
 				const { pathname } = request.nextUrl;
-				if (PROTECTED_PATH.includes(pathname))
+				if (
+					PROTECTED_PATH_FOR_USER.includes(pathname) ||
+					PROTECTED_PATH_FOR_OWNER.includes(pathname)
+				)
 					return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 			}
 
@@ -119,6 +126,18 @@ export const {
 							new URL('/api' + '/auth/signout', request.nextUrl.origin),
 						);
 					}
+				}
+
+				// 매장 수정 페이지 및 메뉴 등록 페이지 권한 검증
+				if (PROTECTED_PATH_FOR_OWNER.includes(request.nextUrl.pathname)) {
+					auth.user;
+					const restaurantId = new URLSearchParams(
+						request.nextUrl.searchParams,
+					).get('id')!;
+					const { data } = await getRestaurant(restaurantId);
+
+					if (data && auth?.user?.id && data.userId !== +auth.user.id)
+						return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 				}
 			}
 
