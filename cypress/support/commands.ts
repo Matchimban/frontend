@@ -44,7 +44,7 @@ Cypress.Commands.add('signIn', (email, password) => {
 		cy.findByRole('button', { name: '로그인' }).click();
 	});
 
-	// 로그인 버튼 대신 유저 이름 표시
+	// 로그인 확인 -> 로그인 버튼 대신 유저 이름 표시
 	cy.findByRole('button', { name: Cypress.env('USER_NAME') }).should('exist');
 });
 
