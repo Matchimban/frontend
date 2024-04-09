@@ -24,21 +24,18 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 						/>
 					</div> */}
 
-					{/* <div className="sm:max-w-[420px]"> */}
-					<div className="relative h-[50vw] w-[50vw] sm:max-w-[420px]">
+					<div className="relative h-[65vw] w-screen overflow-hidden sm:h-[280px] sm:max-w-[420px]">
 						<Image
 							src={restaurant?.images[0]?.savedFileUrl ?? noImage}
 							alt="restaurant image"
 							fill
 							// width={600}
 							// height={400}
-							// sizes="400px"
 							sizes="(max-width: 640px) 100vw, 400px"
 							priority={!!restaurant?.images[0]?.savedFileUrl}
-							className="object-contain"
+							className="object-cover"
 						/>
 					</div>
-					{/* </div> */}
 
 					<div className="flex flex-col space-y-2 divide-y px-4 sm:px-0">
 						<div className="flex flex-col space-y-1 ">
