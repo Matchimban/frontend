@@ -1,3 +1,8 @@
+import {
+	ClockCircleOutlined,
+	HomeOutlined,
+	PhoneOutlined,
+} from '@ant-design/icons';
 import Image from 'next/image';
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
@@ -45,8 +50,7 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 
 						<div className="flex flex-col space-y-2 py-2 text-xs">
 							<div>
-								<span>주소 : </span>
-
+								<HomeOutlined /> <span>주소 : </span>
 								<span>{restaurant.address.addrSido} </span>
 								<span>{restaurant.address.addrSigg} </span>
 								<span>{restaurant.address.addrEmd} </span>
@@ -54,12 +58,12 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 							</div>
 
 							<div>
-								<span>전화 번호 : </span>
+								<PhoneOutlined /> <span>전화 번호 : </span>
 								<span>{restaurant.telephone}</span>
 							</div>
 
 							<div>
-								<span>영업 시간 : </span>
+								<ClockCircleOutlined /> <span>영업 시간 : </span>
 								<span>{restaurant.businessHours}</span>
 							</div>
 						</div>
