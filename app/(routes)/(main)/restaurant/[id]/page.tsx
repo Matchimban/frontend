@@ -98,11 +98,18 @@ export default async function Page({ params }: Props) {
 					)}
 
 					<div className="flex justify-end px-2">
-						<EditButton
-							type="edit"
-							userId={restaurant.userId}
-							restaurantId={restaurant.id}
-						/>
+						<div className="flex flex-col">
+							<EditButton
+								type="edit"
+								userId={restaurant.userId}
+								restaurantId={restaurant.id}
+							/>
+							<EditButton
+								type="remove"
+								userId={restaurant.userId}
+								restaurantId={restaurant.id}
+							/>
+						</div>
 					</div>
 				</section>
 

@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import { createMenu } from '@/app/features/restaurant/_server-actions.ts';
+import { createMenuAction } from '@/app/features/restaurant/_server-actions.ts';
 import MenuForm from '@/app/features/restaurant/menu-form.component.tsx';
 
 type Props = { restaurantId: string; menusCount: number };
@@ -27,7 +27,7 @@ export default function MenuRegister({ restaurantId, menusCount }: Props) {
 		formData.append('price', values.price);
 		formData.append('images', values.image.file);
 
-		const { error } = await createMenu(restaurantId, formData);
+		const { error } = await createMenuAction(restaurantId, formData);
 		if (error) {
 			throw error; // 폼 제출 에러 핸들링하기
 		}

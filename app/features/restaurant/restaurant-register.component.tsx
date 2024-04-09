@@ -1,6 +1,6 @@
 'use client';
 
-import { register } from '@/app/features/restaurant/_server-actions';
+import { createRestaurantAction } from '@/app/features/restaurant/_server-actions';
 import { compressImage } from '@/app/features/restaurant/_utils';
 import RegisterForm from '@/app/features/restaurant/register-form.component.tsx';
 
@@ -46,7 +46,7 @@ export default function RestaurantRegister() {
 		formData.set('latitude', '0');
 		formData.set('longitude', '0');
 
-		const { error } = await register(formData);
+		const { error } = await createRestaurantAction(formData);
 		if (error) {
 			throw error;
 		}

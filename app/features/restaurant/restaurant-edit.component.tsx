@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { edit } from '@/app/features/restaurant/_server-actions.ts';
+import { editRestaurantAction } from '@/app/features/restaurant/_server-actions.ts';
 import { Restaurant } from '@/app/features/restaurant/_types.ts';
 import RegisterForm from '@/app/features/restaurant/register-form.component.tsx';
 
@@ -22,7 +22,7 @@ export default function RestaurantEdit({ restaurant }: Props) {
 	const handleEdit = async (values: any) => {
 		const newValues = { ...restaurant, ...restaurant.address, ...values };
 
-		const { error } = await edit(restaurant.id, newValues);
+		const { error } = await editRestaurantAction(restaurant.id, newValues);
 
 		if (error) {
 			throw error;

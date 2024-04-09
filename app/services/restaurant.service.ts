@@ -109,7 +109,7 @@ export const postRestaurant = async (
 	}
 };
 
-export const patchRestaurant = async ({
+export const editRestaurant = async ({
 	value,
 	accessToken,
 	restaurantId,
@@ -122,7 +122,7 @@ export const patchRestaurant = async ({
 		const res = await fetch(
 			baseUrl + '/api' + '/restaurants' + `/${restaurantId}`,
 			{
-				method: 'PATCH',
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${accessToken}`,
@@ -148,7 +148,51 @@ export const patchRestaurant = async ({
 			};
 		}
 
-		console.error('postRestaurant: ', error);
+		console.error('editRestaurant: ', error);
+		return {
+			data: null,
+			error: '알 수 없는 오류가 발생하였습니다.',
+		};
+	}
+};
+
+export const deleteRestaurant = async ({
+	accessToken,
+	restaurantId,
+}: {
+	accessToken: string;
+	restaurantId: string | number;
+}) => {
+	try {
+		const res = await fetch(
+			baseUrl + '/api' + '/restaurants' + `/${restaurantId}`,
+			{
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${accessToken}`,
+				},
+			},
+		);
+		const data: ResponseData<null> = await res.json();
+
+		if (data.msg) {
+			throw data.msg;
+		}
+
+		return {
+			data: null,
+			error: null,
+		};
+	} catch (error) {
+		if (typeof error === 'string') {
+			return {
+				data: null,
+				error,
+			};
+		}
+
+		console.error('deleteRestaurant: ', error);
 		return {
 			data: null,
 			error: '알 수 없는 오류가 발생하였습니다.',
@@ -157,7 +201,6 @@ export const patchRestaurant = async ({
 };
 
 // menu api
-
 export const getRestaurantMenus = async (restaurantId: number | string) => {
 	try {
 		const res = await fetch(
