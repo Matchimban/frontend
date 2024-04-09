@@ -20,6 +20,7 @@ export const handlers = [
 	}),
 	http.get(baseUrl + '/api' + '/restaurants/0', async () => {
 		const { restautrant } = await getDummyData();
+
 		return HttpResponse.json(
 			{
 				code: 20000,
@@ -31,6 +32,7 @@ export const handlers = [
 	}),
 	http.get(baseUrl + '/api' + '/restaurants/0/menus', async () => {
 		const { menu } = await getDummyData();
+
 		return HttpResponse.json(
 			{
 				code: 20000,

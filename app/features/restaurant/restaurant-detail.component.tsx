@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
+import noImage from '@/public/no-image.jpeg';
 
 type Prop = {
 	restaurant: Restaurant | null;
@@ -23,19 +24,21 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 						/>
 					</div> */}
 
-					<div className="sm:max-w-[420px]">
+					{/* <div className="sm:max-w-[420px]"> */}
+					<div className="relative h-[50vw] w-[50vw] sm:max-w-[420px]">
 						<Image
-							src={
-								'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D'
-							}
+							src={restaurant?.images[0]?.savedFileUrl ?? noImage}
 							alt="restaurant image"
-							width={600}
-							height={400}
+							fill
+							// width={600}
+							// height={400}
 							// sizes="400px"
 							sizes="(max-width: 640px) 100vw, 400px"
-							priority
+							priority={!!restaurant?.images[0]?.savedFileUrl}
+							className="object-contain"
 						/>
 					</div>
+					{/* </div> */}
 
 					<div className="flex flex-col space-y-2 divide-y px-4 sm:px-0">
 						<div className="flex flex-col space-y-1 ">

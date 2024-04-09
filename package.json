@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "next dev",
+		"dev:test": "export NODE_ENV=test && next dev",
 		"build": "next build",
 		"build:test": "export NODE_ENV=\"test\" && next build",
 		"start": "next start",
