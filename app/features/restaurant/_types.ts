@@ -55,6 +55,7 @@ export interface Restaurant {
 	originCountry: string;
 	status: string;
 	address: Address;
+	images: Images[];
 }
 
 export interface Address {
@@ -64,6 +65,13 @@ export interface Address {
 	addrDetail: string;
 	latitude: number;
 	longitude: number;
+}
+
+export interface Images {
+	id: number;
+	restaurantId: number;
+	originFileName: string;
+	savedFileUrl: string;
 }
 
 export interface RestaurantPreview {

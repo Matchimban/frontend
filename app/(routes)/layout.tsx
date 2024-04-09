@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import NextAuthProvider from '@/app/(routes)/nextauth-provider.tsx';
 import RecoilProvider from '@/app/(routes)/recoil-provider.tsx';
 
+// import '@/mocks/msw/index.ts';
 import './globals.css';
 
 export const metadata: Metadata = {
