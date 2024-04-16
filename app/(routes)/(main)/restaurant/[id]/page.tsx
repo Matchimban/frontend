@@ -66,8 +66,7 @@ export async function generateMetadata(
 			description: introduction,
 			url: `/restaurant/${id}`,
 			siteName: 'Matchimban',
-			images:
-				'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D',
+			images: data.images[0].savedFileUrl,
 			type: 'website',
 			locale: 'ko_KR',
 		},
