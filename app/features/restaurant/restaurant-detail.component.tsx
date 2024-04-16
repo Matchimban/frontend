@@ -1,7 +1,9 @@
 import {
 	ClockCircleOutlined,
 	HomeOutlined,
+	InfoCircleOutlined,
 	PhoneOutlined,
+	QuestionCircleOutlined,
 } from '@ant-design/icons';
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
@@ -57,14 +59,14 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 
 						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
 							<div>
-								<span>소개 : </span>
+								<InfoCircleOutlined /> <span>소개 : </span>
 								<p className="p-1 leading-5">{restaurant.introduction}</p>
 							</div>
 						</div>
 
 						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
 							<div>
-								<span>안내 : </span>
+								<QuestionCircleOutlined /> <span>안내 : </span>
 								<p className="p-1 leading-5">{restaurant.notice}</p>
 							</div>
 						</div>
