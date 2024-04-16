@@ -28,7 +28,7 @@ export default function RestaurantPreviews({
 										sizes="(max-width: 640px) 100px, 200px"
 										alt="restaurant thumnail"
 										className="object-cover"
-										priority={idx < 6}
+										priority={!!restaurant.imageUrl && idx < 6}
 									/>
 								</div>
 

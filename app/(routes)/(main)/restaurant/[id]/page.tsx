@@ -9,6 +9,7 @@ import {
 	getRestaurant,
 	getRestaurantPreviews,
 } from '@/app/services/restaurant.service.ts';
+import '@/mocks/msw/index.ts';
 
 type Props = {
 	params: {

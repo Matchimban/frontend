@@ -3,10 +3,9 @@ import {
 	HomeOutlined,
 	PhoneOutlined,
 } from '@ant-design/icons';
-import Image from 'next/image';
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
-import noImage from '@/public/no-image.jpeg';
+import RestaurantDetailSlick from '@/app/features/restaurant/restaurant-detail-slick.component.tsx';
 
 type Prop = {
 	restaurant: Restaurant | null;
@@ -28,19 +27,7 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 							className="object-cover"
 						/>
 					</div> */}
-
-					<div className="relative h-[65vw] w-screen overflow-hidden sm:h-[280px] sm:max-w-[420px]">
-						<Image
-							src={restaurant?.images[0]?.savedFileUrl ?? noImage}
-							alt="restaurant image"
-							fill
-							// width={600}
-							// height={400}
-							sizes="(max-width: 640px) 100vw, 400px"
-							priority={!!restaurant?.images[0]?.savedFileUrl}
-							className="object-cover"
-						/>
-					</div>
+					<RestaurantDetailSlick images={restaurant.images} />
 
 					<div className="flex flex-col space-y-2 divide-y px-4 sm:px-0">
 						<div className="flex flex-col space-y-1 ">

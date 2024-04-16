@@ -1,5 +1,6 @@
 import RestaurantPreviews from '@/app/features/restaurant/restaurant-preview.component.tsx';
 import { getRestaurantPreviews } from '@/app/services/restaurant.service.ts';
+import '@/mocks/msw/index.ts';
 
 export const dynamic = 'force-dynamic';
 
