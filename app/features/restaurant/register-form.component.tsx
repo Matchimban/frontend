@@ -36,15 +36,17 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 		}
 	};
 
-	const handleAddress = (data: Address) => {
-		form.setFieldValue('address', data.address);
+	const handleAddress = async (data: Address) => {
+		const { address } = data;
+
+		form.setFieldValue('address', address);
 	};
 	return (
 		<Form
 			form={form}
 			colon={false}
-			labelCol={{ span: 6 }}
-			wrapperCol={{ span: 18 }}
+			labelCol={{ span: 5 }}
+			wrapperCol={{ span: 19 }}
 			onFinish={handleSubmit}
 			autoComplete="off"
 			initialValues={initialValues}
