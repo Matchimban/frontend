@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
+import RestaurantDetailMap from '@/app/features/restaurant/restaurant-detail-map.component.tsx';
 import RestaurantDetailSlick from '@/app/features/restaurant/restaurant-detail-slick.component.tsx';
 
 type Prop = {
@@ -38,12 +39,20 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 						</div>
 
 						<div className="flex flex-col space-y-2 py-2 text-xs">
-							<div>
-								<HomeOutlined /> <span>주소 : </span>
-								<span>{restaurant.address.addrSido} </span>
-								<span>{restaurant.address.addrSigg} </span>
-								<span>{restaurant.address.addrEmd} </span>
-								<span>{restaurant.address.addrDetail} </span>
+							<div className="flex justify-between">
+								<div>
+									<HomeOutlined /> <span>주소 : </span>
+									<span>{restaurant.address.addrSido} </span>
+									<span>{restaurant.address.addrSigg} </span>
+									<span>{restaurant.address.addrEmd} </span>
+									<span>{restaurant.address.addrDetail} </span>
+								</div>
+
+								<RestaurantDetailMap
+									lat={restaurant.address.latitude || 33.5563}
+									lng={restaurant.address.longitude || 126.79581}
+									type="modal"
+								/>
 							</div>
 
 							<div>

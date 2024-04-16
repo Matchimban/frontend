@@ -55,10 +55,11 @@ export default function RestaurantRegister() {
 			formData.set('latitude', lat + '');
 			formData.set('longitude', lng + '');
 		} catch (error) {
-			console.log('geo error: ', error);
+			console.error('geo error: ', error);
 
-			formData.set('latitude', '0');
-			formData.set('longitude', '0');
+			// 기본 좌표
+			formData.set('latitude', '33.5563');
+			formData.set('longitude', '126.79581');
 		}
 
 		const { error } = await createRestaurantAction(formData);

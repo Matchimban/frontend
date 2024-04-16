@@ -12,13 +12,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	];
 
 	return (
-		<div className="text-sm">
-			<Header navLinks={navLinks} />
+		<>
+			<div className="text-sm">
+				<Header navLinks={navLinks} />
 
-			<main className="flex justify-center ">{children}</main>
+				<main className="flex justify-center ">{children}</main>
 
-			{/* <NavBar navLinks={navLinks} /> */}
-		</div>
+				{/* <NavBar navLinks={navLinks} /> */}
+			</div>
+		</>
 	);
 };
 

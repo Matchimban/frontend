@@ -20,7 +20,11 @@ export default function RestaurantEdit({ restaurant }: Props) {
 	);
 
 	const handleEdit = async (values: any) => {
-		const newValues = { ...restaurant, ...restaurant.address, ...values };
+		const newValues = {
+			...restaurant,
+			...restaurant.address,
+			...values,
+		};
 
 		const { error } = await editRestaurantAction(restaurant.id, newValues);
 

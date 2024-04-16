@@ -12,6 +12,7 @@ import noImage from '@/public/no-image.jpeg';
 type Prop = {
 	images: Images[];
 };
+
 export default function RestaurantDetailSlick({ images }: Prop) {
 	const ref = useRef<CarouselRef>(null);
 	const [current, setCurrent] = useState(1);
@@ -71,13 +72,13 @@ export default function RestaurantDetailSlick({ images }: Prop) {
 
 				{images.length > 1 && (
 					<>
-						<div className="absolute left-2 top-[40%] w-[40px] text-4xl text-white">
+						<div className="absolute left-2 top-[40%] w-[40px] text-3xl text-white">
 							<LeftOutlined
 								className="hover:cursor-pointer"
 								onClick={handlePrev}
 							/>
 						</div>
-						<div className="absolute right-2 top-[40%] w-[40px] text-4xl text-white">
+						<div className="absolute right-2 top-[40%] w-[40px] text-3xl text-white">
 							<RightOutlined
 								className="hover:cursor-pointer"
 								onClick={handleNext}
