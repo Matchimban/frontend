@@ -1,0 +1,29 @@
+{
+	"id": 0,
+	"userId": 0,
+	"category": "category_test",
+	"name": "name_test",
+	"businessNumber": "businessNumber_test",
+	"introduction": "introduction_test",
+	"telephone": "telephone_test",
+	"businessHours": "businessHours_test",
+	"closedDays": "closedDays_test",
+	"notice": "notice_test",
+	"address": {
+		"addrSido": "addrSido_test",
+		"addrSigg": "addrSigg_test",
+		"addrEmd": "addrEmd_test",
+		"addrDetail": "addrDetail_test",
+		"latitude": 0,
+		"longitude": 0
+	},
+	"originCountry": "originCountry_test",
+	"images": [
+		{
+			"id": 0,
+			"restaurantId": 0,
+			"originFileName": "images_test",
+			"savedFileUrl": ""
+		}
+	]
+}

@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import MenuFormPreview from '@/app/features/restaurant/menu-form-preview.component.tsx';
 import MenuRegister from '@/app/features/restaurant/restaurant-menu-register.component.tsx';
 import { getRestaurantMenus } from '@/app/services/restaurant.service.ts';
@@ -12,6 +14,8 @@ export default async function Page({ searchParams }: Props) {
 	const { id } = searchParams;
 	const { data: restaurantMenus, error: restaurantMenusError } =
 		await getRestaurantMenus(id);
+
+	if (!restaurantMenus) notFound();
 
 	return (
 		<div className="flex min-h-svh w-full max-w-xl justify-center ">
@@ -28,7 +32,7 @@ export default async function Page({ searchParams }: Props) {
 
 					<MenuRegister
 						restaurantId={id}
-						menusCount={restaurantMenus?.length ?? 0}
+						menusCount={restaurantMenus.length ?? 0}
 					/>
 				</div>
 			</section>

@@ -1,6 +1,14 @@
-import Image from 'next/image';
+import {
+	ClockCircleOutlined,
+	HomeOutlined,
+	InfoCircleOutlined,
+	PhoneOutlined,
+	QuestionCircleOutlined,
+} from '@ant-design/icons';
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
+import RestaurantDetailMap from '@/app/features/restaurant/restaurant-detail-map.component.tsx';
+import RestaurantDetailSlick from '@/app/features/restaurant/restaurant-detail-slick.component.tsx';
 
 type Prop = {
 	restaurant: Restaurant | null;
@@ -22,20 +30,7 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 							className="object-cover"
 						/>
 					</div> */}
-
-					<div className="sm:max-w-[420px]">
-						<Image
-							src={
-								'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D'
-							}
-							alt="restaurant image"
-							width={600}
-							height={400}
-							// sizes="400px"
-							sizes="(max-width: 640px) 100vw, 400px"
-							priority
-						/>
-					</div>
+					<RestaurantDetailSlick images={restaurant.images} />
 
 					<div className="flex flex-col space-y-2 divide-y px-4 sm:px-0">
 						<div className="flex flex-col space-y-1 ">
@@ -44,36 +39,43 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 						</div>
 
 						<div className="flex flex-col space-y-2 py-2 text-xs">
-							<div>
-								<span>주소 : </span>
+							<div className="flex justify-between">
+								<div>
+									<HomeOutlined /> <span>주소 : </span>
+									<span>{restaurant.address.addrSido} </span>
+									<span>{restaurant.address.addrSigg} </span>
+									<span>{restaurant.address.addrEmd} </span>
+									<span>{restaurant.address.addrDetail} </span>
+								</div>
 
-								<span>{restaurant.address.addrSido} </span>
-								<span>{restaurant.address.addrSigg} </span>
-								<span>{restaurant.address.addrEmd} </span>
-								<span>{restaurant.address.addrDetail} </span>
+								<RestaurantDetailMap
+									lat={restaurant.address.latitude || 33.5563}
+									lng={restaurant.address.longitude || 126.79581}
+									type="modal"
+								/>
 							</div>
 
 							<div>
-								<span>전화 번호 : </span>
+								<PhoneOutlined /> <span>전화 번호 : </span>
 								<span>{restaurant.telephone}</span>
 							</div>
 
 							<div>
-								<span>영업 시간 : </span>
+								<ClockCircleOutlined /> <span>영업 시간 : </span>
 								<span>{restaurant.businessHours}</span>
 							</div>
 						</div>
 
 						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
 							<div>
-								<span>소개 : </span>
+								<InfoCircleOutlined /> <span>소개 : </span>
 								<p className="p-1 leading-5">{restaurant.introduction}</p>
 							</div>
 						</div>
 
 						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
 							<div>
-								<span>안내 : </span>
+								<QuestionCircleOutlined /> <span>안내 : </span>
 								<p className="p-1 leading-5">{restaurant.notice}</p>
 							</div>
 						</div>

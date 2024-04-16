@@ -2,6 +2,7 @@
 
 import { Button, Form, Input, Select } from 'antd';
 import { useState } from 'react';
+import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { type RestaurantField } from '@/app/features/restaurant/_types.ts';
 import RegisterImages from '@/app/features/restaurant/register-image.component.tsx';
@@ -15,6 +16,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
+
+	const open = useDaumPostcodePopup();
 
 	const handleSubmit = async (values: any) => {
 		try {
@@ -32,12 +35,18 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 			setIsLoading(false);
 		}
 	};
+
+	const handleAddress = async (data: Address) => {
+		const { address } = data;
+
+		form.setFieldValue('address', address);
+	};
 	return (
 		<Form
 			form={form}
 			colon={false}
-			labelCol={{ span: 6 }}
-			wrapperCol={{ span: 18 }}
+			labelCol={{ span: 5 }}
+			wrapperCol={{ span: 19 }}
 			onFinish={handleSubmit}
 			autoComplete="off"
 			initialValues={initialValues}
@@ -61,7 +70,14 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 					},
 				]}
 			>
-				<Input disabled={!!initialValues} />
+				<Input
+					disabled={!!initialValues}
+					onClick={() =>
+						open({
+							onComplete: handleAddress,
+						})
+					}
+				/>
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
@@ -103,6 +119,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 			>
 				<Select>
 					<Select.Option value="KOREA">한식</Select.Option>
+					<Select.Option value="CHINA">중식</Select.Option>
+					<Select.Option value="JAPAN">일식</Select.Option>
 				</Select>
 			</Form.Item>
 

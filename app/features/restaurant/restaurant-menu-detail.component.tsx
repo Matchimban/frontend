@@ -16,7 +16,7 @@ export default function RestaurantMenus({
 		<ul className="flex flex-wrap gap-4 sm:max-w-[420px]">
 			{restaurantMenus?.map(restaurantMenu => {
 				return (
-					<li key={restaurantMenu.id} className="flex flex-col text-xs">
+					<li key={restaurantMenu.id} className="flex flex-col gap-1 text-xs">
 						<div className="relative h-32 w-32 flex-initial overflow-hidden rounded-xl ">
 							<Image
 								src={restaurantMenu?.imageUrl[0]?.savedFileUrl ?? noImage}
@@ -27,7 +27,7 @@ export default function RestaurantMenus({
 							/>
 						</div>
 
-						<div className="flex flex-col px-1 font-semibold">
+						<div className="flex w-32 flex-col px-1  font-semibold">
 							<span className="text-sm">{restaurantMenu.name}</span>
 							<span>{restaurantMenu.price}원</span>
 						</div>

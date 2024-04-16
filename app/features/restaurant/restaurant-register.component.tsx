@@ -1,10 +1,13 @@
 'use client';
 
-import { register } from '@/app/features/restaurant/_server-actions';
+import { createRestaurantAction } from '@/app/features/restaurant/_server-actions';
 import { compressImage } from '@/app/features/restaurant/_utils';
 import RegisterForm from '@/app/features/restaurant/register-form.component.tsx';
+import { useGetCoordinate } from '@/app/hooks/use-geocode.hook.ts';
 
 export default function RestaurantRegister() {
+	const { getCoordinate } = useGetCoordinate();
+
 	const handleRegister = async (values: any) => {
 		const formData = new FormData();
 
@@ -35,18 +38,31 @@ export default function RestaurantRegister() {
 		}
 
 		// 다른 필요한 값들은 직접 form-data에 추가
-		const [addrSido, addrSigg, addrEmd, addrDetail] = values.address.split(' ');
+		const [addrSido, addrSigg, addrEmd, ...addrDetail] =
+			values.address.split(' ');
 
 		formData.set('originCountry', '대한민국');
 		formData.set('addrSido', addrSido || '');
 		formData.set('addrSigg', addrSigg || '');
 		formData.set('addrEmd', addrEmd || '');
-		formData.set('addrDetail', addrDetail || '');
+		formData.set('addrDetail', addrDetail.join(' ') || '');
 
-		formData.set('latitude', '0');
-		formData.set('longitude', '0');
+		// 주소 좌표를 form-data에 추가
+		try {
+			const { results } = await getCoordinate(values.address);
+			const { lat, lng } = results[0].geometry.location;
 
-		const { error } = await register(formData);
+			formData.set('latitude', lat + '');
+			formData.set('longitude', lng + '');
+		} catch (error) {
+			console.error('geo error: ', error);
+
+			// 기본 좌표
+			formData.set('latitude', '33.5563');
+			formData.set('longitude', '126.79581');
+		}
+
+		const { error } = await createRestaurantAction(formData);
 		if (error) {
 			throw error;
 		}
