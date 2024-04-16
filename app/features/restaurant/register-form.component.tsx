@@ -119,8 +119,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 			>
 				<Select>
 					<Select.Option value="KOREA">한식</Select.Option>
-					{/* <Select.Option value="CHINA">중식</Select.Option>
-					<Select.Option value="JAPAN">일식</Select.Option> */}
+					<Select.Option value="CHINA">중식</Select.Option>
+					<Select.Option value="JAPAN">일식</Select.Option>
 				</Select>
 			</Form.Item>
 
