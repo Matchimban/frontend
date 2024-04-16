@@ -2,6 +2,7 @@
 
 import { Button, Form, Input, Select } from 'antd';
 import { useState } from 'react';
+import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { type RestaurantField } from '@/app/features/restaurant/_types.ts';
 import RegisterImages from '@/app/features/restaurant/register-image.component.tsx';
@@ -15,6 +16,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 	const [form] = Form.useForm();
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
+
+	const open = useDaumPostcodePopup();
 
 	const handleSubmit = async (values: any) => {
 		try {
@@ -31,6 +34,10 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 		} finally {
 			setIsLoading(false);
 		}
+	};
+
+	const handleAddress = (data: Address) => {
+		form.setFieldValue('address', data.address);
 	};
 	return (
 		<Form
@@ -61,7 +68,14 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 					},
 				]}
 			>
-				<Input disabled={!!initialValues} />
+				<Input
+					disabled={!!initialValues}
+					onClick={() =>
+						open({
+							onComplete: handleAddress,
+						})
+					}
+				/>
 			</Form.Item>
 
 			<Form.Item<RestaurantField>
@@ -103,6 +117,8 @@ export default function RegisterForm({ initialValues, onSubmit }: Props) {
 			>
 				<Select>
 					<Select.Option value="KOREA">한식</Select.Option>
+					{/* <Select.Option value="CHINA">중식</Select.Option>
+					<Select.Option value="JAPAN">일식</Select.Option> */}
 				</Select>
 			</Form.Item>
 
