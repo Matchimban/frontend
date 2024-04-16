@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import EditButton from '@/app/features/restaurant/edit-button.component.tsx';
+import RestaurantDetailMap from '@/app/features/restaurant/restaurant-detail-map.component.tsx';
 import RestaurantDetail from '@/app/features/restaurant/restaurant-detail.component.tsx';
 import RestaurantMenus from '@/app/features/restaurant/restaurant-menu-detail.component.tsx';
 import {
@@ -9,6 +10,7 @@ import {
 	getRestaurant,
 	getRestaurantPreviews,
 } from '@/app/services/restaurant.service.ts';
+import '@/mocks/msw/index.ts';
 
 type Props = {
 	params: {
@@ -64,8 +66,7 @@ export async function generateMetadata(
 			description: introduction,
 			url: `/restaurant/${id}`,
 			siteName: 'Matchimban',
-			images:
-				'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D',
+			images: data.images[0].savedFileUrl,
 			type: 'website',
 			locale: 'ko_KR',
 		},
@@ -87,47 +88,74 @@ export default async function Page({ params }: Props) {
 	if (!restaurant) notFound();
 
 	return (
-		<div className="flex max-w-3xl justify-center">
-			<div className="mb-4 flex max-w-2xl flex-col space-y-4 divide-y-8 overflow-x-hidden sm:mt-4 sm:items-center sm:divide-y-0">
-				<section className="flex w-full flex-col space-y-4 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
-					{restaurant && (
-						<RestaurantDetail
-							restaurant={restaurant}
-							errorMessage={restaurantError}
-						/>
-					)}
+		<>
+			{/* <Script
+				src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAPS_API_KEY}&libraries=services,clusterer&autoload=false`}
+				strategy="beforeInteractive"
+			/> */}
 
-					<div className="flex justify-end px-2">
-						<EditButton
-							type="edit"
-							userId={restaurant.userId}
-							restaurantId={restaurant.id}
-						/>
-					</div>
-				</section>
-
-				<section className="flex w-full flex-col space-y-2 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
-					<div className="p-4 sm:p-0">
-						<h3 className="mb-4 text-lg font-semibold">메뉴</h3>
-						<div>
-							<RestaurantMenus
-								restaurantMenus={restaurantMenus}
-								errorMessage={restaurantMenusError}
+			<div className="flex max-w-3xl justify-center sm:gap-2">
+				<div className="mb-4 flex max-w-2xl flex-col space-y-4 divide-y-8 overflow-x-hidden sm:mt-4 sm:items-center sm:divide-y-0">
+					<section className="flex w-full flex-col space-y-4 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
+						{restaurant && (
+							<RestaurantDetail
+								restaurant={restaurant}
+								errorMessage={restaurantError}
 							/>
-						</div>
-					</div>
+						)}
 
-					<div>
 						<div className="flex justify-end px-2">
-							<EditButton
-								type="menu"
-								userId={restaurant.userId}
-								restaurantId={restaurant.id}
-							/>
+							<div className="flex flex-col">
+								<EditButton
+									type="edit"
+									userId={restaurant.userId}
+									restaurantId={restaurant.id}
+								/>
+								<EditButton
+									type="remove"
+									userId={restaurant.userId}
+									restaurantId={restaurant.id}
+								/>
+							</div>
 						</div>
+					</section>
+
+					<section className="flex w-full flex-col space-y-2 sm:rounded-lg sm:border sm:bg-slate-50 sm:p-4">
+						<div className="p-4 sm:p-0">
+							<h3 className="mb-4 text-lg font-semibold">메뉴</h3>
+							<div>
+								<RestaurantMenus
+									restaurantMenus={restaurantMenus}
+									errorMessage={restaurantMenusError}
+								/>
+							</div>
+						</div>
+
+						<div>
+							<div className="flex justify-end px-2">
+								<EditButton
+									type="menu"
+									userId={restaurant.userId}
+									restaurantId={restaurant.id}
+								/>
+							</div>
+						</div>
+					</section>
+				</div>
+
+				<div className="flex flex-col sm:mt-4">
+					<div className="hidden h-[200px] w-[200px] rounded-lg border p-2 sm:block">
+						<RestaurantDetailMap
+							lat={restaurant.address.latitude || 33.5563}
+							lng={restaurant.address.longitude || 126.79581}
+						/>
 					</div>
-				</section>
+
+					{/* <div>
+						<span>예약 정보</span>
+					</div> */}
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
