@@ -88,8 +88,6 @@ export default async function Page({ params }: Props) {
 
 	if (!restaurant) notFound();
 
-	console.log(restaurant.address.latitude, restaurant.address.longitude);
-
 	return (
 		<>
 			{/* <Script

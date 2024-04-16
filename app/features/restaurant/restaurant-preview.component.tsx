@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { RestaurantPreview } from '@/app/features/restaurant/_types.ts';
+import {
+	MenuCategory,
+	type RestaurantPreview,
+} from '@/app/features/restaurant/_types.ts';
 
 type Props = {
 	restaurantPreviews: RestaurantPreview[] | null | undefined;
@@ -36,7 +39,7 @@ export default function RestaurantPreviews({
 									<div className="flex flex-col space-y-1 py-1 text-sm sm:space-y-0 sm:px-1 sm:py-0">
 										<h2 className="text-lg">{restaurant.name}</h2>
 										<span className="text-xs">
-											{restaurant.category === 'KOREA' && '한식'}
+											{MenuCategory[restaurant.category]}
 										</span>
 
 										<span className="text-xs">{restaurant.addrSido}</span>

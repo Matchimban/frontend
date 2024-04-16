@@ -2,6 +2,12 @@ import { GetProp, UploadProps } from 'antd';
 
 export type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
+export enum MenuCategory {
+	'KOREA' = '한식',
+	'CHINA' = '중식',
+	'JAPAN' = '일식',
+}
+
 export interface RestaurantField {
 	category: string;
 	name: string;
@@ -77,7 +83,7 @@ export interface Images {
 export interface RestaurantPreview {
 	id: number;
 	name: string;
-	category: string;
+	category: 'KOREA' | 'CHINA' | 'JAPAN';
 	addrSido: string;
 	imageUrl: string;
 }
