@@ -8,7 +8,7 @@ import {
 
 import type { Restaurant } from '@/app/features/restaurant/_types.ts';
 import RestaurantDetailMap from '@/app/features/restaurant/restaurant-detail-map.component.tsx';
-import RestaurantDetailSlick from '@/app/features/restaurant/restaurant-detail-slick.component.tsx';
+import RestaurantDetailSlick from '@/app/features/restaurant/restaurant-detail-slick.component.tsx.tsx';
 
 type Prop = {
 	restaurant: Restaurant | null;
