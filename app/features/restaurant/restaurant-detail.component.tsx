@@ -38,7 +38,7 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 							<h4>{restaurant.category === 'KOREA' && '한식'}</h4>
 						</div>
 
-						<div className="flex flex-col space-y-2 py-2 text-xs">
+						<div className="flex flex-col space-y-2 py-2 text-sm">
 							<div className="flex justify-between">
 								<div>
 									<HomeOutlined /> <span>주소 : </span>
@@ -66,14 +66,14 @@ export default function RestaurantDetail({ restaurant, errorMessage }: Prop) {
 							</div>
 						</div>
 
-						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
+						<div className="flex flex-col space-y-2 py-2 text-sm sm:max-w-[420px]">
 							<div>
 								<InfoCircleOutlined /> <span>소개 : </span>
 								<p className="p-1 leading-5">{restaurant.introduction}</p>
 							</div>
 						</div>
 
-						<div className="flex flex-col space-y-2 py-2 text-xs sm:max-w-[420px]">
+						<div className="flex flex-col space-y-2 py-2 text-sm sm:max-w-[420px]">
 							<div>
 								<QuestionCircleOutlined /> <span>안내 : </span>
 								<p className="p-1 leading-5">{restaurant.notice}</p>

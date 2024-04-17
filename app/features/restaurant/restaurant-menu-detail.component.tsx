@@ -13,21 +13,24 @@ export default function RestaurantMenus({
 	errorMessage,
 }: Prop) {
 	return (
-		<ul className="flex flex-wrap gap-4 sm:max-w-[420px]">
+		<ul className="grid grid-cols-3 gap-2 sm:max-w-[420px] sm:gap-4">
 			{restaurantMenus?.map(restaurantMenu => {
 				return (
-					<li key={restaurantMenu.id} className="flex flex-col gap-1 text-xs">
-						<div className="relative h-32 w-32 flex-initial overflow-hidden rounded-xl ">
+					<li
+						key={restaurantMenu.id}
+						className="flex flex-col items-center gap-1 text-xs"
+					>
+						<div className="relative h-[28vw] w-[28vw] flex-initial overflow-hidden rounded-xl sm:h-32 sm:w-32">
 							<Image
 								src={restaurantMenu?.imageUrl[0]?.savedFileUrl ?? noImage}
 								alt="menu image"
 								className="object-cover"
 								fill
-								sizes="128px"
+								sizes="(max-width: 640px) 100vw, 160px"
 							/>
 						</div>
 
-						<div className="flex w-32 flex-col px-1  font-semibold">
+						<div className="flex w-[28vw] flex-col px-1 font-semibold sm:w-32">
 							<span className="text-sm">{restaurantMenu.name}</span>
 							<span>{restaurantMenu.price}원</span>
 						</div>

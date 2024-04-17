@@ -76,7 +76,7 @@ export default function RestaurantPreviewSlick({ restaurantPreviews }: Props) {
 								prefetch={false}
 								className="flex flex-col items-center "
 							>
-								<div className="relative h-20 w-20 flex-initial overflow-hidden rounded-xl sm:h-36 sm:w-36 md:h-40 md:w-40">
+								<div className="relative h-[20vw] w-[20vw] flex-initial overflow-hidden rounded-xl sm:h-36 sm:w-36 md:h-40 md:w-40">
 									<Image
 										src={restaurant.imageUrl}
 										fill
@@ -87,9 +87,9 @@ export default function RestaurantPreviewSlick({ restaurantPreviews }: Props) {
 									/>
 								</div>
 
-								<div className="flex w-20 flex-auto justify-between sm:w-36 md:w-40">
+								<div className="flex w-[20vw] flex-auto justify-between sm:w-36 md:w-40">
 									<div className="flex flex-col px-1 py-1 text-sm text-black md:py-0">
-										<h2 className="text-md sm:text-lg">{restaurant.name}</h2>
+										<h2 className="text-sm sm:text-lg">{restaurant.name}</h2>
 										<div className="text-xs text-gray-600">
 											<span>{MenuCategory[restaurant.category]}</span>{' '}
 											{/* <span> | </span> */}
