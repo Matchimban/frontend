@@ -25,10 +25,12 @@ export default async function Page({ searchParams }: Props) {
 				</div>
 
 				<div className="my-4 divide-y-2 divide-dashed px-6 sm:px-10">
-					<ul className="mb-4 flex flex-col gap-4">
-						{restaurantMenusError && <p>restaurantMenusError</p>}
-						<MenuFormPreview restaurantMenus={restaurantMenus} />
-					</ul>
+					{restaurantMenus.length > 0 && (
+						<ul className="mb-4 flex flex-col gap-4">
+							{restaurantMenusError && <p>restaurantMenusError</p>}
+							<MenuFormPreview restaurantMenus={restaurantMenus} />
+						</ul>
+					)}
 
 					<MenuRegister
 						restaurantId={id}

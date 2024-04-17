@@ -4,7 +4,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Carousel } from 'antd';
 import { CarouselRef } from 'antd/es/carousel/index';
 import Image from 'next/image';
-import { Fragment, useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import type { Images } from '@/app/features/restaurant/_types.ts';
 import noImage from '@/public/no-image.jpeg';
@@ -47,9 +47,10 @@ export default function RestaurantDetailSlick({ images }: Prop) {
 					ref={ref}
 					draggable
 					dots={false}
-					infinite={false}
+					infinite
+					autoplay
+					autoplaySpeed={2000}
 					afterChange={handleCurrent}
-					beforeChange={handleCurrent}
 				>
 					{images.map((image, idx) => (
 						<div
@@ -78,12 +79,14 @@ export default function RestaurantDetailSlick({ images }: Prop) {
 								onClick={handlePrev}
 							/>
 						</div>
+
 						<div className="absolute right-2 top-[40%] w-[40px] text-3xl text-white">
 							<RightOutlined
 								className="hover:cursor-pointer"
 								onClick={handleNext}
 							/>
 						</div>
+
 						<div className="absolute bottom-2 right-2 rounded-xl bg-gray-300 bg-opacity-70 px-4 text-white hover:cursor-default">
 							{current} / {images.length}
 						</div>

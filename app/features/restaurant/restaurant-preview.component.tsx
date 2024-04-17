@@ -16,14 +16,14 @@ export default function RestaurantPreviews({
 }: Props) {
 	return (
 		<>
-			<ul className="flex flex-col divide-y p-2 sm:grid sm:grid-cols-3 sm:divide-none ">
+			<ul className="flex flex-col divide-y p-2 sm:grid sm:grid-cols-3 sm:justify-center">
 				{restaurantPreviews &&
 					restaurantPreviews.map((restaurant, idx) => (
-						<li key={restaurant.id} className="sm:w-48 ">
+						<li key={restaurant.id} className="sm:w-48">
 							<Link
 								href={`/restaurant/${restaurant.id}`}
 								prefetch={false}
-								className="m-2 flex w-full space-x-3 sm:flex-col sm:space-x-0"
+								className="m-2 flex w-full space-x-3  sm:flex-col sm:space-x-0"
 							>
 								<div className="relative h-32 w-32 flex-initial overflow-hidden rounded-xl sm:h-48 sm:w-48">
 									<Image
