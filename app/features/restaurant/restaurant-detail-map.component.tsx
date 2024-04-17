@@ -57,7 +57,7 @@ export default function RestaurantDetailMap({
 		return (
 			<>
 				<div
-					className="hover:cursor-pointer sm:hidden"
+					className="px-2 hover:cursor-pointer sm:hidden"
 					onClick={handleOpenModal}
 				>
 					<SelectOutlined /> <span>지도 보기</span>
