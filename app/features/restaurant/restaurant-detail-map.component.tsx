@@ -57,7 +57,7 @@ export default function RestaurantDetailMap({
 		return (
 			<>
 				<div
-					className="px-2 hover:cursor-pointer sm:hidden"
+					className="px-2 text-xs hover:cursor-pointer sm:hidden"
 					onClick={handleOpenModal}
 				>
 					<SelectOutlined /> <span>지도 보기</span>
@@ -68,9 +68,14 @@ export default function RestaurantDetailMap({
 						open={isModalOpen}
 						onCancel={handleCloseModal}
 						width={'80vw'}
-						footer={[]}
+						footer={null}
+						styles={{
+							content: {
+								padding: '0',
+							},
+						}}
 					>
-						<div className="h-[50vh] w-full pt-5">
+						<div className="h-[50vh] w-full">
 							{loading && (
 								<div className="flex h-full w-full items-center justify-center bg-slate-50 text-center">
 									<Spin />
@@ -81,7 +86,7 @@ export default function RestaurantDetailMap({
 								id="map"
 								center={{ lat, lng }}
 								level={2}
-								className="h-full w-full"
+								className="h-full w-full rounded-xl"
 							>
 								<MapMarker position={{ lat, lng }}></MapMarker>
 							</Map>
